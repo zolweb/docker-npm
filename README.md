@@ -8,7 +8,8 @@ Execute `npm`, `gulp` and `grunt` scripts in an up-to-date debian environment. T
 
 # Commands
 
+The following scripts are available in the source repository
+
 * bin/npm
 * bin/gulp
 * bin/grunt
-
