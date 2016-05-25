@@ -1,3 +1,5 @@
+![Node.js](https://img.shields.io/badge/Node.js-v6.2.0-026e00.svg) ![npm](https://img.shields.io/badge/npm-v2.5.1-c12127.svg) ![MIT License](https://img.shields.io/github/license/mkenney/docker-npm.svg) ![Docker pulls](https://img.shields.io/docker/pulls/mkenney/npm.svg) ![Docker stars](https://img.shields.io/docker/stars/mkenney/npm.svg) ![Github issues](https://img.shields.io/github/issues-raw/mkenney/docker-npm.svg)
+
 # Breaking change (potentially)
 
 I have added a wrapper script to the container that executes `npm`, `gulp` and `grunt` commands as a user who's `uid` and `gid` matches those properties on the current directory. This way any files are installed as the directory owner/group instead of root or a random user.
