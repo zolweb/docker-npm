@@ -23,7 +23,7 @@ RUN set -x \
         grunt-cli \
 
 ##############################################################################
-# UTF-8 Locale, timezone, dependencies
+# UTF-8 Locale, timezone
 ##############################################################################
 
     && apt-get install -qqy locales \
@@ -68,4 +68,4 @@ RUN set -x \
 VOLUME ["/src"]
 WORKDIR /src
 
-ENTRYPOINT ["/as-user", "npm"]
+CMD ["/as-user", "npm"]
