@@ -41,7 +41,7 @@ RUN set -x \
 ##############################################################################
 
     # Configure root account
-    && echo "export NLS_LANG=$(echo $NLS_LANG)"                   >> /root/.bash_profile \
+    && echo "export NLS_LANG=$(echo $NLS_LANG)"                >> /root/.bash_profile \
     && echo "export LANG=$(echo $LANG)"                        >> /root/.bash_profile \
     && echo "export LANGUAGE=$(echo $LANGUAGE)"                >> /root/.bash_profile \
     && echo "export LC_ALL=$(echo $LC_ALL)"                    >> /root/.bash_profile \
