@@ -54,7 +54,6 @@ RUN set -x \
     && echo "dev:password" | chpasswd \
     && echo "dev ALL=(ALL:ALL) NOPASSWD: ALL" >> /etc/sudoers \
     && rsync -a /root/ /home/dev/ \
-    && rsync -a /root/ /home/oracle/ \
     && chown -R dev:dev /home/dev/ \
     && chmod 0777 /home/dev \
 
