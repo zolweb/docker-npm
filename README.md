@@ -8,7 +8,7 @@ If you have been using the [previous version](https://github.com/mkenney/docker-
 
 If you need to use the [previous version](https://github.com/mkenney/docker-npm/tree/deprecated) of this image it is tagged as [deprecated](https://github.com/mkenney/docker-npm/tree/deprecated) but the build is updated regularly based on changes to [node:latest](https://hub.docker.com/_/node/) and [Debian:jessie](https://hub.docker.com/_/debian/).
 
-# Environment independent npm, gulp and grunt.
+# Environment independent npm, gulp and grunt
 
 The [source repo](https://github.com/mkenney/docker-npm) contains the latest `node` and `npm` binaries for [Debian:jessie](https://hub.docker.com/_/debian/). `npm` has been used to install `gulp-cli` and `grunt-cli` globally. The current directory is mounted into /src in the container and a wrapper script executes `npm` as a user who's uid and gid matches those properties on that directory. This way any output is written as the directory owner/group instead of root or a random user.
 
