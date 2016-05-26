@@ -7,6 +7,7 @@ ENV NLS_LANG American_America.AL32UTF8
 ENV LANG C.UTF-8
 ENV LANGUAGE C.UTF-8
 ENV LC_ALL C.UTF-8
+ENV TIMEZONE America/Denver
 COPY container/as-user /as-user
 
 RUN set -x \
