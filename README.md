@@ -6,7 +6,7 @@ The [image](https://hub.docker.com/r/mkenney/npm/) contains the latest `node` an
 
 If you need additional modules and/or wrapper scripts (`bower`, etc.) [let me know](https://github.com/mkenney/docker-npm/issues).
 
-# Breaking change - 2016-05-25
+## Breaking changes: 2016-05-25
 
 I have added a wrapper script to the container that executes `npm`, `gulp` and `grunt` commands as a user who's `uid` and `gid` matches those properties on the current directory. This way any files are installed as the directory owner/group instead of root or a random user.
 
