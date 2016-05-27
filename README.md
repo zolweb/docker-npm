@@ -12,11 +12,13 @@ If you need additional modules and/or wrapper scripts (`bower`, etc.) [let me kn
 
 I have added a wrapper script to the container that executes `npm`, `gulp` and `grunt` commands as a user who's `uid` and `gid` matches those properties on the current directory. This way any files are installed as the directory owner/group instead of root or a random user.
 
-If you have been using the [previous version](https://github.com/mkenney/docker-npm/tree/deprecated) of this image and wrapper scripts, you likely will need to change the permissions of files created using those scripts. This command should take care of it for you but _make sure you understand what it will do **before** you run it_. I can't help you if you hose your system.
+If you've been using the [previous version](https://github.com/mkenney/docker-npm/tree/deprecated/bin) of the included shell scripts from the project's `/bin` directory you will probably need to update the permissions of files created using them or the new scripts are likely to have permissions errors because previously the files would have been created by the `root` user. This command should take care of it for you but _make sure you understand what it will do **before** you run it_. I can't help you if you hose your system.
 
 * From your **_project directory_**: `sudo chown -R $(stat -c '%u' .):$(stat -c '%g' .) ./`
 
-If you need to use the [previous version](https://github.com/mkenney/docker-npm/tree/deprecated) of this image it is tagged as [deprecated](https://hub.docker.com/r/mkenney/npm/tags/) but the build is still updated automatically when there are updates to [node:latest](https://hub.docker.com/_/node/) or [Debian:jessie](https://hub.docker.com/_/debian/).
+If you haven't been using the included scripts, then you don't need to do anything.
+
+If you need to use the [previous version](https://github.com/mkenney/docker-npm/tree/deprecated) of this image it's tagged as [deprecated](https://hub.docker.com/r/mkenney/npm/tags/) but the image is still rebuilt automatically when there are changes to [node:latest](https://hub.docker.com/_/node/) or [Debian:jessie](https://hub.docker.com/_/debian/) so it will stay up to date.
 
 # Source Repo
 
