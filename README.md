@@ -16,7 +16,7 @@ If you have been using the [previous version](https://github.com/mkenney/docker-
 
 * From your **_project directory_**: `sudo chown -R $(stat -c '%u' .):$(stat -c '%g' .) ./`
 
-If you need to use the [previous version](https://github.com/mkenney/docker-npm/tree/deprecated) of this image it is tagged as [deprecated](https://hub.docker.com/r/mkenney/npm/tags/) but the build is updated automatically when there are updates to [node:latest](https://hub.docker.com/_/node/) or [Debian:jessie](https://hub.docker.com/_/debian/).
+If you need to use the [previous version](https://github.com/mkenney/docker-npm/tree/deprecated) of this image it is tagged as [deprecated](https://hub.docker.com/r/mkenney/npm/tags/) but the build is still updated automatically when there are updates to [node:latest](https://hub.docker.com/_/node/) or [Debian:jessie](https://hub.docker.com/_/debian/).
 
 # Source Repo
 
