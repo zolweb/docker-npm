@@ -18,7 +18,7 @@ If you've been using the [previous version](https://github.com/mkenney/docker-np
 
 If you haven't been using the included scripts, then you don't need to do anything.
 
-If you need to use the [previous version](https://github.com/mkenney/docker-npm/tree/deprecated) of this image it's tagged as [deprecated](https://hub.docker.com/r/mkenney/npm/tags/) but the image is still rebuilt automatically when there are changes to [node:latest](https://hub.docker.com/_/node/) or [Debian:jessie](https://hub.docker.com/_/debian/) so it will stay up to date.
+If you need to use the [previous version](https://github.com/mkenney/docker-npm/tree/deprecated) of this image it's [tagged](https://hub.docker.com/r/mkenney/npm/tags/) as deprecated but the image is still rebuilt automatically when there are changes to [node:latest](https://hub.docker.com/_/node/) or [Debian:jessie](https://hub.docker.com/_/debian/) so it will stay up to date.
 
 # Source Repo
 
