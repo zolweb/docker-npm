@@ -4,11 +4,15 @@
 
 # Portable npm and related executables
 
-The [image](https://hub.docker.com/r/mkenney/npm/) contains the latest `node` and `npm` binaries for [Debian:jessie](https://hub.docker.com/_/debian/). `npm` has been used to install `gulp-cli` and `grunt-cli` globally. The current directory is mounted into `/src` in the container and a wrapper script executes `npm` as a user who's `uid` and `gid` matches those properties on that directory. This way any output is written as the directory owner/group instead of root or a random user.
+This [image](https://hub.docker.com/r/mkenney/npm/) contains the latest `node` and `npm` binaries for [Debian:jessie](https://hub.docker.com/_/debian/). `npm` has been used to install `gulp-cli` and `grunt-cli` globally. When using the [shell scripts](https://github.com/mkenney/docker-npm/tree/master/bin) available in the [source repository](https://github.com/mkenney/docker-npm), the current directory is mounted into `/src` in the container and a wrapper script executes `npm` as a user who's `uid` and `gid` matches those properties on that directory. This way any output is written as the directory owner/group instead of root or a random user.
 
 If you need additional modules and/or wrapper scripts (`bower`, etc.) [let me know](https://github.com/mkenney/docker-npm/issues).
 
-## Breaking changes: 2016-05-25
+## Change log
+
+### 2016-05-25
+
+#### Breaking changes
 
 I have added a wrapper script to the container that executes `npm`, `gulp` and `grunt` commands as a user who's `uid` and `gid` matches those properties on the current directory. This way any files are installed as the directory owner/group instead of root or a random user.
 
@@ -20,15 +24,15 @@ If you haven't been using the included scripts, then you don't need to do anythi
 
 If you need to use the [previous version](https://github.com/mkenney/docker-npm/tree/deprecated) of this image it's [tagged](https://hub.docker.com/r/mkenney/npm/tags/) as `deprecated` but the image is still rebuilt automatically when there are changes to [node:latest](https://hub.docker.com/_/node/) or [Debian:jessie](https://hub.docker.com/_/debian/) so it will stay up to date.
 
-# Source Repo
+## Source Repo
 
 [mkenney/docker-npm](https://github.com/mkenney/docker-npm)
 
-# Docker image
+## Docker image
 
 [mkenney/npm](https://hub.docker.com/r/mkenney/npm/) Based on [node:latest](https://hub.docker.com/_/node/) (debian:jessie)
 
-# Commands
+## Commands
 
 The following wrapper scripts are available in the source repository
 
@@ -36,6 +40,7 @@ The following wrapper scripts are available in the source repository
 * [gulp](https://github.com/mkenney/docker-npm/blob/master/bin/gulp)
 * [grunt](https://github.com/mkenney/docker-npm/blob/master/bin/grunt)
 
-# Tagged Dockerfiles
+## Tagged Dockerfiles
+
 * [latest](https://github.com/mkenney/docker-npm/blob/master/Dockerfile)
 * [deprecated](https://github.com/mkenney/docker-npm/blob/deprecated/Dockerfile)
