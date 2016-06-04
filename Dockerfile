@@ -8,7 +8,6 @@ ENV LANG C.UTF-8
 ENV LANGUAGE C.UTF-8
 ENV LC_ALL C.UTF-8
 ENV TIMEZONE America/Denver
-COPY container/as-user /as-user
 
 RUN set -x \
     && apt-get -qq update \
@@ -19,6 +18,7 @@ RUN set -x \
         npm \
         rsync \
         sudo \
+        wget \
     && npm install --silent -g \
         gulp-cli \
         grunt-cli \
@@ -62,10 +62,13 @@ RUN set -x \
 # ~ fin ~
 ##############################################################################
 
+    && wget -O /run-as-user https://raw.githubusercontent.com/mkenney/docker-scripts/master/container/run-as-user \
+    && chmod 0755 /run-as-user \
+
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-VOLUME ["/src"]
+VOLUME /src
 WORKDIR /src
 
-CMD ["/as-user", "npm"]
+CMD ["/run-as-user", "dev", "/usr/local/bin/npm"]

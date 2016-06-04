@@ -28,6 +28,10 @@ If you need additional modules and/or wrapper scripts (`bower`, etc.) [let me kn
 
 ## Change log
 
+### 2016-06-03
+
+I removed the `as-user` script and put it in a [separate repo](https://github.com/mkenney/docker-scripts/blob/master/container/run-as-user) as it's used in several images. [Let me know](https://github.com/mkenney/docker-npm/issues) if you have any trouble, this is the first image I've switched over.
+
 ### 2016-05-25
 
 #### Breaking changes
