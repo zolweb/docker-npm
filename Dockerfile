@@ -71,4 +71,4 @@ RUN set -x \
 VOLUME /src
 WORKDIR /src
 
-CMD ["/run-as-user", "dev", "/usr/local/bin/npm"]
+CMD ["/run-as-user", "/usr/local/bin/npm"]

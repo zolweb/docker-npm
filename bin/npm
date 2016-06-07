@@ -4,5 +4,5 @@ if [ "self-update" == "$1" ]; then
     docker pull mkenney/npm
     wget -nv -O $0 https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/npm
 else
-    docker run --rm -t -i -v $(pwd):/src:rw mkenney/npm /run-as-user dev /usr/local/bin/npm $@
+    docker run --rm -t -i -v $(pwd):/src:rw mkenney/npm /run-as-user /usr/local/bin/npm $@
 fi

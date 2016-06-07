@@ -6,19 +6,18 @@
 
 ## Synopsys
 
-Essentially, this is just a set of [shell scripts](https://github.com/mkenney/docker-npm/tree/master/bin) that manages a `node` docker image. The combination of the shell script and docker image allows commands to run as either the current user or the owner/group of the current directory.
+Essentially, this is just a set of [shell scripts](https://github.com/mkenney/docker-npm/tree/master/bin) that manages a [Node.js](https://nodejs.org/) docker image. The docker image includes a script that allows commands to run as either the current user or the owner/group of the current directory, which the shell scripts take advantage of to make sure files are written with permissions that match the current directory.
 
 ### Installation
 
-Installation is just a matter of putting the [shell scripts](https://github.com/mkenney/docker-npm/tree/master/bin) somewhere in your path. For example, assuming you want the scripts to live in `/usr/local/bin`, run:
-* `sudo wget -nv -O /usr/local/bin/npm https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/npm`
-* `sudo wget -nv -O /usr/local/bin/gulp https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/gulp`
-* `sudo wget -nv -O /usr/local/bin/grunt https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/grunt`
-* Make them executable and add write permission to let the scripts `self-update` as any user
-  * `sudo chmod 0777 /usr/local/bin/npm`
-  * `sudo chmod 0777 /usr/local/bin/gulp`
-  * `sudo chmod 0777 /usr/local/bin/grunt`
-* `npm self-update` (all of the scripts have a `self-update` command which pulls down the latest docker image and then updates the shell script itself)
+This assumes that you already have [Docker](https://www.docker.com) installed. A running `docker` daemon is required.
+
+Installation is just a matter of putting the [shell scripts](https://github.com/mkenney/docker-npm/tree/master/bin) somewhere in your path and making them executable. I like to put my scripts in a `bin/` folder in my home directory:
+* `wget -nv -O ~/bin/npm https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/npm && chmod 0755 ~/bin/npm`
+* `wget -nv -O ~/bin/gulp https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/gulp && chmod 0755 ~/bin/gulp`
+* `wget -nv -O ~/bin/grunt https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/grunt && chmod 0755 ~/bin/grunt`
+* `npm self-update`
+  All of the scripts have a `self-update` command which pulls down the latest docker image and then updates the shell script itself. If you don't have write permissions on the shell script you'll get a permissions error, you can run the self-update command with `sudo` if needed.
 
 ## About
 
@@ -27,6 +26,13 @@ This [image](https://hub.docker.com/r/mkenney/npm/) contains the latest `node` a
 If you need additional modules and/or wrapper scripts (`bower`, etc.) [let me know](https://github.com/mkenney/docker-npm/issues).
 
 ## Change log
+
+### 2016-06-06
+
+I modified the `run-as-user` script so that it doesn't require specifying which user account in container that should be modified, and instead will always modify the `dev` user. This required updating both the image and the wrapper scripts, if you use the wrapper scripts you should run:
+* `sudo npm self-update`
+* `sudo gulp self-update`
+* `sudo grunt self-update`
 
 ### 2016-06-03
 
