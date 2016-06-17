@@ -2,7 +2,7 @@
 
 if [ "self-update" == "$1" ]; then
     docker pull mkenney/npm
-    wget -nv -O $0 https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/grunt
+    wget -nv -O $0 https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/grunt && exit 0
 else
     docker run --rm -t -i -v $(pwd):/src:rw mkenney/npm /run-as-user /usr/local/bin/grunt $@
 fi
