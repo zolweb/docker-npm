@@ -1,6 +1,6 @@
 ![MIT License](https://img.shields.io/github/license/mkenney/docker-npm.svg) ![Docker pulls](https://img.shields.io/docker/pulls/mkenney/npm.svg) ![Docker stars](https://img.shields.io/docker/stars/mkenney/npm.svg) ![Github issues](https://img.shields.io/github/issues-raw/mkenney/docker-npm.svg)
 
-![Node.js](https://img.shields.io/badge/Node.js-v6.2.0-026e00.svg) ![npm](https://img.shields.io/badge/npm-v3.8.9-c12127.svg) ![gulp](https://img.shields.io/badge/gulp-v1.2.1-cf4646.svg) ![grunt](https://img.shields.io/badge/Grunt-v1.2.0-e48632.svg)
+![Node.js](https://img.shields.io/badge/Node.js-v6.2.2-026e00.svg) ![npm](https://img.shields.io/badge/npm-v3.9.5-c12127.svg) ![gulp](https://img.shields.io/badge/gulp-v1.2.1-cf4646.svg) ![grunt](https://img.shields.io/badge/Grunt-v1.2.0-e48632.svg)
 
 # Portable npm and related executables
 
@@ -17,6 +17,7 @@ Installation is just a matter of putting the [shell scripts](https://github.com/
 * `wget -nv -O ~/bin/gulp https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/gulp && chmod 0755 ~/bin/gulp`
 * `wget -nv -O ~/bin/grunt https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/grunt && chmod 0755 ~/bin/grunt`
 * `npm self-update`
+
   All of the scripts have a `self-update` command which pulls down the latest docker image and then updates the shell script itself. If you don't have write permissions on the shell script you'll get a permissions error, you can run the self-update command with `sudo` if needed.
 
 ## About
