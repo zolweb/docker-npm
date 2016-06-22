@@ -1,6 +1,9 @@
 var gulp = require('gulp');
+var jshint = require('gulp-jshint');
+var gulp   = require('gulp');
 
 gulp.task('default', function() {
-  console.log('default task');
+    return gulp.src('./gulpfile.js')
+        .pipe(jshint())
+        .pipe(jshint.reporter('default'));
 });
-
