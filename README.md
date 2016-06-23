@@ -13,10 +13,11 @@ Essentially, this is just a set of [shell scripts](https://github.com/mkenney/do
 This assumes that you already have [Docker](https://www.docker.com) installed. A running `docker` daemon is required.
 
 Installation is just a matter of putting the [shell scripts](https://github.com/mkenney/docker-npm/tree/master/bin) somewhere in your path and making them executable. I like to put my scripts in a `bin/` folder in my home directory:
-* `wget -nv -O ~/bin/npm https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/npm && chmod 0755 ~/bin/npm`
 * `wget -nv -O ~/bin/bower https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/bower && chmod 0755 ~/bin/bower`
 * `wget -nv -O ~/bin/gulp https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/gulp && chmod 0755 ~/bin/gulp`
 * `wget -nv -O ~/bin/grunt https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/grunt && chmod 0755 ~/bin/grunt`
+* `wget -nv -O ~/bin/node https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/node && chmod 0755 ~/bin/node`
+* `wget -nv -O ~/bin/npm https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/npm && chmod 0755 ~/bin/npm`
 * `npm self-update`
 
   All of the scripts have a `self-update` command which pulls down the latest docker image and then updates the shell script itself. If you don't have write permissions on the shell script you'll get a permissions error, you can run the self-update command with `sudo` if needed.
