@@ -1,8 +1,11 @@
 #!/usr/bin/env sh
 
+TAG=latest
+BRANCH=master
+
 if [ "self-update" == "$1" ]; then
-    docker pull mkenney/npm
-    wget -nv -O $0 https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/node && exit 0
+    docker pull mkenney/npm:$TAG
+    wget -nv -O $0 https://raw.githubusercontent.com/mkenney/docker-npm/$BRANCH/bin/node && exit 0
 else
-    docker run --rm -t -i -v $(pwd):/src:rw mkenney/npm /run-as-user /usr/local/bin/node $@
+    docker run --rm -t -i -v $(pwd):/src:rw mkenney/npm:$TAG /run-as-user /usr/local/bin/node $@
 fi
