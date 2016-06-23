@@ -4,6 +4,16 @@
 
 # Portable npm and related executables
 
+## Tagged Dockerfiles
+
+* [latest](https://github.com/mkenney/docker-npm/blob/master/Dockerfile), [debian](https://github.com/mkenney/docker-npm/blob/master/Dockerfile) ![Image size](https://img.shields.io/badge/image size-286MB-blue.svg)
+
+  ![Node.js](https://img.shields.io/badge/Node.js-v6.2.2-026e00.svg) ![npm](https://img.shields.io/badge/npm-v3.9.5-c12127.svg) ![Bower](https://img.shields.io/badge/Bower-v1.7.9-ffcc2f.svg) ![gulp](https://img.shields.io/badge/gulp-v1.2.1-cf4646.svg) ![grunt](https://img.shields.io/badge/Grunt-v1.2.0-e48632.svg)
+
+* [alpine](https://github.com/mkenney/docker-npm/blob/alpine/Dockerfile) ![Image size](https://img.shields.io/badge/image size-??MB-blue.svg)
+
+  ![Node.js](https://img.shields.io/badge/Node.js-v6.2.0-026e00.svg) ![npm](https://img.shields.io/badge/npm-v3.8.9-c12127.svg) ![Bower](https://img.shields.io/badge/Bower-v1.7.9-ffcc2f.svg) ![gulp](https://img.shields.io/badge/gulp-v1.2.1-cf4646.svg) ![grunt](https://img.shields.io/badge/Grunt-v1.2.0-e48632.svg)
+
 ## Synopsys
 
 Essentially, this is just a set of [shell scripts](https://github.com/mkenney/docker-npm/tree/master/bin) that manages a [Node.js](https://nodejs.org/) docker image. The docker image includes a script that allows commands to run as either the current user or the owner/group of the current directory, which the shell scripts take advantage of to make sure files are written with permissions that match the current directory.
