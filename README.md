@@ -46,6 +46,7 @@ If you need additional modules and/or wrapper scripts [let me know](https://gith
 * Added a `node` [wrapper script](https://github.com/mkenney/docker-npm/blob/master/bin/node) to the repository.
 * Added mounting your `~/.ssh/` directory into the container to support access to private repositories. If that directory is mounted, then `npm` and `bower` will run as the `uid`/`gid` that owns that `~/.ssh/` directory (hopefully you), otherwise it will run as the project directories `uid` and `gid` as usual.
 * Updated all the wrapper scripts to use variables for the image tag and github branch to make merges simpler
+* Created a [tagged](https://hub.docker.com/r/mkenney/npm/tags/) version of the image based on [`alpine:latest`](https://hub.docker.com/_/alpine/)
 
 Please [let me know](https://github.com/mkenney/docker-npm/issues) if you run into any problems.
 
