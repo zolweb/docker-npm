@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
-TAG=latest
-BRANCH=master
+TAG=alpine
+BRANCH=alpine
 
 if [ "self-update" == "$1" ]; then
     docker pull mkenney/npm:$TAG

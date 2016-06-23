@@ -1,4 +1,4 @@
-FROM node:latest
+FROM alpine:latest
 
 MAINTAINER Michael Kenney <mkenney@webbedlam.com>
 
@@ -10,67 +10,56 @@ ENV LC_ALL C.UTF-8
 ENV TIMEZONE America/Denver
 
 RUN set -x \
-    && apt-get -qq update \
-    && apt-get install -qqy apt-utils \
-    && apt-get -qq upgrade \
-    && apt-get -qq dist-upgrade \
-    && apt-get install -qqy \
+    && apk update \
+    && apk add \
+        ca-certificates \
+        curl \
         git \
         mercurial \
-        npm \
-        rsync \
+        openssh \
         subversion \
         sudo \
-        wget \
+    && update-ca-certificates \
+
+##############################################################################
+# Install Node & NPM
+##############################################################################
+
+    && apk add \
+        nodejs \
+
     && npm install --silent -g \
-        gulp-cli \
-        grunt-cli \
         bower \
+        grunt-cli \
+        gulp-cli \
 
-##############################################################################
-# UTF-8 Locale, timezone
-##############################################################################
-
-    && apt-get install -qqy locales \
-    && locale-gen C.UTF-8 ${UTF8_LOCALE} \
-    && dpkg-reconfigure locales \
-    && /usr/sbin/update-locale LANG=C.UTF-8 LANGUAGE=C.UTF-8 LC_ALL=C.UTF-8 \
-    && export LANG=C.UTF-8 \
-    && export LANGUAGE=C.UTF-8 \
-    && export LC_ALL=C.UTF-8 \
-    && echo ${TIMEZONE} > /etc/timezone \
-    && dpkg-reconfigure -f noninteractive tzdata \
+    # Create links to work with the original wrapper scripts so don't need
+    # path changes between branches
+    && mkdir -p /usr/local/bin \
+    && ln -s /usr/bin/node /usr/local/bin/node \
+    && ln -s /usr/bin/npm /usr/local/bin/npm \
+    && ln -s /usr/bin/bower /usr/local/bin/bower \
+    && ln -s /usr/bin/gulp /usr/local/bin/gulp \
+    && ln -s /usr/bin/grunt /usr/local/bin/grunt \
 
 ##############################################################################
 # users
 ##############################################################################
 
-    # Configure root account
-    && echo "export NLS_LANG=$(echo $NLS_LANG)"                >> /root/.bash_profile \
-    && echo "export LANG=$(echo $LANG)"                        >> /root/.bash_profile \
-    && echo "export LANGUAGE=$(echo $LANGUAGE)"                >> /root/.bash_profile \
-    && echo "export LC_ALL=$(echo $LC_ALL)"                    >> /root/.bash_profile \
-    && echo "export TERM=xterm"                                >> /root/.bash_profile \
-    && echo "export PATH=$(echo $PATH)"                        >> /root/.bash_profile \
-
-    # Add a dev user and configure
-    && groupadd dev \
-    && useradd dev -s /bin/bash -m -g dev -G root \
+    # Create a dev user to use as the directory owner
+    && addgroup dev \
+    && adduser -D -s /bin/sh -G dev -G root dev \
     && echo "dev:password" | chpasswd \
-    && echo "dev ALL=(ALL:ALL) NOPASSWD: ALL" >> /etc/sudoers \
-    && rsync -a /root/ /home/dev/ \
-    && chown -R dev:dev /home/dev/ \
-    && chmod 0777 /home/dev \
+
+    # Setup wrapper scripts
+    && curl -o /run-as-user https://raw.githubusercontent.com/mkenney/docker-scripts/master/container/run-as-user \
+    && chmod 0755 /run-as-user \
 
 ##############################################################################
 # ~ fin ~
 ##############################################################################
 
-    && wget -O /run-as-user https://raw.githubusercontent.com/mkenney/docker-scripts/master/container/run-as-user \
-    && chmod 0755 /run-as-user \
-
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+    && apk del curl
 
 VOLUME /src
 WORKDIR /src
