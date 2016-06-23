@@ -15,8 +15,11 @@ RUN set -x \
     && apt-get -qq upgrade \
     && apt-get -qq dist-upgrade \
     && apt-get install -qqy \
+        git \
+        mercurial \
         npm \
         rsync \
+        subversion \
         sudo \
         wget \
     && npm install --silent -g \
