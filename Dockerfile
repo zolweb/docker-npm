@@ -22,6 +22,7 @@ RUN set -x \
     && npm install --silent -g \
         gulp-cli \
         grunt-cli \
+        bower \
 
 ##############################################################################
 # UTF-8 Locale, timezone
