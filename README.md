@@ -28,6 +28,10 @@ If you need additional modules and/or wrapper scripts [let me know](https://gith
 
 ## Change log
 
+### 2016-06-23
+
+I added `bower` to the image and a [wrapper script](https://github.com/mkenney/docker-npm/blob/master/bin/bower) to the repository. Please [let me know](https://github.com/mkenney/docker-npm/issues) if you run into any problems.
+
 ### 2016-06-06
 
 I modified the `run-as-user` script so that it doesn't require specifying which user account in the container that should be modified, and instead will always modify the `dev` user. This required updating both the image and the wrapper scripts, if you use the wrapper scripts you should run:
