@@ -34,7 +34,7 @@ Debian (at the time of this writing) has slightly more up-to-date versions of `n
 
 #### alpine:latest
 
-Alpine (at the time of this writing) has slightly older versions of `node` and `npm` than Debian, but the image is very small and lightweight.
+Alpine (at the time of this writing) has slightly older versions of `node` and `npm`, but the image is very small and lightweight.
 
 * `wget -nv -O ~/bin/bower https://raw.githubusercontent.com/mkenney/docker-npm/alpine/bin/bower && chmod 0755 ~/bin/bower`
 * `wget -nv -O ~/bin/gulp https://raw.githubusercontent.com/mkenney/docker-npm/alpine/bin/gulp && chmod 0755 ~/bin/gulp`
