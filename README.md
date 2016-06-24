@@ -21,18 +21,40 @@ Essentially, this is just a set of [shell scripts](https://github.com/mkenney/do
 This assumes that you already have [Docker](https://www.docker.com) installed. A running `docker` daemon is required.
 
 Installation is just a matter of putting the [shell scripts](https://github.com/mkenney/docker-npm/tree/master/bin) somewhere in your path and making them executable. I like to put my scripts in a `bin/` folder in my home directory:
+
+#### debian:jessie
+
+Debian (at the time of this writing) has slightly more up-to-date versions of `node` and `npm` but the image is fairly large.
+
 * `wget -nv -O ~/bin/bower https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/bower && chmod 0755 ~/bin/bower`
 * `wget -nv -O ~/bin/gulp https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/gulp && chmod 0755 ~/bin/gulp`
 * `wget -nv -O ~/bin/grunt https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/grunt && chmod 0755 ~/bin/grunt`
 * `wget -nv -O ~/bin/node https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/node && chmod 0755 ~/bin/node`
 * `wget -nv -O ~/bin/npm https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/npm && chmod 0755 ~/bin/npm`
+
+#### alpine:latest
+
+Alpine (at the time of this writing) has slightly older versions of `node` and `npm` than Debian, but the image is very small and lightweight.
+
+* `wget -nv -O ~/bin/bower https://raw.githubusercontent.com/mkenney/docker-npm/alpine/bin/bower && chmod 0755 ~/bin/bower`
+* `wget -nv -O ~/bin/gulp https://raw.githubusercontent.com/mkenney/docker-npm/alpine/bin/gulp && chmod 0755 ~/bin/gulp`
+* `wget -nv -O ~/bin/grunt https://raw.githubusercontent.com/mkenney/docker-npm/alpine/bin/grunt && chmod 0755 ~/bin/grunt`
+* `wget -nv -O ~/bin/node https://raw.githubusercontent.com/mkenney/docker-npm/alpine/bin/node && chmod 0755 ~/bin/node`
+* `wget -nv -O ~/bin/npm https://raw.githubusercontent.com/mkenney/docker-npm/alpine/bin/npm && chmod 0755 ~/bin/npm`
+
+#### Updating
+
+* `bower self-update`
+* `gulp self-update`
+* `grunt self-update`
+* `node self-update`
 * `npm self-update`
 
-  All of the scripts have a `self-update` command which pulls down the latest docker image and then updates the shell script itself. If you don't have write permissions on the shell script you'll get a permissions error, you can run the self-update command with `sudo` if needed.
+  Each of the scripts have a `self-update` command which pulls down the latest docker image (which all the scripts share) and then updates the shell script itself. If you don't have write permissions on the shell script you'll get a permissions error, you can run the self-update command with `sudo` if needed. At the time of this writing, I expect the shell scripts, which couldn't be much simpler, probably won't change much so a simple `docker pull mkenney/npm:{version}` should generally be enough.
 
 ## About
 
-This [image](https://hub.docker.com/r/mkenney/npm/) contains the latest `node` and `npm` binaries for [Debian:jessie](https://hub.docker.com/_/debian/). `npm` has been used to install `gulp-cli` and `grunt-cli` globally. When using the [shell scripts](https://github.com/mkenney/docker-npm/tree/master/bin) available in the [source repository](https://github.com/mkenney/docker-npm), the current directory is mounted into `/src` in the container and a wrapper script executes `npm` as a user who's `uid` and `gid` matches those properties on that directory. This way any output is written as the directory owner/group instead of root or a random user.
+These [images](https://hub.docker.com/r/mkenney/npm/tags/) contains the latest `node` and `npm` binaries for [`debian:jessie`](https://hub.docker.com/_/debian/) and [`alpine:latest`](https://hub.docker.com/_/alpine/) (currently v3.4) installed via their respective package managers. `npm` has been used to install `bower`, `gulp-cli` and `grunt-cli` globally. When using the [shell scripts](https://github.com/mkenney/docker-npm/tree/master/bin) available in the [source repository](https://github.com/mkenney/docker-npm), the current directory is mounted into `/src` in the container and a wrapper script executes `npm` as a user who's `uid` and `gid` matches those properties on that directory. This way any output is written as the directory owner/group instead of root or a random user.
 
 If you need additional modules and/or wrapper scripts [let me know](https://github.com/mkenney/docker-npm/issues).
 
