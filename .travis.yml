@@ -2,16 +2,21 @@ sudo: required
 
 language: javascript
 
+branches:
+    only:
+        - master
+        - alpine
+
 services:
     - docker
 
 before_install:
-    - docker build -t mkenney/npm:latest .
+    - docker build -t mkenney/npm:travis-ci .
     - cd test
 
 script:
-    - docker run --rm -t -i -v $(pwd):/src:rw mkenney/npm:latest /run-as-user /usr/local/bin/node --version
-    - docker run --rm -t -i -v $(pwd):/src:rw mkenney/npm:latest /run-as-user /usr/local/bin/npm install
-    - docker run --rm -t -i -v $(pwd):/src:rw mkenney/npm:latest /run-as-user /usr/local/bin/bower install
-    - docker run --rm -t -i -v $(pwd):/src:rw mkenney/npm:latest /run-as-user /usr/local/bin/grunt
-    - docker run --rm -t -i -v $(pwd):/src:rw mkenney/npm:latest /run-as-user /usr/local/bin/gulp
+    - docker run --rm -t -i -v $(pwd):/src:rw mkenney/npm:travis-ci /run-as-user /usr/local/bin/node --version
+    - docker run --rm -t -i -v $(pwd):/src:rw mkenney/npm:travis-ci /run-as-user /usr/local/bin/npm install
+    - docker run --rm -t -i -v $(pwd):/src:rw mkenney/npm:travis-ci /run-as-user /usr/local/bin/bower install
+    - docker run --rm -t -i -v $(pwd):/src:rw mkenney/npm:travis-ci /run-as-user /usr/local/bin/grunt
+    - docker run --rm -t -i -v $(pwd):/src:rw mkenney/npm:travis-ci /run-as-user /usr/local/bin/gulp
