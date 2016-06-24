@@ -50,7 +50,7 @@ Alpine (at the time of this writing) has slightly older versions of `node` and `
 * `node self-update`
 * `npm self-update`
 
-  Each of the scripts have a `self-update` command which pulls down the latest docker image (which all the scripts share) and then updates the shell script itself. If you don't have write permissions on the shell script you'll get a permissions error, you can run the self-update command with `sudo` if needed. At the time of this writing, I expect the shell scripts, which couldn't be much simpler, probably won't change so a simple `docker pull mkenney/npm:{version}` should generally be enough.
+Each of the scripts have a `self-update` command which pulls down the latest docker image (which all the scripts share) and then updates the shell script itself. If you don't have write permissions on the shell script you'll get a permissions error, you can run the self-update command with `sudo` if needed. At the time of this writing, I expect the shell scripts, which couldn't be much simpler, probably won't change so a simple `docker pull mkenney/npm:{version}` should generally be enough.
 
 ## About
 
