@@ -20,15 +20,23 @@ Essentially, this is just a set of [shell scripts](https://github.com/mkenney/do
 
 This assumes that you already have [Docker](https://www.docker.com) installed. A running `docker` daemon is required.
 
-Installation is just a matter of putting the [shell scripts](https://github.com/mkenney/docker-npm/tree/master/bin) somewhere in your path and making them executable. I like to put my scripts in a `bin/` folder in my home directory:
+The following wrapper scripts are available in the source repository
+
+* [`bower`](https://github.com/mkenney/docker-npm/blob/master/bin/bower)
+* [`grunt`](https://github.com/mkenney/docker-npm/blob/master/bin/grunt)
+* [`gulp`](https://github.com/mkenney/docker-npm/blob/master/bin/gulp)
+* [`node`](https://github.com/mkenney/docker-npm/blob/master/bin/node)
+* [`npm`](https://github.com/mkenney/docker-npm/blob/master/bin/npm)
+
+Installation is just a matter of putting them somewhere in your path and making them executable. I like to put my scripts in a `bin/` folder in my home directory:
 
 #### debian:jessie
 
 Debian (at the time of this writing) has slightly more up-to-date versions of `node` and `npm` but the image is fairly large.
 
 * `wget -nv -O ~/bin/bower https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/bower && chmod 0755 ~/bin/bower`
-* `wget -nv -O ~/bin/gulp https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/gulp && chmod 0755 ~/bin/gulp`
 * `wget -nv -O ~/bin/grunt https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/grunt && chmod 0755 ~/bin/grunt`
+* `wget -nv -O ~/bin/gulp https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/gulp && chmod 0755 ~/bin/gulp`
 * `wget -nv -O ~/bin/node https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/node && chmod 0755 ~/bin/node`
 * `wget -nv -O ~/bin/npm https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/npm && chmod 0755 ~/bin/npm`
 
@@ -37,16 +45,16 @@ Debian (at the time of this writing) has slightly more up-to-date versions of `n
 Alpine (at the time of this writing) has slightly older versions of `node` and `npm`, but the image is very small and lightweight.
 
 * `wget -nv -O ~/bin/bower https://raw.githubusercontent.com/mkenney/docker-npm/alpine/bin/bower && chmod 0755 ~/bin/bower`
-* `wget -nv -O ~/bin/gulp https://raw.githubusercontent.com/mkenney/docker-npm/alpine/bin/gulp && chmod 0755 ~/bin/gulp`
 * `wget -nv -O ~/bin/grunt https://raw.githubusercontent.com/mkenney/docker-npm/alpine/bin/grunt && chmod 0755 ~/bin/grunt`
+* `wget -nv -O ~/bin/gulp https://raw.githubusercontent.com/mkenney/docker-npm/alpine/bin/gulp && chmod 0755 ~/bin/gulp`
 * `wget -nv -O ~/bin/node https://raw.githubusercontent.com/mkenney/docker-npm/alpine/bin/node && chmod 0755 ~/bin/node`
 * `wget -nv -O ~/bin/npm https://raw.githubusercontent.com/mkenney/docker-npm/alpine/bin/npm && chmod 0755 ~/bin/npm`
 
 #### Updating
 
 * `bower self-update`
-* `gulp self-update`
 * `grunt self-update`
+* `gulp self-update`
 * `node self-update`
 * `npm self-update`
 
@@ -98,20 +106,3 @@ If you need to use the [previous version](https://github.com/mkenney/docker-npm/
 ## Source Repo
 
 [mkenney/docker-npm](https://github.com/mkenney/docker-npm)
-
-## Docker image
-
-[mkenney/npm](https://hub.docker.com/r/mkenney/npm/) Based on [node:latest](https://hub.docker.com/_/node/) (debian:jessie)
-
-## Commands
-
-The following wrapper scripts are available in the source repository
-
-* [npm](https://github.com/mkenney/docker-npm/blob/master/bin/npm)
-* [gulp](https://github.com/mkenney/docker-npm/blob/master/bin/gulp)
-* [grunt](https://github.com/mkenney/docker-npm/blob/master/bin/grunt)
-
-## Tagged Dockerfiles
-
-* [latest](https://github.com/mkenney/docker-npm/blob/master/Dockerfile)
-* [deprecated](https://github.com/mkenney/docker-npm/blob/deprecated/Dockerfile)
