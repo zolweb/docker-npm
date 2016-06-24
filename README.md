@@ -2,6 +2,11 @@
 
 # Portable npm and related executables
 
+- [Tagged Dockerfiles](#tagged-dockerfiles)
+- [Synopsys](#synopsys)
+- [About](#about)
+- [Change log](#change-log)
+
 ## Tagged Dockerfiles
 
 * [`latest`](https://github.com/mkenney/docker-npm/blob/master/Dockerfile), [`debian`](https://github.com/mkenney/docker-npm/blob/master/Dockerfile)
