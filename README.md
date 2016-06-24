@@ -3,8 +3,8 @@
 # Portable npm and related executables
 
 - [Tagged Dockerfiles](#tagged-dockerfiles)
-- [Synopsys](#synopsys)
 - [About](#about)
+- [Image](#image)
 - [Change log](#change-log)
 
 ## Tagged Dockerfiles
@@ -17,7 +17,7 @@
 
   ![Image size](https://img.shields.io/badge/image size-48MB-blue.svg) ![Node.js](https://img.shields.io/badge/Node.js-v6.2.0-026e00.svg) ![npm](https://img.shields.io/badge/npm-v3.8.9-c12127.svg) ![Bower](https://img.shields.io/badge/Bower-v1.7.9-ffcc2f.svg) ![gulp](https://img.shields.io/badge/gulp-v1.2.1-cf4646.svg) ![grunt](https://img.shields.io/badge/Grunt-v1.2.0-e48632.svg)
 
-## Synopsys
+## About
 
 Essentially, this is just a set of [shell scripts](https://github.com/mkenney/docker-npm/tree/master/bin) that manages a [Node.js](https://nodejs.org/) docker image. The docker image includes a script that allows commands to run as either the current user or the owner/group of the current directory, which the shell scripts take advantage of to make sure files are written with permissions that match the current directory.
 
@@ -65,7 +65,7 @@ Alpine (at the time of this writing) has slightly older versions of `node` and `
 
 Each of the scripts have a `self-update` command which pulls down the latest docker image (which all the scripts share) and then updates the shell script itself. If you don't have write permissions on the shell script you'll get a permissions error, you can run the self-update command with `sudo` if needed. At the time of this writing, I expect the shell scripts, which couldn't be much simpler, probably won't change so a simple `docker pull mkenney/npm:{version}` should generally be enough.
 
-## About
+## Image
 
 These [images](https://hub.docker.com/r/mkenney/npm/tags/) contain the latest `node` and `npm` binaries for [`debian:jessie`](https://hub.docker.com/_/debian/) and [`alpine:latest`](https://hub.docker.com/_/alpine/) (currently v3.4) installed via their respective package managers. `npm` has been used to install `bower`, `gulp-cli` and `grunt-cli` globally. When using the [shell scripts](https://github.com/mkenney/docker-npm/tree/master/bin) available in the [source repository](https://github.com/mkenney/docker-npm), the current directory is mounted into `/src` in the container and a [wrapper script](https://github.com/mkenney/docker-scripts/blob/master/container/run-as-user) executes `npm` as a user who's `uid` and `gid` matches those properties on that directory. This way any output is written as the directory owner/group instead of root or a random user.
 
