@@ -19,7 +19,11 @@ before_install:
     - cd test
 
 script:
+    - docker run --rm -t -i -v $(pwd):/src:rw mkenney/npm:travis-ci /run-as-user /usr/local/bin/bower --version
+    - docker run --rm -t -i -v $(pwd):/src:rw mkenney/npm:travis-ci /run-as-user /usr/local/bin/grunt --version
+    - docker run --rm -t -i -v $(pwd):/src:rw mkenney/npm:travis-ci /run-as-user /usr/local/bin/gulp --version
     - docker run --rm -t -i -v $(pwd):/src:rw mkenney/npm:travis-ci /run-as-user /usr/local/bin/node --version
+    - docker run --rm -t -i -v $(pwd):/src:rw mkenney/npm:travis-ci /run-as-user /usr/local/bin/npm --version
     - docker run --rm -t -i -v $(pwd):/src:rw mkenney/npm:travis-ci /run-as-user /usr/local/bin/npm install
     - docker run --rm -t -i -v $(pwd):/src:rw mkenney/npm:travis-ci /run-as-user /usr/local/bin/bower install
     - docker run --rm -t -i -v $(pwd):/src:rw mkenney/npm:travis-ci /run-as-user /usr/local/bin/grunt
