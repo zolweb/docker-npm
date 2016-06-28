@@ -15,7 +15,7 @@
 
 * [`alpine`](https://github.com/mkenney/docker-npm/blob/alpine/Dockerfile)
 
-  ![build status](https://travis-ci.org/mkenney/docker-npm.svg?branch=alpine) ![Image size](https://img.shields.io/badge/image size-48MB-blue.svg) ![Node.js](https://img.shields.io/badge/Node.js-v6.2.0-026e00.svg) ![npm](https://img.shields.io/badge/npm-v3.8.9-c12127.svg) ![Bower](https://img.shields.io/badge/Bower-v1.7.9-ffcc2f.svg) ![gulp](https://img.shields.io/badge/gulp-v1.2.1-cf4646.svg) ![grunt](https://img.shields.io/badge/Grunt-v1.2.0-e48632.svg)
+  ![build status](https://travis-ci.org/mkenney/docker-npm.svg?branch=alpine) ![Image size](https://img.shields.io/badge/image size-48MB-blue.svg) ![Node.js](https://img.shields.io/badge/Node.js-v6.2.0-026e00.svg) ![npm](https://img.shields.io/badge/npm-v3.10.2-c12127.svg) ![Bower](https://img.shields.io/badge/Bower-v1.7.9-ffcc2f.svg) ![gulp](https://img.shields.io/badge/gulp-v1.2.1-cf4646.svg) ![grunt](https://img.shields.io/badge/Grunt-v1.2.0-e48632.svg)
 
 ## About
 
@@ -37,7 +37,7 @@ Installation is just a matter of putting them somewhere in your path and making 
 
 #### debian:jessie
 
-Debian (at the time of this writing) has slightly more up-to-date versions of `node` and `npm` but the image is fairly large.
+Debian (at the time of this writing) has a slightly more up-to-date version of `node` but the image is fairly large.
 
 * `wget -nv -O ~/bin/bower https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/bower && chmod 0755 ~/bin/bower`
 * `wget -nv -O ~/bin/grunt https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/grunt && chmod 0755 ~/bin/grunt`
@@ -47,7 +47,7 @@ Debian (at the time of this writing) has slightly more up-to-date versions of `n
 
 #### alpine:latest
 
-Alpine (at the time of this writing) has slightly older versions of `node` and `npm`, but the image is very small and lightweight.
+Alpine (at the time of this writing) has a slightly newer version of `npm` and the image is very small and lightweight.
 
 * `wget -nv -O ~/bin/bower https://raw.githubusercontent.com/mkenney/docker-npm/alpine/bin/bower && chmod 0755 ~/bin/bower`
 * `wget -nv -O ~/bin/grunt https://raw.githubusercontent.com/mkenney/docker-npm/alpine/bin/grunt && chmod 0755 ~/bin/grunt`
@@ -72,6 +72,12 @@ These [images](https://hub.docker.com/r/mkenney/npm/tags/) contain the latest `n
 If you need additional modules and/or wrapper scripts [let me know](https://github.com/mkenney/docker-npm/issues).
 
 ## Change log
+
+### 2016-06-28
+
+alpine:latest doesn't have the `shadow` available (at the moment) so the `/run-as-user` script wasn't functioning correctly. I added the `edge/testing` repo, installed `shadow` and also went ahead and updated `npm` to the latest available version (`3.10.2`).
+
+Please [let me know](https://github.com/mkenney/docker-npm/issues) if you run into any problems.
 
 ### 2016-06-23
 
