@@ -11,12 +11,13 @@ ENV TIMEZONE America/Denver
 
 RUN set -x \
     && apk update \
-    && apk add \
+    && apk add --no-cache --repository "http://dl-cdn.alpinelinux.org/alpine/edge/testing"  \
         ca-certificates \
         curl \
         git \
         mercurial \
         openssh \
+        shadow \
         subversion \
         sudo \
     && update-ca-certificates \
@@ -28,6 +29,7 @@ RUN set -x \
     && apk add \
         nodejs \
 
+    && npm install --silent -g npm \
     && npm install --silent -g \
         bower \
         grunt-cli \
