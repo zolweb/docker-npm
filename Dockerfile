@@ -17,11 +17,23 @@ RUN set -x \
     && apt-get install -qqy \
         git \
         mercurial \
-        npm \
         rsync \
         subversion \
         sudo \
         wget \
+
+    # install npm
+    # don't use the package manager, see issue https://github.com/npm/npm/issues/9863
+    && curl -L https://npmjs.org/install.sh | sh \
+
+    # upgrade node
+    && npm install --silent -g n \
+    && n stable \
+
+    # upgrade npm now that node is up to date
+    && curl -L https://npmjs.org/install.sh | sh \
+
+    # install npm packages
     && npm install --silent -g \
         gulp-cli \
         grunt-cli \
@@ -38,7 +50,7 @@ RUN set -x \
     && export LANG=C.UTF-8 \
     && export LANGUAGE=C.UTF-8 \
     && export LC_ALL=C.UTF-8 \
-    && echo ${TIMEZONE} > /etc/timezone \
+    && echo $TIMEZONE > /etc/timezone \
     && dpkg-reconfigure -f noninteractive tzdata \
 
 ##############################################################################
