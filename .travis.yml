@@ -25,6 +25,8 @@ script:
     - docker run --rm -t -i -v $(pwd):/src:rw mkenney/npm:travis-ci /run-as-user /usr/local/bin/node --version
     - docker run --rm -t -i -v $(pwd):/src:rw mkenney/npm:travis-ci /run-as-user /usr/local/bin/npm --version
     - docker run --rm -t -i -v $(pwd):/src:rw mkenney/npm:travis-ci /run-as-user /usr/local/bin/npm install
+    - ls node_modules
     - docker run --rm -t -i -v $(pwd):/src:rw mkenney/npm:travis-ci /run-as-user /usr/local/bin/bower install
+    - ls bower_components
     - docker run --rm -t -i -v $(pwd):/src:rw mkenney/npm:travis-ci /run-as-user /usr/local/bin/grunt
     - docker run --rm -t -i -v $(pwd):/src:rw mkenney/npm:travis-ci /run-as-user /usr/local/bin/gulp
