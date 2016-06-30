@@ -9,7 +9,7 @@
 
 ## Tagged Dockerfiles
 
-* [`latest` Dockerfile] (https://github.com/mkenney/docker-npm/blob/master/Dockerfile), [`debian` Dockerfile](https://github.com/mkenney/docker-npm/blob/master/Dockerfile)
+* [`latest` Dockerfile](https://github.com/mkenney/docker-npm/blob/master/Dockerfile), [`debian` Dockerfile](https://github.com/mkenney/docker-npm/blob/master/Dockerfile)
 
   ![build status](https://travis-ci.org/mkenney/docker-npm.svg?branch=master) ![Image size](https://img.shields.io/badge/image size-303MB-blue.svg) ![Node.js](https://img.shields.io/badge/Node.js-v6.2.2-026e00.svg) ![npm](https://img.shields.io/badge/npm-v3.10.2-c12127.svg) ![Bower](https://img.shields.io/badge/Bower-v1.7.9-ffcc2f.svg) ![gulp](https://img.shields.io/badge/gulp-v1.2.1-cf4646.svg) ![grunt](https://img.shields.io/badge/Grunt-v1.2.0-e48632.svg)
 
