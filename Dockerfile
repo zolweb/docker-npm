@@ -8,41 +8,82 @@ ENV LANG C.UTF-8
 ENV LANGUAGE C.UTF-8
 ENV LC_ALL C.UTF-8
 ENV TIMEZONE America/Denver
+ENV NODE_VERSION v6.2.2
 
 RUN set -x \
     && apk update \
     && apk add --no-cache --repository "http://dl-cdn.alpinelinux.org/alpine/edge/testing"  \
         ca-certificates \
         curl \
+        g++ \
+        gcc \
         git \
+        gnupg \
+        libgcc \
+        libstdc++ \
+        linux-headers \
+        make \
         mercurial \
         openssh \
+        paxctl \
+        python \
         shadow \
         subversion \
         sudo \
-    && update-ca-certificates \
+        tar \
+
 
 ##############################################################################
-# Install Node & NPM
+# Install Node & NPM. Based on https://github.com/mhart/alpine-node/blob/master/Dockerfile (thank you)
 ##############################################################################
 
-    && apk add \
-        nodejs \
+    # Download and validate the NodeJs source
+    && gpg --keyserver ha.pool.sks-keyservers.net --recv-keys \
+        9554F04D7259F04124DE6B476D5A82AC7E37093B \
+        94AE36675C464D64BAFA68DD7434390BDBE9B9C5 \
+        0034A06D9D9B0064CE8ADF6BF1747F4AD2306D93 \
+        FD3A5288F042B6850C66B31F09FE44734EB7990E \
+        71DCFD284A79C3B38668286BC97EC7A07EDE3FC1 \
+        DD8F2338BAE7501E3DD5AC78C273792F7D83545D \
+        C4F0DFFF4E8C1A8236409D08E73BC641CC11F4C8 \
+        B9AE9905FFD7803F25714661B63B535A4C206CA9 \
+    && mkdir /node_src \
+    && cd /node_src \
+    && curl -o node-${NODE_VERSION}.tar.gz -sSL https://nodejs.org/dist/latest/node-${NODE_VERSION}.tar.gz \
+    && curl -o SHASUMS256.txt.asc -sSL https://nodejs.org/dist/latest/SHASUMS256.txt.asc \
+    && gpg --verify SHASUMS256.txt.asc \
+    && grep node-${NODE_VERSION}.tar.gz SHASUMS256.txt.asc | sha256sum -c - \
 
+    # Compile and install
+    && tar -zxf node-${NODE_VERSION}.tar.gz \
+    && cd node-${NODE_VERSION} \
+    && export GYP_DEFINES="linux_use_gold_flags=0" \
+    && ./configure --prefix=/usr/local \
+    && NPROC=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) \
+    && make -j${NPROC} -C out mksnapshot BUILDTYPE=Release \
+    && paxctl -cm out/Release/mksnapshot \
+    && make -j${NPROC} \
+    && make install \
+    && paxctl -cm /usr/local/bin/node \
+
+    # upgrade npm
     && npm install --silent -g npm \
+    && find /usr/local/lib/node_modules/npm -name test -o -name .bin -type d | xargs rm -rf \
+
+    # install npm packages
     && npm install --silent -g \
-        bower \
-        grunt-cli \
         gulp-cli \
+        grunt-cli \
+        bower \
 
     # Create links to work with the original wrapper scripts so don't need
     # path changes between branches
-    && mkdir -p /usr/local/bin \
-    && ln -s /usr/bin/node /usr/local/bin/node \
-    && ln -s /usr/bin/npm /usr/local/bin/npm \
-    && ln -s /usr/bin/bower /usr/local/bin/bower \
-    && ln -s /usr/bin/gulp /usr/local/bin/gulp \
-    && ln -s /usr/bin/grunt /usr/local/bin/grunt \
+    #&& mkdir -p /usr/local/bin \
+    #&& ln -s /usr/bin/node /usr/local/bin/node \
+    #&& ln -s /usr/bin/npm /usr/local/bin/npm \
+    #&& ln -s /usr/bin/bower /usr/local/bin/bower \
+    #&& ln -s /usr/bin/gulp /usr/local/bin/gulp \
+    #&& ln -s /usr/bin/grunt /usr/local/bin/grunt \
 
 ##############################################################################
 # users
@@ -61,7 +102,31 @@ RUN set -x \
 # ~ fin ~
 ##############################################################################
 
-    && apk del curl
+    && apk del \
+        curl \
+        gcc \
+        g++ \
+        gnupg \
+        libgcc \
+        libstdc++ \
+        linux-headers \
+        make \
+        paxctl \
+        python \
+        tar \
+
+    && rm -rf \
+        /etc/ssl \
+        /node_src \
+        /usr/local/share/man \
+        /tmp/* \
+        /var/cache/apk/* \
+        /root/.npm \
+        /root/.node-gyp \
+        /root/.gnupg \
+        /usr/local/lib/node_modules/npm/man \
+        /usr/local/lib/node_modules/npm/doc \
+        /usr/local/lib/node_modules/npm/html
 
 VOLUME /src
 WORKDIR /src
