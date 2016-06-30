@@ -2,17 +2,18 @@ FROM alpine:latest
 
 MAINTAINER Michael Kenney <mkenney@webbedlam.com>
 
-ENV PATH /root/bin:$PATH
 ENV NLS_LANG American_America.AL32UTF8
 ENV LANG C.UTF-8
 ENV LANGUAGE C.UTF-8
 ENV LC_ALL C.UTF-8
 ENV TIMEZONE America/Denver
+
 ENV NODE_VERSION v6.2.2
+ENV NODE_PREFIX /usr/local
 
 RUN set -x \
     && apk update \
-    && apk add --no-cache --repository "http://dl-cdn.alpinelinux.org/alpine/edge/testing"  \
+    && apk add --no-cache --repository "http://dl-cdn.alpinelinux.org/alpine/edge/testing" \
         ca-certificates \
         curl \
         g++ \
@@ -32,9 +33,9 @@ RUN set -x \
         sudo \
         tar \
 
-
 ##############################################################################
-# Install Node & NPM. Based on https://github.com/mhart/alpine-node/blob/master/Dockerfile (thank you)
+# Install Node & NPM
+# Based on https://github.com/mhart/alpine-node/blob/master/Dockerfile (thank you)
 ##############################################################################
 
     # Download and validate the NodeJs source
@@ -55,35 +56,27 @@ RUN set -x \
     && grep node-${NODE_VERSION}.tar.gz SHASUMS256.txt.asc | sha256sum -c - \
 
     # Compile and install
+    && cd /node_src \
     && tar -zxf node-${NODE_VERSION}.tar.gz \
     && cd node-${NODE_VERSION} \
     && export GYP_DEFINES="linux_use_gold_flags=0" \
-    && ./configure --prefix=/usr/local \
+    && ./configure --prefix=${NODE_PREFIX} \
     && NPROC=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) \
     && make -j${NPROC} -C out mksnapshot BUILDTYPE=Release \
     && paxctl -cm out/Release/mksnapshot \
     && make -j${NPROC} \
     && make install \
-    && paxctl -cm /usr/local/bin/node \
+    && paxctl -cm ${NODE_PREFIX}/bin/node \
 
-    # upgrade npm
-    && npm install --silent -g npm \
-    && find /usr/local/lib/node_modules/npm -name test -o -name .bin -type d | xargs rm -rf \
+    # Upgrade npm
+    # Don't use npm to self-upgrade, see issue https://github.com/npm/npm/issues/9863
+    && curl -L https://npmjs.org/install.sh | sh \
 
-    # install npm packages
+    # Install node packages
     && npm install --silent -g \
         gulp-cli \
         grunt-cli \
         bower \
-
-    # Create links to work with the original wrapper scripts so don't need
-    # path changes between branches
-    #&& mkdir -p /usr/local/bin \
-    #&& ln -s /usr/bin/node /usr/local/bin/node \
-    #&& ln -s /usr/bin/npm /usr/local/bin/npm \
-    #&& ln -s /usr/bin/bower /usr/local/bin/bower \
-    #&& ln -s /usr/bin/gulp /usr/local/bin/gulp \
-    #&& ln -s /usr/bin/grunt /usr/local/bin/grunt \
 
 ##############################################################################
 # users
@@ -107,26 +100,22 @@ RUN set -x \
         gcc \
         g++ \
         gnupg \
-        libgcc \
-        libstdc++ \
         linux-headers \
         make \
         paxctl \
         python \
         tar \
 
+    && find ${NODE_PREFIX}/lib/node_modules/npm -name test -o -name .bin -type d | xargs rm -rf \
+
     && rm -rf \
-        /etc/ssl \
         /node_src \
-        /usr/local/share/man \
         /tmp/* \
         /var/cache/apk/* \
-        /root/.npm \
-        /root/.node-gyp \
-        /root/.gnupg \
-        /usr/local/lib/node_modules/npm/man \
-        /usr/local/lib/node_modules/npm/doc \
-        /usr/local/lib/node_modules/npm/html
+        ${NODE_PREFIX}/lib/node_modules/npm/man \
+        ${NODE_PREFIX}/lib/node_modules/npm/doc \
+        ${NODE_PREFIX}/lib/node_modules/npm/html
+
 
 VOLUME /src
 WORKDIR /src
