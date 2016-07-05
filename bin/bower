@@ -3,7 +3,7 @@
 TAG=latest
 BRANCH=master
 
-if [ "self-update" == "$1" ]; then
+if [ "self-update" = "$1" ]; then
     docker pull mkenney/npm:$TAG
     wget -nv -O $0 https://raw.githubusercontent.com/mkenney/docker-npm/$BRANCH/bin/bower && exit 0
 else
