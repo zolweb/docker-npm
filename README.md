@@ -73,6 +73,12 @@ If you need additional modules and/or wrapper scripts [let me know](https://gith
 
 ## Change log
 
+### 2016-07-05
+
+Fixed a string-comparison issue on logins where the default shell is Bourne shell rather than Bourne again shell.
+
+Please [let me know](https://github.com/mkenney/docker-npm/issues) if you have any problems.
+
 ### 2016-06-29
 
 Added updating `npm` to the latest stable version in the `debian` image. I changed to compiling `node` from source in the `alpine` image because the version installed by `n` was compiled with a different prefix than the `apk` packages which made a mess. I also to use the same prefix as the `node:latest` image.
