@@ -30,3 +30,7 @@ script:
     - ls bower_components
     - docker run --rm -t -i -v $(pwd):/src:rw mkenney/npm:travis-ci /run-as-user /usr/local/bin/grunt
     - docker run --rm -t -i -v $(pwd):/src:rw mkenney/npm:travis-ci /run-as-user /usr/local/bin/gulp
+
+after_success:
+    - cd ../ci
+    - sh ./deploy.sh
