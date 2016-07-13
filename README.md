@@ -73,6 +73,14 @@ If you need additional modules and/or wrapper scripts [let me know](https://gith
 
 ## Change log
 
+### 2016-07-13
+
+I have re-structured automated the Docker Hub builds, they are no longer triggered by GitHub pushes. Instead they are triggered by a deployment script that is executed on successful `travis-ci` builds. This way, even if builds are failing the image on DockerHub should remain the last stable image at all times.
+
+There may be an issue with API call throttling on the Docker Hub side, if that seems to be happening I'll dig in further.
+
+Please [let me know](https://github.com/mkenney/docker-phpunit/issues) if you have any problems.
+
 ### 2016-07-05
 
 Fixed a string-comparison issue on logins where the default shell is Bourne shell rather than Bourne again shell.
