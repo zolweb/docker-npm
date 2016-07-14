@@ -8,7 +8,7 @@ ENV LANGUAGE C.UTF-8
 ENV LC_ALL C.UTF-8
 ENV TIMEZONE America/Denver
 
-ENV NODE_VERSION v6.2.2
+ENV NODE_VERSION v6.3.0
 ENV NODE_PREFIX /usr/local
 
 RUN set -x \
@@ -50,8 +50,8 @@ RUN set -x \
         B9AE9905FFD7803F25714661B63B535A4C206CA9 \
     && mkdir /node_src \
     && cd /node_src \
-    && curl -o node-${NODE_VERSION}.tar.gz -sSL https://nodejs.org/dist/latest/node-${NODE_VERSION}.tar.gz \
-    && curl -o SHASUMS256.txt.asc -sSL https://nodejs.org/dist/latest/SHASUMS256.txt.asc \
+    && curl -o node-${NODE_VERSION}.tar.gz -sSL https://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}.tar.gz \
+    && curl -o SHASUMS256.txt.asc -sSL https://nodejs.org/dist/${NODE_VERSION}/SHASUMS256.txt.asc \
     && gpg --verify SHASUMS256.txt.asc \
     && grep node-${NODE_VERSION}.tar.gz SHASUMS256.txt.asc | sha256sum -c - \
 
