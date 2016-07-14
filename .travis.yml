@@ -20,17 +20,17 @@ before_install:
     - cd test
 
 script:
-    - docker run --rm -t -i -v $(pwd):/src:rw mkenney/npm:ci-build /run-as-user /usr/local/bin/bower --version
-    - docker run --rm -t -i -v $(pwd):/src:rw mkenney/npm:ci-build /run-as-user /usr/local/bin/grunt --version
-    - docker run --rm -t -i -v $(pwd):/src:rw mkenney/npm:ci-build /run-as-user /usr/local/bin/gulp --version
-    - docker run --rm -t -i -v $(pwd):/src:rw mkenney/npm:ci-build /run-as-user /usr/local/bin/node --version
-    - docker run --rm -t -i -v $(pwd):/src:rw mkenney/npm:ci-build /run-as-user /usr/local/bin/npm --version
     - docker run --rm -t -i -v $(pwd):/src:rw mkenney/npm:ci-build /run-as-user /usr/local/bin/npm install
     - ls node_modules
     - docker run --rm -t -i -v $(pwd):/src:rw mkenney/npm:ci-build /run-as-user /usr/local/bin/bower install
     - ls bower_components
     - docker run --rm -t -i -v $(pwd):/src:rw mkenney/npm:ci-build /run-as-user /usr/local/bin/grunt
     - docker run --rm -t -i -v $(pwd):/src:rw mkenney/npm:ci-build /run-as-user /usr/local/bin/gulp
+    - docker run --rm -t -i -v $(pwd):/src:rw mkenney/npm:ci-build /run-as-user /usr/local/bin/bower --version
+    - docker run --rm -t -i -v $(pwd):/src:rw mkenney/npm:ci-build /run-as-user /usr/local/bin/grunt --version
+    - docker run --rm -t -i -v $(pwd):/src:rw mkenney/npm:ci-build /run-as-user /usr/local/bin/gulp --version
+    - docker run --rm -t -i -v $(pwd):/src:rw mkenney/npm:ci-build /run-as-user /usr/local/bin/node --version
+    - docker run --rm -t -i -v $(pwd):/src:rw mkenney/npm:ci-build /run-as-user /usr/local/bin/npm --version
 
 after_success:
     - cd ../ci
