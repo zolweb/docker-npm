@@ -79,6 +79,8 @@ I have re-structured automated the Docker Hub builds, they are no longer trigger
 
 There may be an issue with API call throttling on the Docker Hub side, if that seems to be happening I'll dig in further.
 
+I also fixed an issue with the path in the source URL that had been preventing successuful alpine builds for a few days.
+
 Please [let me know](https://github.com/mkenney/docker-phpunit/issues) if you have any problems.
 
 ### 2016-07-05
