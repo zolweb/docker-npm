@@ -77,6 +77,7 @@ RUN set -x \
         gulp-cli \
         grunt-cli \
         bower \
+        markdown-styles \
 
 ##############################################################################
 # users
