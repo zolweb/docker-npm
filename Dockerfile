@@ -2,12 +2,13 @@ FROM node:latest
 
 MAINTAINER Michael Kenney <mkenney@webbedlam.com>
 
-ENV PATH /root/bin:$PATH
-ENV NLS_LANG American_America.AL32UTF8
 ENV LANG C.UTF-8
 ENV LANGUAGE C.UTF-8
 ENV LC_ALL C.UTF-8
+ENV PATH /root/bin:$PATH
+ENV NLS_LANG American_America.AL32UTF8
 ENV TIMEZONE America/Denver
+ENV TERM xterm
 
 RUN set -x \
     && apt-get -qq update \
@@ -22,22 +23,12 @@ RUN set -x \
         sudo \
         wget \
 
-    # install npm
-    # don't use the package manager, see issue https://github.com/npm/npm/issues/9863
-    && curl -L https://npmjs.org/install.sh | sh \
-
-    # upgrade node
-    && npm install --silent -g n \
-    && n stable \
-
-    # upgrade npm now that node is up to date
-    && curl -L https://npmjs.org/install.sh | sh \
-
     # install npm packages
     && npm install --silent -g \
         gulp-cli \
         grunt-cli \
         bower \
+        markdown-styles \
 
 ##############################################################################
 # UTF-8 Locale, timezone
