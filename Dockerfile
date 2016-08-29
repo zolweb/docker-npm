@@ -85,7 +85,7 @@ RUN set -x \
 
     # Create a dev user to use as the directory owner
     && addgroup dev \
-    && adduser -D -s /bin/sh -G dev -G dev \
+    && adduser -D -s /bin/sh -G dev \
     && echo "dev:password" | chpasswd \
 
     # Setup wrapper scripts
