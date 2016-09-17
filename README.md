@@ -73,6 +73,12 @@ If you need additional modules and/or wrapper scripts [let me know](https://gith
 
 ## Change log
 
+### 2016-08-29
+
+I have added a markdown-to-html generator for static documentation ([`markdown-styles`](https://www.npmjs.com/package/markdown-styles)) and a script to run it ([`generate-md`](https://github.com/mkenney/docker-npm/blob/master/bin/generate-md)).
+
+I also removed the dev user from the root group, the way it was setup new files were owned by root because it was the default group the way I had it setup. Please [let me know](https://github.com/mkenney/docker-npm/issues) if that change causes any issues.
+
 ### 2016-07-13
 
 I have re-structured automated the Docker Hub builds, they are no longer triggered by GitHub pushes. Instead they are triggered by a deployment script that is executed on successful `travis-ci` builds. This way, even if builds are failing the image on DockerHub should remain the last stable image at all times.

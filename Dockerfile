@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM alpine:3.4
 
 MAINTAINER Michael Kenney <mkenney@webbedlam.com>
 
@@ -12,8 +12,10 @@ ENV NODE_VERSION v6.2.2
 ENV NODE_PREFIX /usr/local
 
 RUN set -x \
+    && echo "http://dl-4.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
+    && echo "http://dl-4.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories \
     && apk update \
-    && apk add --no-cache --repository "http://dl-cdn.alpinelinux.org/alpine/edge/testing" \
+    && apk add \
         ca-certificates \
         curl \
         g++ \
@@ -32,6 +34,19 @@ RUN set -x \
         subversion \
         sudo \
         tar \
+
+##############################################################################
+# users
+##############################################################################
+
+    # Create a dev user to use as the directory owner
+    && addgroup dev \
+    && adduser -D -s /bin/sh -G dev dev \
+    && echo "dev:password" | chpasswd \
+
+    # Setup wrapper scripts
+    && curl -o /run-as-user https://raw.githubusercontent.com/mkenney/docker-scripts/master/container/run-as-user \
+    && chmod 0755 /run-as-user \
 
 ##############################################################################
 # Install Node & NPM
@@ -78,19 +93,6 @@ RUN set -x \
         grunt-cli \
         bower \
         markdown-styles \
-
-##############################################################################
-# users
-##############################################################################
-
-    # Create a dev user to use as the directory owner
-    && addgroup dev \
-    && adduser -D -s /bin/sh -G dev \
-    && echo "dev:password" | chpasswd \
-
-    # Setup wrapper scripts
-    && curl -o /run-as-user https://raw.githubusercontent.com/mkenney/docker-scripts/master/container/run-as-user \
-    && chmod 0755 /run-as-user \
 
 ##############################################################################
 # ~ fin ~
