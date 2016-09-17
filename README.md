@@ -9,13 +9,13 @@
 
 ## Tagged Dockerfiles
 
-* [`latest` Dockerfile](https://github.com/mkenney/docker-npm/blob/master/Dockerfile), [`debian` Dockerfile](https://github.com/mkenney/docker-npm/blob/master/Dockerfile)
+* [`latest` Dockerfile](https://github.com/mkenney/docker-npm/blob/master/Dockerfile), [`alpine` Dockerfile](https://github.com/mkenney/docker-npm/blob/master/Dockerfile)
 
-  ![build status](https://travis-ci.org/mkenney/docker-npm.svg?branch=master) ![Image size](https://img.shields.io/badge/image size-303MB-blue.svg) ![Node.js](https://img.shields.io/badge/Node.js-v6.2.2-026e00.svg) ![npm](https://img.shields.io/badge/npm-v3.10.2-c12127.svg) ![Bower](https://img.shields.io/badge/Bower-v1.7.9-ffcc2f.svg) ![gulp](https://img.shields.io/badge/gulp-v1.2.1-cf4646.svg) ![grunt](https://img.shields.io/badge/Grunt-v1.2.0-e48632.svg)
+  ![build status](https://travis-ci.org/mkenney/docker-npm.svg?branch=master) ![Image size](https://img.shields.io/badge/image size-56MB-blue.svg) ![Node.js](https://img.shields.io/badge/Node.js-v6.2.2-026e00.svg) ![npm](https://img.shields.io/badge/npm-v3.10.2-c12127.svg) ![Bower](https://img.shields.io/badge/Bower-v1.7.9-ffcc2f.svg) ![gulp](https://img.shields.io/badge/gulp-v1.2.1-cf4646.svg) ![grunt](https://img.shields.io/badge/Grunt-v1.2.0-e48632.svg) ![generate-md](https://img.shields.io/badge/GenerateMd-v3.1.6-000000.svg)
 
-* [`alpine` Dockerfile](https://github.com/mkenney/docker-npm/blob/alpine/Dockerfile)
+* [`debian` Dockerfile](https://github.com/mkenney/docker-npm/blob/master/Dockerfile)
 
-  ![build status](https://travis-ci.org/mkenney/docker-npm.svg?branch=alpine) ![Image size](https://img.shields.io/badge/image size-56MB-blue.svg) ![Node.js](https://img.shields.io/badge/Node.js-v6.2.2-026e00.svg) ![npm](https://img.shields.io/badge/npm-v3.10.2-c12127.svg) ![Bower](https://img.shields.io/badge/Bower-v1.7.9-ffcc2f.svg) ![gulp](https://img.shields.io/badge/gulp-v1.2.1-cf4646.svg) ![grunt](https://img.shields.io/badge/Grunt-v1.2.0-e48632.svg)
+  ![build status](https://travis-ci.org/mkenney/docker-npm.svg?branch=debian) ![Image size](https://img.shields.io/badge/image size-328MB-blue.svg) ![Node.js](https://img.shields.io/badge/Node.js-v6.2.0-026e00.svg) ![npm](https://img.shields.io/badge/npm-v3.10.3-c12127.svg) ![Bower](https://img.shields.io/badge/Bower-v1.7.9-ffcc2f.svg) ![gulp](https://img.shields.io/badge/gulp-v1.2.2-cf4646.svg) ![grunt](https://img.shields.io/badge/Grunt-v1.2.0-e48632.svg) ![generate-md](https://img.shields.io/badge/GenerateMd-v3.1.8-000000.svg)
 
 ## About
 
@@ -28,6 +28,7 @@ This assumes that you already have [Docker](https://www.docker.com) installed. A
 The following wrapper scripts are available in the source repository:
 
 * [`bower`](https://github.com/mkenney/docker-npm/blob/master/bin/bower)
+* [`generate-md`](https://github.com/mkenney/docker-npm/blob/master/bin/generate-md)
 * [`grunt`](https://github.com/mkenney/docker-npm/blob/master/bin/grunt)
 * [`gulp`](https://github.com/mkenney/docker-npm/blob/master/bin/gulp)
 * [`node`](https://github.com/mkenney/docker-npm/blob/master/bin/node)
@@ -35,29 +36,32 @@ The following wrapper scripts are available in the source repository:
 
 Installation is just a matter of putting them somewhere in your path and making them executable. I like to put my scripts in a `bin/` folder in my home directory:
 
-#### debian:jessie
+#### alpine:3.4
 
-The Debian version is based on `node:latest` but the image is fairly large
+The Alpine version has the same version of `node` as the official image compiled from source and is very small and lightweight
 
 * `wget -nv -O ~/bin/bower https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/bower && chmod 0755 ~/bin/bower`
+* `wget -nv -O ~/bin/generate-md https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/generate-md && chmod 0755 ~/bin/generate-md`
 * `wget -nv -O ~/bin/grunt https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/grunt && chmod 0755 ~/bin/grunt`
 * `wget -nv -O ~/bin/gulp https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/gulp && chmod 0755 ~/bin/gulp`
 * `wget -nv -O ~/bin/node https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/node && chmod 0755 ~/bin/node`
 * `wget -nv -O ~/bin/npm https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/npm && chmod 0755 ~/bin/npm`
 
-#### alpine:latest
+#### debian:jessie
 
-The Alpine version has the same version of `node` as the official image compiled from source and is very small and lightweight
+The Debian version is based on `node:latest` but the image is fairly large
 
-* `wget -nv -O ~/bin/bower https://raw.githubusercontent.com/mkenney/docker-npm/alpine/bin/bower && chmod 0755 ~/bin/bower`
-* `wget -nv -O ~/bin/grunt https://raw.githubusercontent.com/mkenney/docker-npm/alpine/bin/grunt && chmod 0755 ~/bin/grunt`
-* `wget -nv -O ~/bin/gulp https://raw.githubusercontent.com/mkenney/docker-npm/alpine/bin/gulp && chmod 0755 ~/bin/gulp`
-* `wget -nv -O ~/bin/node https://raw.githubusercontent.com/mkenney/docker-npm/alpine/bin/node && chmod 0755 ~/bin/node`
-* `wget -nv -O ~/bin/npm https://raw.githubusercontent.com/mkenney/docker-npm/alpine/bin/npm && chmod 0755 ~/bin/npm`
+* `wget -nv -O ~/bin/bower https://raw.githubusercontent.com/mkenney/docker-npm/debian/bin/bower && chmod 0755 ~/bin/bower`
+* `wget -nv -O ~/bin/generate-md https://raw.githubusercontent.com/mkenney/docker-npm/debian/bin/generate-md && chmod 0755 ~/bin/generate-md`
+* `wget -nv -O ~/bin/grunt https://raw.githubusercontent.com/mkenney/docker-npm/debian/bin/grunt && chmod 0755 ~/bin/grunt`
+* `wget -nv -O ~/bin/gulp https://raw.githubusercontent.com/mkenney/docker-npm/debian/bin/gulp && chmod 0755 ~/bin/gulp`
+* `wget -nv -O ~/bin/node https://raw.githubusercontent.com/mkenney/docker-npm/debian/bin/node && chmod 0755 ~/bin/node`
+* `wget -nv -O ~/bin/npm https://raw.githubusercontent.com/mkenney/docker-npm/debian/bin/npm && chmod 0755 ~/bin/npm`
 
 #### Updating
 
 * `bower self-update`
+* `generate self-update`
 * `grunt self-update`
 * `gulp self-update`
 * `node self-update`
@@ -67,11 +71,27 @@ Each of the scripts have a `self-update` command which pulls down the latest doc
 
 ## Image
 
-These [images](https://hub.docker.com/r/mkenney/npm/tags/) contain the latest stable `node` and `npm` binaries for [`debian:jessie`](https://hub.docker.com/_/debian/) and [`alpine:latest`](https://hub.docker.com/_/alpine/) (currently v3.4). `npm` has been used to install `bower`, `gulp-cli` and `grunt-cli` globally. When using the [shell scripts](https://github.com/mkenney/docker-npm/tree/master/bin) available in the [source repository](https://github.com/mkenney/docker-npm), the current directory is mounted into `/src` in the container and a [wrapper script](https://github.com/mkenney/docker-scripts/blob/master/container/run-as-user) executes `npm` as a user who's `uid` and `gid` matches those properties on that directory. This way any output is written as the directory owner/group instead of root or a random user.
+These [images](https://hub.docker.com/r/mkenney/npm/tags/) contain the latest stable `node` and `npm` binaries for [`debian:jessie`](https://hub.docker.com/_/debian/) and [`alpine:3.4`](https://hub.docker.com/_/alpine/). `npm` has been used to install various build tools globally. When using the [shell scripts](https://github.com/mkenney/docker-npm/tree/master/bin) available in the [source repository](https://github.com/mkenney/docker-npm), the current directory is mounted into `/src` in the container and a [wrapper script](https://github.com/mkenney/docker-scripts/blob/master/container/run-as-user) executes `npm` as a user who's `uid` and `gid` matches those properties on that directory. This way any output is written as the directory owner/group instead of root or a random user.
 
 If you need additional modules and/or wrapper scripts [let me know](https://github.com/mkenney/docker-npm/issues).
 
 ## Change log
+
+### 2016-09-17
+
+Because it produces a much smaller image, I have moved the Alpine build into the `master` branch and the Debian build into it's own `debian` branch and made corresponding changes on [hub.docker.com](https://hub.docker.com/r/mkenney/npm/).
+
+I added the `--allow-root` option to the `bower` script to resolve [issue #4](https://github.com/mkenney/docker-npm/issues/4).
+
+I merged [a PR](https://github.com/mkenney/docker-npm/pull/5) to prevent ssl certificate issues in `self-update` commands.
+
+I updated the `self-update` command in the scripts to resolve [issue #8](https://github.com/mkenney/docker-npm/issues/8).
+
+### 2016-08-29
+
+I have added a markdown-to-html generator for static documentation ([`markdown-styles`](https://www.npmjs.com/package/markdown-styles)) and a script to run it ([`generate-md`](https://github.com/mkenney/docker-npm/blob/master/bin/generate-md)).
+
+I also removed the dev user from the root group, the way it was setup new files were owned by root because it was the default group. Please [let me know](https://github.com/mkenney/docker-npm/issues) if that change causes any issues.
 
 ### 2016-07-13
 
