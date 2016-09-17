@@ -5,8 +5,7 @@ language: javascript
 branches:
     only:
         - master
-        - alpine
-        - continuous-deployment
+        - debian
 
 notifications:
     slack:
