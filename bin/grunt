@@ -2,7 +2,7 @@
 
 TAG=latest
 BRANCH=master
-SCRIPT=npm
+SCRIPT=grunt
 
 if [ "self-update" == "$1" ]; then
     docker pull mkenney/npm:$TAG
