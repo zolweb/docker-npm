@@ -1,11 +1,16 @@
 #!/usr/bin/env sh
 
-TAG=alpine
-BRANCH=alpine
+TAG=master
+BRANCH=master
+SCRIPT=npm
 
 if [ "self-update" == "$1" ]; then
     docker pull mkenney/npm:$TAG
-    wget -nv -O $0 https://raw.githubusercontent.com/mkenney/docker-npm/$BRANCH/bin/npm && exit 0
+    wget -nv --no-check-certificate -O /tmp/$SCRIPT https://raw.githubusercontent.com/mkenney/docker-npm/$BRANCH/bin/$SCRIPT \
+        && cat /tmp/$SCRIPT > $0 \
+        && rm -f /tmp/$SCRIPT \
+        && exit 0
+    exit 1
 else
-    docker run --rm -t -i -v $(pwd):/src:rw -v $HOME/.ssh:/home/dev/.ssh:ro mkenney/npm:$TAG /run-as-user /usr/local/bin/npm $@
+    docker run --rm -t -i -v $(pwd):/src:rw -v $HOME/.ssh:/home/dev/.ssh:ro mkenney/npm:$TAG /run-as-user /usr/local/bin/$SCRIPT $@
 fi

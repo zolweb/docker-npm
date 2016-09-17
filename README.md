@@ -9,13 +9,13 @@
 
 ## Tagged Dockerfiles
 
-* [`latest` Dockerfile](https://github.com/mkenney/docker-npm/blob/master/Dockerfile), [`debian` Dockerfile](https://github.com/mkenney/docker-npm/blob/master/Dockerfile)
+* [`latest` Dockerfile](https://github.com/mkenney/docker-npm/blob/master/Dockerfile), [`alpine` Dockerfile](https://github.com/mkenney/docker-npm/blob/master/Dockerfile)
 
-  ![build status](https://travis-ci.org/mkenney/docker-npm.svg?branch=master) ![Image size](https://img.shields.io/badge/image size-303MB-blue.svg) ![Node.js](https://img.shields.io/badge/Node.js-v6.2.2-026e00.svg) ![npm](https://img.shields.io/badge/npm-v3.10.2-c12127.svg) ![Bower](https://img.shields.io/badge/Bower-v1.7.9-ffcc2f.svg) ![gulp](https://img.shields.io/badge/gulp-v1.2.1-cf4646.svg) ![grunt](https://img.shields.io/badge/Grunt-v1.2.0-e48632.svg)
+  ![build status](https://travis-ci.org/mkenney/docker-npm.svg?branch=master) ![Image size](https://img.shields.io/badge/image size-56MB-blue.svg) ![Node.js](https://img.shields.io/badge/Node.js-v6.2.2-026e00.svg) ![npm](https://img.shields.io/badge/npm-v3.10.2-c12127.svg) ![Bower](https://img.shields.io/badge/Bower-v1.7.9-ffcc2f.svg) ![gulp](https://img.shields.io/badge/gulp-v1.2.1-cf4646.svg) ![grunt](https://img.shields.io/badge/Grunt-v1.2.0-e48632.svg)
 
-* [`alpine` Dockerfile](https://github.com/mkenney/docker-npm/blob/alpine/Dockerfile)
+* [`debian` Dockerfile](https://github.com/mkenney/docker-npm/blob/master/Dockerfile)
 
-  ![build status](https://travis-ci.org/mkenney/docker-npm.svg?branch=alpine) ![Image size](https://img.shields.io/badge/image size-56MB-blue.svg) ![Node.js](https://img.shields.io/badge/Node.js-v6.2.2-026e00.svg) ![npm](https://img.shields.io/badge/npm-v3.10.2-c12127.svg) ![Bower](https://img.shields.io/badge/Bower-v1.7.9-ffcc2f.svg) ![gulp](https://img.shields.io/badge/gulp-v1.2.1-cf4646.svg) ![grunt](https://img.shields.io/badge/Grunt-v1.2.0-e48632.svg)
+  ![build status](https://travis-ci.org/mkenney/docker-npm.svg?branch=debian) ![Image size](https://img.shields.io/badge/image size-303MB-blue.svg) ![Node.js](https://img.shields.io/badge/Node.js-v6.2.2-026e00.svg) ![npm](https://img.shields.io/badge/npm-v3.10.2-c12127.svg) ![Bower](https://img.shields.io/badge/Bower-v1.7.9-ffcc2f.svg) ![gulp](https://img.shields.io/badge/gulp-v1.2.1-cf4646.svg) ![grunt](https://img.shields.io/badge/Grunt-v1.2.0-e48632.svg)
 
 ## About
 
@@ -72,6 +72,12 @@ These [images](https://hub.docker.com/r/mkenney/npm/tags/) contain the latest st
 If you need additional modules and/or wrapper scripts [let me know](https://github.com/mkenney/docker-npm/issues).
 
 ## Change log
+
+### 2016-09-17
+
+Because it produces a much smaller image, I have moved the Alpine build into the `master` branch and the Debian build into it's own `debian` branch and made corresponding changes on hub.docker.com.
+
+Updated the `self-update` command in the scripts to resolve [issue #8](https://github.com/mkenney/docker-npm/issues/8).
 
 ### 2016-08-29
 
