@@ -14,8 +14,8 @@
   ![build status](https://travis-ci.org/mkenney/docker-npm.svg?branch=master) ![Image size](https://img.shields.io/badge/image size-62MB-blue.svg)
   * ![bower](https://img.shields.io/badge/bower-v1.7.9-ffcc2f.svg)
   * ![generate-md](https://img.shields.io/badge/generate%20md-v3.1.6-000000.svg)
-  * ![gulp](https://img.shields.io/badge/gulp-v1.2.1-cf4646.svg)
   * ![grunt](https://img.shields.io/badge/grunt-v1.2.0-e48632.svg)
+  * ![gulp](https://img.shields.io/badge/gulp-v1.2.1-cf4646.svg)
   * ![node](https://img.shields.io/badge/node-v6.2.2-026e00.svg)
   * ![npm](https://img.shields.io/badge/npm-v3.10.2-c12127.svg)
 
@@ -24,8 +24,8 @@
   ![build status](https://travis-ci.org/mkenney/docker-npm.svg?branch=debian) ![Image size](https://img.shields.io/badge/image size-328MB-blue.svg)
   * ![bower](https://img.shields.io/badge/bower-v1.7.9-ffcc2f.svg)
   * ![generate-md](https://img.shields.io/badge/generate%20md-v3.1.8-000000.svg)
-  * ![gulp](https://img.shields.io/badge/gulp-v1.2.2-cf4646.svg)
   * ![grunt](https://img.shields.io/badge/grunt-v1.2.0-e48632.svg)
+  * ![gulp](https://img.shields.io/badge/gulp-v1.2.2-cf4646.svg)
   * ![node](https://img.shields.io/badge/node-v6.2.0-026e00.svg)
   * ![npm](https://img.shields.io/badge/npm-v3.10.3-c12127.svg)
 
