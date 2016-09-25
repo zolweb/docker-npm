@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
-TAG=debian
-BRANCH=debian
+TAG=latest
+BRANCH=master
 SCRIPT=npm
 
 if [ "self-update" == "$1" ]; then
