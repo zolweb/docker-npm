@@ -18,6 +18,8 @@
   * ![gulp](https://img.shields.io/badge/gulp-v1.2.1-cf4646.svg)
   * ![node](https://img.shields.io/badge/node-v6.2.2-026e00.svg)
   * ![npm](https://img.shields.io/badge/npm-v3.10.2-c12127.svg)
+  * ![yarn](https://img.shields.io/badge/yarn-v0.16.1-2188b6.svg)
+
 
 * [`debian` Dockerfile](https://github.com/mkenney/docker-npm/blob/master/Dockerfile)
 
@@ -28,6 +30,7 @@
   * ![gulp](https://img.shields.io/badge/gulp-v1.2.2-cf4646.svg)
   * ![node](https://img.shields.io/badge/node-v6.2.0-026e00.svg)
   * ![npm](https://img.shields.io/badge/npm-v3.10.3-c12127.svg)
+  * ![yarn](https://img.shields.io/badge/yarn-v0.16.1-2188b6.svg)
 
 ## About
 
@@ -45,6 +48,7 @@ The following wrapper scripts are available in the source repository:
 * [`gulp`](https://github.com/mkenney/docker-npm/blob/master/bin/gulp)
 * [`node`](https://github.com/mkenney/docker-npm/blob/master/bin/node)
 * [`npm`](https://github.com/mkenney/docker-npm/blob/master/bin/npm)
+* [`yarn`](https://github.com/mkenney/docker-npm/blob/master/bin/yarn)
 
 Installation is just a matter of putting them somewhere in your path and making them executable. I like to put my scripts in a `bin/` folder in my home directory:
 
@@ -58,6 +62,7 @@ In the Alpine version `node` is compiled from source and is very small and light
 * `wget -nv -O ~/bin/gulp https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/gulp && chmod 0755 ~/bin/gulp`
 * `wget -nv -O ~/bin/node https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/node && chmod 0755 ~/bin/node`
 * `wget -nv -O ~/bin/npm https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/npm && chmod 0755 ~/bin/npm`
+* `wget -nv -O ~/bin/npm https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/yarn && chmod 0755 ~/bin/yarn`
 
 #### debian:jessie
 
@@ -69,6 +74,7 @@ The Debian version is based on `node:latest` and the image is fairly large. Some
 * `wget -nv -O ~/bin/gulp https://raw.githubusercontent.com/mkenney/docker-npm/debian/bin/gulp && chmod 0755 ~/bin/gulp`
 * `wget -nv -O ~/bin/node https://raw.githubusercontent.com/mkenney/docker-npm/debian/bin/node && chmod 0755 ~/bin/node`
 * `wget -nv -O ~/bin/npm https://raw.githubusercontent.com/mkenney/docker-npm/debian/bin/npm && chmod 0755 ~/bin/npm`
+* `wget -nv -O ~/bin/npm https://raw.githubusercontent.com/mkenney/docker-npm/debian/bin/yarn && chmod 0755 ~/bin/yarn`
 
 #### Updating
 
@@ -89,29 +95,33 @@ If you need additional modules and/or wrapper scripts [let me know](https://gith
 
 ## Change log
 
+### 2016-10-20
+
+Added support for the `yarn` package manager. Please [let me know](https://github.com/mkenney/docker-phpunit/issues) if you have any problems.
+
 ### 2016-09-17
 
 Because it produces a much smaller image, I have moved the Alpine build into the `master` branch and the Debian build into it's own `debian` branch and made corresponding changes on [hub.docker.com](https://hub.docker.com/r/mkenney/npm/).
 
-I added the `--allow-root` option to the `bower` script to resolve [issue #4](https://github.com/mkenney/docker-npm/issues/4).
+Added the `--allow-root` option to the `bower` script to resolve [issue #4](https://github.com/mkenney/docker-npm/issues/4).
 
-I merged [a PR](https://github.com/mkenney/docker-npm/pull/5) to prevent ssl certificate issues in `self-update` commands.
+Merged [a PR](https://github.com/mkenney/docker-npm/pull/5) to prevent ssl certificate issues in `self-update` commands.
 
-I updated the `self-update` command in the scripts to resolve [issue #8](https://github.com/mkenney/docker-npm/issues/8).
+Updated the `self-update` command in the scripts to resolve [issue #8](https://github.com/mkenney/docker-npm/issues/8).
 
 ### 2016-08-29
 
-I have added a markdown-to-html generator for static documentation ([`markdown-styles`](https://www.npmjs.com/package/markdown-styles)) and a script to run it ([`generate-md`](https://github.com/mkenney/docker-npm/blob/master/bin/generate-md)).
+Added a markdown-to-html generator for static documentation ([`markdown-styles`](https://www.npmjs.com/package/markdown-styles)) and a script to run it ([`generate-md`](https://github.com/mkenney/docker-npm/blob/master/bin/generate-md)).
 
-I also removed the dev user from the root group, the way it was setup new files were owned by root because it was the default group. Please [let me know](https://github.com/mkenney/docker-npm/issues) if that change causes any issues.
+Removed the dev user from the root group, the way it was setup new files were owned by root because it was the default group. Please [let me know](https://github.com/mkenney/docker-npm/issues) if that change causes any issues.
 
 ### 2016-07-13
 
-I have re-structured automated the Docker Hub builds, they are no longer triggered by GitHub pushes. Instead they are triggered by a deployment script that is executed on successful `travis-ci` builds. This way, even if builds are failing the image on DockerHub should remain the last stable image at all times.
+Re-structured automated the Docker Hub builds, they are no longer triggered by GitHub pushes. Instead they are triggered by a deployment script that is executed on successful `travis-ci` builds. This way, even if builds are failing the image on DockerHub should remain the last stable image at all times.
 
 There may be an issue with API call throttling on the Docker Hub side, if that seems to be happening I'll dig in further.
 
-I also fixed an issue with the path in the source URL that had been preventing successuful alpine builds for a few days.
+Fixed an issue with the path in the source URL that had been preventing successuful alpine builds for a few days.
 
 Please [let me know](https://github.com/mkenney/docker-phpunit/issues) if you have any problems.
 
