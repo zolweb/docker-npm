@@ -38,6 +38,7 @@ script:
     - docker run --rm -t -i -v $(pwd):/src:rw mkenney/npm:ci-build /run-as-user /usr/local/bin/gulp --version
     - docker run --rm -t -i -v $(pwd):/src:rw mkenney/npm:ci-build /run-as-user /usr/local/bin/node --version
     - docker run --rm -t -i -v $(pwd):/src:rw mkenney/npm:ci-build /run-as-user /usr/local/bin/npm --version
+    - docker run --rm -t -i -v $(pwd):/src:rw mkenney/npm:ci-build /run-as-user /usr/local/bin/yarn --version
 
 after_success:
     - cd ../ci
