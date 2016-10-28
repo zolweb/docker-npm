@@ -4,7 +4,7 @@ TAG=latest
 BRANCH=master
 SCRIPT=yarn
 
-if [ "self-update" == "$1" ]; then
+if [ "self-update" = "$1" ]; then
     docker pull mkenney/npm:$TAG
     wget -nv --no-check-certificate -O /tmp/$SCRIPT https://raw.githubusercontent.com/mkenney/docker-npm/$BRANCH/bin/$SCRIPT \
         && cat /tmp/$SCRIPT > $0 \
