@@ -58,7 +58,7 @@ In the Alpine versions `node` is compiled from source to keep the image very sma
 You can easily install the scripts from the command-line, just adjust the `tag` and `command` values however you need
 
 ```sh
-# sudo set -x
+$ sudo set -x
     && tag=latest \
     && command=node \
     && install_path=$HOME/bin \
