@@ -2,13 +2,12 @@
 
 [![dockeri.co](http://dockeri.co/image/mkenney/npm)](https://hub.docker.com/r/mkenney/npm/)
 
-[![MIT License](https://img.shields.io/github/license/mkenney/docker-npm.svg)](https://raw.githubusercontent.com/mkenney/docker-npm/master/LICENSE)
-[![Github issues](https://img.shields.io/github/issues-raw/mkenney/docker-npm.svg)](https://github.com/mkenney/docker-npm/issues)
-[![build status](https://travis-ci.org/mkenney/docker-npm.svg?branch=master)](https://travis-ci.org/mkenney/docker-npm)
+[![MIT License](https://img.shields.io/github/license/mkenney/docker-npm.svg)](https://raw.githubusercontent.com/mkenney/docker-npm/master/LICENSE) [![Github issues](https://img.shields.io/github/issues-raw/mkenney/docker-npm.svg)](https://github.com/mkenney/docker-npm/issues) [![build status](https://travis-ci.org/mkenney/docker-npm.svg?branch=master)](https://travis-ci.org/mkenney/docker-npm)
 
 ## Portable `node`, package managers and build tools
 
 - [Tagged Dockerfiles](#tagged-dockerfiles)
+- [About](#about)
 - [Installation](#installation)
 - [Images](#images)
 - [Change log](#change-log)
@@ -19,7 +18,7 @@ In order to keep them small and lightweight, the `alpine` based images do not in
 
 * [`latest`, `alpine` Dockerfile](https://github.com/mkenney/docker-npm/blob/master/Dockerfile)
 
-  ![Image size](https://img.shields.io/badge/image size-69MB-blue.svg) This image is under development and may not be as stable as versioned images. This image is based on a recent version of [alpine](https://hub.docker.com/_/alpine/) and compiles a recent version of `node` from source. Package versions are not pinned, instead `https://npmjs.org/install.sh` is executed to install a current version of `npm`, which is then used to install current versions of the packages.
+  ![Image size](https://img.shields.io/badge/image size-71MB-blue.svg) This image is under development and may not be as stable as versioned images. This image is based on a recent version of [alpine](https://hub.docker.com/_/alpine/) and compiles a recent version of `node` from source. Package versions are not pinned, instead `https://npmjs.org/install.sh` is executed to install a current version of `npm`, which is then used to install current versions of the packages.
 
 * [`debian` Dockerfile](https://github.com/mkenney/docker-npm/blob/master/Dockerfile)
 
@@ -27,11 +26,11 @@ In order to keep them small and lightweight, the `alpine` based images do not in
 
 * [`7.0-alpine` Dockerfile](https://github.com/mkenney/docker-npm/blob/7.0-alpine/Dockerfile)
 
-  ![Image size](https://img.shields.io/badge/image size-69MB-blue.svg) Based on [`alpine:3.4`](https://hub.docker.com/r/library/alpine/tags/3.4/) with `node` v7.0 compiled from source.
+  ![Image size](https://img.shields.io/badge/image size-71MB-blue.svg) Based on [`alpine:3.4`](https://hub.docker.com/r/library/alpine/tags/3.4/) with `node` v7.0 compiled from source.
 
 * [`7.0-debian` Dockerfile](https://github.com/mkenney/docker-npm/blob/7.0-debian/Dockerfile)
 
-  ![Image size](https://img.shields.io/badge/image size-301MB-blue.svg) Based on[`node:7.0-wheezy`](https://hub.docker.com/r/library/node/tags/6.9-wheezy/).
+  ![Image size](https://img.shields.io/badge/image size-237MB-blue.svg) Based on[`node:7.0-wheezy`](https://hub.docker.com/r/library/node/tags/6.9-wheezy/).
 
 ### About
 
@@ -63,13 +62,14 @@ $ command=gulp \
 ##### Updating
 
 * `bower self-update`
-* `generate self-update`
+* `generate-md self-update`
 * `grunt self-update`
 * `gulp self-update`
 * `node self-update`
 * `npm self-update`
+* `yarn self-update`
 
-Each of the scripts have a `self-update` command which pulls down the latest docker image (which all the scripts share) and then updates the shell script itself. If you don't have write permissions on the shell script you'll get a permissions error, you can run the self-update command with `sudo` if needed. At the time of this writing, I expect the shell scripts, which couldn't be much simpler, probably won't change so a simple `docker pull mkenney/npm:{version}` should generally be enough.
+Each of the scripts have a `self-update` command which pulls down the latest docker image (which all the scripts share) and then updates the shell script itself. If you don't have write permissions on the shell script you'll get a permissions error, you can run the self-update command with `sudo` if necessary.
 
 ### Images
 
