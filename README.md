@@ -53,10 +53,20 @@ The following wrapper scripts are available in the source repository:
 
 Installation is just a matter of putting them somewhere in your path and making them executable. I like to put my scripts in a `bin/` folder in my home directory.
 
-##### alpine:3.4
+In the Alpine versions `node` is compiled from source to keep the image very small and lightweight. The Debian version is based on the `debian:wheezy` version of the official `node` image is fairly large. Unlike the Alpine based images, Some build tools (gcc, g++, make, etc.) are included so packages like `node-sass` can use them.
 
-In the Alpine version `node` is compiled from source and is very small and lightweight
+You can easily install the scripts from the command-line, just adjust the `tag` and `command` values however you need
 
+```sh
+# sudo set -x
+    && tag=latest \
+    && command=node \
+    && install_path=$HOME/bin \
+    && bash -c 'echo wget -nv -O $install_path/$command https://raw.githubusercontent.com/mkenney/docker-npm/${tag/latest/master}/bin/$command \
+    && chmod 0755 $install_path/$command'
+```
+
+In the following commands, replace "master" with the image tag you would like to use
 * `wget -nv -O ~/bin/bower https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/bower && chmod 0755 ~/bin/bower`
 * `wget -nv -O ~/bin/generate-md https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/generate-md && chmod 0755 ~/bin/generate-md`
 * `wget -nv -O ~/bin/grunt https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/grunt && chmod 0755 ~/bin/grunt`
@@ -67,7 +77,7 @@ In the Alpine version `node` is compiled from source and is very small and light
 
 ##### debian:jessie
 
-The Debian version is based on `node:latest` and the image is fairly large. Some build tools (gcc, g++, make, etc.) are included so packages like `node-sass` can use them
+
 
 * `wget -nv -O ~/bin/bower https://raw.githubusercontent.com/mkenney/docker-npm/debian/bin/bower && chmod 0755 ~/bin/bower`
 * `wget -nv -O ~/bin/generate-md https://raw.githubusercontent.com/mkenney/docker-npm/debian/bin/generate-md && chmod 0755 ~/bin/generate-md`
