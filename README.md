@@ -51,13 +51,13 @@ The following wrapper scripts are available in the source repository:
 * [`npm`](https://github.com/mkenney/docker-npm/blob/master/bin/npm)
 * [`yarn`](https://github.com/mkenney/docker-npm/blob/master/bin/yarn)
 
-Installation is just a matter of putting them somewhere in your path and making them executable. I like to put my scripts in a `bin/` folder in my home directory. You can easily install the scripts using this command, just adjust the `tag`, `command` and `install_path` values however you need:
+Installation is just a matter of putting them somewhere in your path and making them executable. I like to put my scripts in a `bin/` folder in my home directory. You can easily install the scripts using this command, just adjust the `tag`, `command` and `install_path` values as needed:
 
 ```sh
-$ tag=7.0-alpine \
-    command=gulp \
-    install_path=$HOME/bin \
-    bash -c 'wget -nv -O $install_path/$command https://raw.githubusercontent.com/mkenney/docker-npm/${tag/latest/master}/bin/$command && chmod 0755 $install_path/$command'
+$ tag=7.0-debian \
+  command=gulp \
+  install_path=$HOME/bin \
+  bash -c 'wget -nv -O $install_path/$command https://raw.githubusercontent.com/mkenney/docker-npm/${tag/latest/master}/bin/$command && chmod 0755 $install_path/$command'
 ```
 
 ##### Updating
