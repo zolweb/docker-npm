@@ -12,5 +12,10 @@ if [ "self-update" = "$1" ]; then
         && exit 0
     exit 1
 else
-    docker run --rm -t -i -v $(pwd):/src:rw -v $HOME/.ssh:/home/dev/.ssh:ro mkenney/npm:$TAG /run-as-user /usr/local/bin/$SCRIPT --allow-root $@
+    if [ -t 0 ]; then
+        term_type=ti
+    else
+        term_type=i
+    fi
+    docker run --rm -$term_type -v $(pwd):/src:rw -v $HOME/.ssh:/home/dev/.ssh:ro mkenney/npm:$TAG /run-as-user /usr/local/bin/$SCRIPT --allow-root $@
 fi
