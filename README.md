@@ -2,9 +2,7 @@
 
 [![dockeri.co](http://dockeri.co/image/mkenney/npm)](https://hub.docker.com/r/mkenney/npm/)
 
-[![MIT License](https://img.shields.io/github/license/mkenney/docker-npm.svg)](https://raw.githubusercontent.com/mkenney/docker-npm/master/LICENSE)
-[![Github issues](https://img.shields.io/github/issues-raw/mkenney/docker-npm.svg)](https://github.com/mkenney/docker-npm/issues)
-[![build status](https://travis-ci.org/mkenney/docker-npm.svg?branch=master)](https://travis-ci.org/mkenney/docker-npm)
+[![MIT License](https://img.shields.io/github/license/mkenney/docker-npm.svg)](https://raw.githubusercontent.com/mkenney/docker-npm/master/LICENSE) [![Github issues](https://img.shields.io/github/issues-raw/mkenney/docker-npm.svg)](https://github.com/mkenney/docker-npm/issues) [![build status](https://travis-ci.org/mkenney/docker-npm.svg?branch=master)](https://travis-ci.org/mkenney/docker-npm)
 
 ## Portable `node`, package managers and build tools
 
