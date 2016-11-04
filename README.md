@@ -146,7 +146,7 @@ Please [let me know](https://github.com/mkenney/docker-npm/issues) if you run in
 
 #### 2016-06-06
 
-I modified the `run-as-user` script so that it doesn't require specifying which user account in the container that should be modified, and instead will always modify the `dev` user. This required updating both the image and the wrapper scripts, if you use the wrapper scripts you should run:
+I modified the `run-as-user` script so that it doesn't require specifying which user account in the container should be modified, and instead will always modify the `dev` user. This required updating both the image and the wrapper scripts, if you use the wrapper scripts you should run:
 * `sudo npm self-update`
 * `sudo gulp self-update`
 * `sudo grunt self-update`
