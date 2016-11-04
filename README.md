@@ -83,54 +83,57 @@ If you need additional modules and/or wrapper scripts [let me know](https://gith
 
 * Upgraded `node` to 7.0.0 in the `alpine` image.
 * Created "stable" branches for the 7.0 images
+* Merged a [change to the wrapper scripts](https://github.com/mkenney/docker-npm/pull/25) to resolve a [reported issue](https://github.com/mkenney/docker-npm/issues/24). This change reverts the 2016-07-05 changes.
+
+Please [let me know](https://github.com/mkenney/docker-phpunit/issues) if you have any problems.
 
 #### 2016-10-20
 
-Added support for the `yarn` package manager. Please [let me know](https://github.com/mkenney/docker-phpunit/issues) if you have any problems.
+* Added support for the `yarn` package manager.
 
-#### 2016-09-17
+Please [let me know](https://github.com/mkenney/docker-phpunit/issues) if you have any problems.
 
-Because it produces a much smaller image, I have moved the Alpine build into the `master` branch and the Debian build into it's own `debian` branch and made corresponding changes on [hub.docker.com](https://hub.docker.com/r/mkenney/npm/).
+#### 2016-09-17 - Tag changes, possibly breaking
 
-Added the `--allow-root` option to the `bower` script to resolve [issue #4](https://github.com/mkenney/docker-npm/issues/4).
+* Because it produces a much smaller image, I have moved the Alpine build into the `master` branch and the Debian build into it's own `debian` branch and made corresponding changes on [hub.docker.com](https://hub.docker.com/r/mkenney/npm/).
+* Added the `--allow-root` option to the `bower` script to resolve [issue #4](https://github.com/mkenney/docker-npm/issues/4).
+* Merged [a PR](https://github.com/mkenney/docker-npm/pull/5) to prevent ssl certificate issues in `self-update` commands.
+* Updated the `self-update` command in the scripts to resolve [issue #8](https://github.com/mkenney/docker-npm/issues/8).
 
-Merged [a PR](https://github.com/mkenney/docker-npm/pull/5) to prevent ssl certificate issues in `self-update` commands.
-
-Updated the `self-update` command in the scripts to resolve [issue #8](https://github.com/mkenney/docker-npm/issues/8).
+Please [let me know](https://github.com/mkenney/docker-phpunit/issues) if you have any problems.
 
 #### 2016-08-29
 
-Added a markdown-to-html generator for static documentation ([`markdown-styles`](https://www.npmjs.com/package/markdown-styles)) and a script to run it ([`generate-md`](https://github.com/mkenney/docker-npm/blob/master/bin/generate-md)).
+* Added a markdown-to-html generator for static documentation ([`markdown-styles`](https://www.npmjs.com/package/markdown-styles)) and a script to run it ([`generate-md`](https://github.com/mkenney/docker-npm/blob/master/bin/generate-md)).
+* Removed the dev user from the root group, the way it was setup new files were owned by root because it was the default group.
 
-Removed the dev user from the root group, the way it was setup new files were owned by root because it was the default group. Please [let me know](https://github.com/mkenney/docker-npm/issues) if that change causes any issues.
+Please [let me know](https://github.com/mkenney/docker-npm/issues) if that change causes any issues.
 
 #### 2016-07-13
 
-Re-structured automated the Docker Hub builds, they are no longer triggered by GitHub pushes. Instead they are triggered by a deployment script that is executed on successful `travis-ci` builds. This way, even if builds are failing the image on DockerHub should remain the last stable image at all times.
-
-There may be an issue with API call throttling on the Docker Hub side, if that seems to be happening I'll dig in further.
-
-Fixed an issue with the path in the source URL that had been preventing successuful alpine builds for a few days.
+* Re-structured automated the Docker Hub builds, they are no longer triggered by GitHub pushes. Instead they are triggered by a deployment script that is executed on successful `travis-ci` builds. This way, even if builds are failing the image on DockerHub should remain the last stable image at all times.
+  * There may be an issue with API call throttling on the Docker Hub side, if that seems to be happening I'll dig in further.
+* Fixed an issue with the path in the source URL that had been preventing successuful alpine builds for a few days.
 
 Please [let me know](https://github.com/mkenney/docker-phpunit/issues) if you have any problems.
 
 #### 2016-07-05
 
-Fixed a string-comparison issue on logins where the default shell is Bourne shell rather than Bourne again shell.
+* Fixed a string-comparison issue on logins where the default shell is Bourne shell rather than Bourne again shell.
 
 Please [let me know](https://github.com/mkenney/docker-npm/issues) if you have any problems.
 
 #### 2016-06-29
 
-Added updating `npm` to the latest stable version in the `debian` image. I changed to compiling `node` from source in the `alpine` image because the version installed by `n` was compiled with a different prefix than the `apk` packages which made a mess. I also to use the same prefix as the `node:latest` image.
-
-I also added some simple checks to the travis-ci configuration to catch the issue I found the other day with the missing `shadow` package.
+* Added updating `npm` to the latest stable version in the `debian` image.
+* Changed to compiling `node` from source in the `alpine` image because the version installed by `n` was compiled with a different prefix than the `apk` packages which made a mess. I set the build to use the same install prefix as the `node:latest` image (`/usr/local`).
+* Added some simple checks to the travis-ci configuration to catch the 2016-06-28 issue with the missing `shadow` package.
 
 Please [let me know](https://github.com/mkenney/docker-npm/issues) if you run into any problems.
 
 #### 2016-06-28
 
-alpine:latest doesn't have the `shadow` available (at the moment) so the `/run-as-user` script wasn't functioning correctly. I added the `edge/testing` repo, installed `shadow` and also went ahead and updated `npm` to the latest available version (`3.10.2`).
+* alpine:latest doesn't have the `shadow` available (at the moment) so the `/run-as-user` script wasn't functioning correctly. Added the `edge/testing` repo, installed `shadow` and also went ahead and updated `npm` to the latest available version (`3.10.2`).
 
 Please [let me know](https://github.com/mkenney/docker-npm/issues) if you run into any problems.
 
