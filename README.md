@@ -56,7 +56,7 @@ Several wrapper scripts are available in the source repository:
 * [`npm`](https://github.com/mkenney/docker-npm/blob/master/bin/npm)
 * [`yarn`](https://github.com/mkenney/docker-npm/blob/master/bin/yarn)
 
-Installation is just a matter of putting them somewhere in your path and making them executable. An installation script is also available and can be executed with a `curl`+`sh -s` call. Simply pass in your command arguments normally.
+Installation is just a matter of putting them somewhere in your path and making them executable. An [installation script](https://github.com/mkenney/docker-npm/blob/master/bin/install.sh) is available and can be executed with a `curl`+`sh -s` command. Simply pass in your command arguments normally.
 
 ```
     Usage

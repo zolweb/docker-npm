@@ -60,25 +60,36 @@ if [ "|sh|" = "|$0|" ] || echo $0 | grep -q 'install.sh'; then
     curl -s -L https://raw.githubusercontent.com/mkenney/docker-npm/${TAG/latest/master}/bin/$COMMAND > /tmp/$COMMAND
     if grep -q '404: Not Found' /tmp/$COMMAND; then
         usage
-        echo "404: Not Found";
-        echo "Please verify that the command and tag names are correct"
+        echo "Installation failed: 404: Not Found";
+        echo "Please verify that the COMMAND and TAG names are correct"
         exit 404
     fi
     exit_code=$?
     if [ 0 -lt $exit_code ]; then
         echo
-        echo "Could not download '$COMMAND' from https://raw.githubusercontent.com/mkenney/docker-npm/${TAG/latest/master}/bin/$COMMAND"
+        echo "Installation failed: Could not download '$COMMAND' from https://raw.githubusercontent.com/mkenney/docker-npm/${TAG/latest/master}/bin/$COMMAND"
         exit $exit_code
     fi
     if ! [ -s /tmp/$COMMAND ]; then
         echo
-        echo "Invalid or empty '$COMMAND' script at https://raw.githubusercontent.com/mkenney/docker-npm/${TAG/latest/master}/bin/$COMMAND"
+        echo "Installation failed: Invalid or empty '$COMMAND' script at https://raw.githubusercontent.com/mkenney/docker-npm/${TAG/latest/master}/bin/$COMMAND"
+        exit $exit_code
+    fi
+
+    #
+    # Create the installation directory
+    #
+    mkdir -p $PREFIX
+    exit_code=$?
+    if [ 0 -lt $exit_code ]; then
+        echo
+        echo "Installation failed: Could not create directory '$PREFIX'"
         exit $exit_code
     fi
 
     #
     # Cat the tempfile into the command file instead of moving it so that
-    # symlinkys aren't overwritten
+    # symlinkys aren't destroyed
     #
     cat /tmp/$COMMAND > $PREFIX/$COMMAND && chmod +x $PREFIX/$COMMAND
     exit_code=$?
