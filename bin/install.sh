@@ -59,9 +59,21 @@ if [ "|sh|" = "|$0|" ] || echo $0 | grep -q 'install.sh'; then
 
     # Cat the tmpfile instead of moving it so that symlinkys aren't overwritten
     cat /tmp/$COMMAND > $PREFIX/$COMMAND \
-        && rm -f /tmp/$COMMAND \
-        && echo "$PREFIX/$COMMAND: Install complete" \
-        && exit 0
+        && chmod +x $PREFIX/$COMMAND
+    errors=$?
+    if [ 0 -lt $errors ]; then
+        echo "Installation failed: Could not update '$PREFIX/$COMMAND'"
+        exit 1
+    fi
+
+    rm -f /tmp/$COMMAND
+    errors=$?
+    if [ 0 -lt $errors ]; then
+        echo "Error: Could delete tempfile '/tmp/$COMMAND'"
+    fi
+
+    echo "$PREFIX/$COMMAND: Installation succeeded"
+    exit 0
 
 else
     echo "
