@@ -35,6 +35,7 @@ fi
 if [ "" == "$PATH" ]; then
     PATH=$HOME/bin
 fi
+
 echo $0 $COMMAND $TAG $PATH
 #echo $0 $COMMAND $TAG $PATH
 
