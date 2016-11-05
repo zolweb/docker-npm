@@ -1,5 +1,6 @@
 #!/bin/bash
-
+which curl
+exit
 COMMAND=$1
 TAG=$2
 PATH=$3
@@ -37,7 +38,7 @@ if [ "" == "$PATH" ]; then
 fi
 
 # Download the requested script
-SCRIPT="$(curl -L https://raw.githubusercontent.com/mkenney/docker-npm/${TAG/latest/master}/bin/$COMMAND)";
+SCRIPT=$(curl -L https://raw.githubusercontent.com/mkenney/docker-npm/${TAG/latest/master}/bin/$COMMAND);
 errors=$?
 
 if [ 0 -lt $errors ]; then
