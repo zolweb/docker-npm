@@ -56,11 +56,11 @@ Several wrapper scripts are available in the source repository:
 * [`npm`](https://github.com/mkenney/docker-npm/blob/master/bin/npm)
 * [`yarn`](https://github.com/mkenney/docker-npm/blob/master/bin/yarn)
 
-Installation is just a matter of putting them somewhere in your path and making them executable. An [installation script](https://github.com/mkenney/docker-npm/blob/master/bin/install.sh) is available and can be executed with a `curl`+`sh -s` command. Simply pass in your command arguments normally.
+Installation is just a matter of putting them somewhere in your path and making them executable. An [installation script](https://github.com/mkenney/docker-npm/blob/master/bin/install.sh) is available and can be executed with a shell `curl`+`sh -s` command. Simply pass in your command arguments normally.
 
 ```
     Usage
-        $0 COMMAND [TAG [PREFIX]]
+        install.sh COMMAND [TAG [PREFIX]]
 
     Synopsys
         Install a command wrapper script locally
@@ -68,10 +68,10 @@ Installation is just a matter of putting them somewhere in your path and making 
     Options
         COMMAND  - Required, the name of the command to install (bower, gulp, npm, etc.)
         TAG      - Optional, the image tag to use. Default 'latest'
-        PREFIX   - Optional, the location to install the command script. Default '\$HOME/bin'
+        PREFIX   - Optional, the location to install the command script. Default '$HOME/bin'
 
     Examples
-        $ curl -L https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/install.sh | sh -s gulp 7.0-debian \$HOME/bin
+        $ curl -L https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/install.sh | sh -s gulp 7.0-debian $HOME/bin
         $ sh ./install.sh gulp 7.0-debian \$HOME/bin
 ```
 

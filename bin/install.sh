@@ -1,5 +1,7 @@
-#!/usr/bin/env sh
+#!/bin/sh
 
+INSTALL_SCRIPT_URL=https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/install.sh
+INSTALL_SCRIPT=/tmp/docker-npm-install
 SELF=$0
 COMMAND=$1
 TAG=$2
@@ -26,7 +28,7 @@ function usage() {
         PREFIX   - Optional, the location to install the command script. Default '\$HOME/bin'
 
     Examples
-        $ curl -L https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/install.sh | sh -s gulp 7.0-debian \$HOME/bin
+        $ curl -L $INSTALL_SCRIPT_URL | sh -s gulp 7.0-debian \$HOME/bin
         $ sh ./install.sh gulp 7.0-debian \$HOME/bin
 "
 }
@@ -50,84 +52,100 @@ if [ "" == "$PREFIX" ]; then
 fi
 
 #
-# Requre bourne shell
+# Based on https://npmjs.org/install.sh, run as `curl | sh`
+# http://www.gnu.org/s/hello/manual/autoconf/Portable-Shell.html
+# Download the master install script and execute it locally
 #
-if [ "|sh|" = "|$0|" ] || echo $0 | grep -q 'install.sh'; then
+if [ "|sh|" = "|$0|" ]; then
 
     #
-    # Download and validate the script
+    # Download the
     #
-    curl -s -L https://raw.githubusercontent.com/mkenney/docker-npm/${TAG/latest/master}/bin/$COMMAND > /tmp/$COMMAND
-    if grep -q '404: Not Found' /tmp/$COMMAND; then
-        usage
-        echo "Installation failed: 404: Not Found";
-        echo "Please verify that the COMMAND and TAG names are correct"
-        exit 404
-    fi
+    curl  -f -L -s $INSTALL_SCRIPT_URL > $INSTALL_SCRIPT.sh
     exit_code=$?
-    if [ 0 -lt $exit_code ]; then
+    if [ $exit_code -eq 0 ]; then
+        if head $INSTALL_SCRIPT.sh | grep -q '404: Not Found'; then
+            echo "Installation failed: The installation script could not be found at $INSTALL_SCRIPT_URL"  >&2
+            rm -f $INSTALL_SCRIPT.sh
+            exit 404
+        fi
+        if ! [ -s $INSTALL_SCRIPT.sh ]; then
+            echo
+            echo "Installation failed: Invalid or empty script at $INSTALL_SCRIPT_URL" >&2
+            exit $exit_code
+        fi
+        (exit 0)
+    else
         echo
-        echo "Installation failed: Could not download '$COMMAND' from https://raw.githubusercontent.com/mkenney/docker-npm/${TAG/latest/master}/bin/$COMMAND"
-        exit $exit_code
-    fi
-    if ! [ -s /tmp/$COMMAND ]; then
-        echo
-        echo "Installation failed: Invalid or empty '$COMMAND' script at https://raw.githubusercontent.com/mkenney/docker-npm/${TAG/latest/master}/bin/$COMMAND"
+        echo "Installation failed: Could not download 'install.sh' from $INSTALL_SCRIPT_URL" >&2
         exit $exit_code
     fi
 
-    #
-    # Create the installation directory
-    #
-    mkdir -p $PREFIX
+    sh $INSTALL_SCRIPT.sh $@
     exit_code=$?
-    if [ 0 -lt $exit_code ]; then
-        echo
-        echo "Installation failed: Could not create directory '$PREFIX'"
-        exit $exit_code
-    fi
+    rm -f $INSTALL_SCRIPT.sh
+    exit $exit_code
+fi
 
-    #
-    # Cat the tempfile into the command file instead of moving it so that
-    # symlinkys aren't destroyed
-    #
-    cat /tmp/$COMMAND > $PREFIX/$COMMAND && chmod +x $PREFIX/$COMMAND
-    exit_code=$?
-    if [ 0 -lt $exit_code ]; then
-        echo
-        echo "Installation failed: Could not update '$PREFIX/$COMMAND'"
-        exit $exit_code
-    fi
+COMMAND_URL=https://raw.githubusercontent.com/mkenney/docker-npm/${TAG/latest/master}/bin/$COMMAND
+COMMAND_TEMPFILE=/tmp/docker-npm-$COMMAND-wrapper
 
-    #
-    # Cleanup the tempfile
-    #
-    rm -f /tmp/$COMMAND
-    exit_code=$?
-    if [ 0 -lt $exit_code ]; then
-        echo
-        echo "Error: Could not delete tempfile '/tmp/$COMMAND'"
-        exit $exit_code
-    fi
-
+#
+# Download and validate the script
+#
+curl  -f -L -s $COMMAND_URL > $COMMAND_TEMPFILE
+exit_code=$?
+if [ $exit_code -ne 0 ]; then
     echo
-    echo "$PREFIX/$COMMAND: Installation succeeded"
-    exit 0
+    echo "Installation failed: Could not download '$COMMAND' from $COMMAND_URL"
+    exit $exit_code
+fi
+if grep -q '404: Not Found' $COMMAND_TEMPFILE; then
+    usage
+    echo "Not found: The $COMMAND:$TAG script was not found at $COMMAND_URL";
+    echo "Please verify that the COMMAND and TAG values are correct"
+    exit 404
+fi
+if ! [ -s $COMMAND_TEMPFILE ]; then
+    echo
+    echo "Installation failed: Invalid or empty '$COMMAND' script or download failed at $COMMAND_URL"
+    exit $exit_code
+fi
 
-else
-    echo "
-    Invalid shell: $0
+#
+# Create the installation directory
+#
+mkdir -p $PREFIX
+exit_code=$?
+if [ 0 -ne $exit_code ]; then
+    echo
+    echo "Installation failed: Could not create directory '$PREFIX'"
+    exit $exit_code
+fi
 
-    In order to ensure cross-platform consistency when using via this script, it
-    should be executed via a Bourne Shell (sh) input pipe. Valid syntax includes:
+#
+# Cat the tempfile into the command file instead of moving it so that
+# symlinkys aren't destroyed
+#
+cat $COMMAND_TEMPFILE > $PREFIX/$COMMAND && chmod +x $PREFIX/$COMMAND
+exit_code=$?
+if [ 0 -ne $exit_code ]; then
+    echo
+    echo "Installation failed: Could not update '$PREFIX/$COMMAND'"
+    exit $exit_code
+fi
 
-    $ curl -L https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/install.sh | sh -s [script arguments]
-    $ cat ./install.sh | sh -s [script arguments]
-    $ chmod +x ./install.sh && ./install.sh [script arguments]
-"
-    exit 1
+#
+# Cleanup the tempfile
+#
+rm -f $COMMAND_TEMPFILE
+exit_code=$?
+if [ 0 -ne $exit_code ]; then
+    echo
+    echo "Error: Could not delete tempfile '$COMMAND_TEMPFILE'"
+    exit $exit_code
 fi
 
 echo
-echo "$PREFIX/$COMMAND: Installation failed"
-exit 1
+echo "$PREFIX/$COMMAND: Installation succeeded"
+exit 0
