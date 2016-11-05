@@ -72,8 +72,7 @@ Installation is just a matter of putting them somewhere in your path and making 
 
     Examples
         $ curl -L https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/install.sh | sh -s gulp 7.0-debian \$HOME/bin
-        $ cat ./install.sh | sh -s gulp 7.0-debian \$HOME/bin
-        $ chmod +x ./install.sh && ./install.sh gulp 7.0-debian \$HOME/bin
+        $ sh ./install.sh gulp 7.0-debian \$HOME/bin
 ```
 
 ##### Updating
