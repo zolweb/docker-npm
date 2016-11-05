@@ -18,8 +18,10 @@ if [ "" == "$COMMAND" ] || [ "install.sh" == "$COMMAND" ]; then
         TAG      - Optional, the image tag to use. Default 'latest'
         PREFIX   - Optional, the location to install the command script. Default '\$HOME/bin'
 
-    Example
+    Examples
         $ curl -L https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/install.sh | sh -s gulp 7.0-debian \$HOME/bin
+        $ cat ./install.sh | sh -s gulp 7.0-debian \$HOME/bin
+        $ chmod +x ./install.sh && ./install.sh gulp 7.0-debian \$HOME/bin
 "
     exit 1
 fi
@@ -73,5 +75,6 @@ $ cat ./install.sh | sh -s [script arguments]
 $ chmod +x ./install.sh && ./install.sh [script arguments]
 "
 fi
+
 echo "$PREFIX/$COMMAND: Installation failed"
 exit 1

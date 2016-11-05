@@ -60,18 +60,20 @@ Installation is just a matter of putting them somewhere in your path and making 
 
 ```
     Usage
-        install.sh COMMAND [TAG [PREFIX]]
+        $0 COMMAND [TAG [PREFIX]]
 
     Synopsys
         Install a command wrapper script locally
 
-    Arguments
+    Options
         COMMAND  - Required, the name of the command to install (bower, gulp, npm, etc.)
         TAG      - Optional, the image tag to use. Default 'latest'
-        PREFIX   - Optional, the location to install the command script. Default '$HOME/bin'
+        PREFIX   - Optional, the location to install the command script. Default '\$HOME/bin'
 
-    Example
-        $ curl -L https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/install.sh | sh -s gulp 7.0-debian $HOME/bin
+    Examples
+        $ curl -L https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/install.sh | sh -s gulp 7.0-debian \$HOME/bin
+        $ cat ./install.sh | sh -s gulp 7.0-debian \$HOME/bin
+        $ chmod +x ./install.sh && ./install.sh gulp 7.0-debian \$HOME/bin
 ```
 
 ##### Updating
