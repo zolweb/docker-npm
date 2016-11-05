@@ -133,7 +133,7 @@ Please [let me know](https://github.com/mkenney/docker-npm/issues) if you run in
 
 #### 2016-06-28
 
-* alpine:latest doesn't have the `shadow` available (at the moment) so the `/run-as-user` script wasn't functioning correctly. Added the `edge/testing` repo, installed `shadow` and also went ahead and updated `npm` to the latest available version (`3.10.2`).
+* `alpine:latest` doesn't have the `shadow` available (at the moment) so the `/run-as-user` script wasn't functioning correctly. Added the `edge/testing` repo, installed `shadow` and also went ahead and updated `npm` to the latest available version (`3.10.2`).
 
 Please [let me know](https://github.com/mkenney/docker-npm/issues) if you run into any problems.
 
