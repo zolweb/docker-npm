@@ -1,16 +1,14 @@
-#!/bin/bash
-which curl
-exit
+#!/usr/bin/env sh
 
 COMMAND=$1
 TAG=$2
-PATH=$3
+PREFIX=$3
 
-# Usage || [ "install.sh" == "$COMMAND" ]
-if [ "" == "$COMMAND" ]; then
+# Usage
+if [ "" == "$COMMAND" ] || [ "install.sh" == "$COMMAND" ]; then
     echo "
     Usage
-        $0 COMMAND [TAG [PATH]]
+        $0 COMMAND [TAG [PREFIX]]
 
     Synopsys
         Install a command wrapper script locally
@@ -18,45 +16,62 @@ if [ "" == "$COMMAND" ]; then
     Options
         COMMAND  - Required, the name of the command to install (bower, gulp, npm, etc.)
         TAG      - Optional, the image tag to use. Default 'latest'
-        PATH     - Optional, the location to install the command script. Default '\$HOME/bin'
+        PREFIX   - Optional, the location to install the command script. Default '\$HOME/bin'
 
     Example
-        $ curl -L https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/install.sh | bash -s gulp 7.0-debian \$HOME/bin
+        $ curl -L https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/install.sh | sh -s gulp 7.0-debian \$HOME/bin
 "
     exit 1
 fi
 
-
-
-
-#asdf
-
+# Defaults
 if [ "" == "$TAG" ]; then
     TAG=latest
 fi
-if [ "" == "$PATH" ]; then
-    PATH=$HOME/bin
+if [ "" == "$PREFIX" ]; then
+    PREFIX=$HOME/bin
 fi
 
-# Download the requested script
-SCRIPT=$(/usr/bin/curl -L https://raw.githubusercontent.com/mkenney/docker-npm/${TAG/latest/master}/bin/$COMMAND);
-errors=$?
+if [ "|sh|" = "|$0|" ] || echo $0 | grep -q 'install.sh'; then
 
-if [ 0 -lt $errors ]; then
-    echo "Could not download '$COMMAND' from https://raw.githubusercontent.com/mkenney/docker-npm/${TAG/latest/master}/bin/$COMMAND"
-    exit 1
-fi
-if [[ $SCRIPT == "*404: Not Found*" ]]; then
-    echo $SCRIPT;
-    echo "Please verify that the command and tag names are correct"
-    exit 404
-fi
-if [ "" == $SCRIPT ]; then
-    echo "Invalid $COMMAND script at https://raw.githubusercontent.com/mkenney/docker-npm/${TAG/latest/master}/bin/$COMMAND"
-    exit 1
-fi
+    # Download and validate the script
+    curl -L https://raw.githubusercontent.com/mkenney/docker-npm/${TAG/latest/master}/bin/$COMMAND > /tmp/$COMMAND
+    echo
+    echo
 
-# Install the requested script
-echo $SCRIPT > $PATH/$COMMAND
+    if grep -q '404: Not Found' /tmp/$COMMAND; then
+        echo "404: Not Found";
+        echo "Please verify that the command and tag names are correct"
+        exit 404
+    fi
+    errors=$?
+    if [ 0 -lt $errors ]; then
+        echo "Could not download '$COMMAND' from https://raw.githubusercontent.com/mkenney/docker-npm/${TAG/latest/master}/bin/$COMMAND"
+        exit 1
+    fi
+    if ! [ -s /tmp/$COMMAND ]; then
+        cat /tmp/$COMMAND
+        echo "Invalid '$COMMAND' script at https://raw.githubusercontent.com/mkenney/docker-npm/${TAG/latest/master}/bin/$COMMAND"
+        exit 1
+    fi
 
-echo "Install complete"
+    # Cat the tmpfile instead of moving it so that symlinkys aren't overwritten
+    cat /tmp/$COMMAND > $PREFIX/$COMMAND \
+        && rm -f /tmp/$COMMAND \
+        && echo "$PREFIX/$COMMAND: Install complete" \
+        && exit 0
+
+else
+    echo "
+Invalid shell: $0
+
+In order to ensure cross-platform consistency when using via this script, it
+should be executed via a Bourne Shell (sh) input pipe. Valid syntax includes:
+
+$ curl -L https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/install.sh | sh -s [script arguments]
+$ cat ./install.sh | sh -s [script arguments]
+$ chmod +x ./install.sh && ./install.sh [script arguments]
+"
+fi
+echo "$PREFIX/$COMMAND: Installation failed"
+exit 1
