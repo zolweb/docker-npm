@@ -4,8 +4,8 @@ COMMAND=$1
 TAG=$2
 PATH=$3
 
-# Usage
-if [ "" == "$COMMAND" ] || [ "install.sh" == "$COMMAND" ]; then
+# Usage || [ "install.sh" == "$COMMAND" ]
+if [ "" == "$COMMAND" ]; then
     echo "
     Usage
         $0 COMMAND [TAG [PATH]]
@@ -28,7 +28,7 @@ fi
 echo $0 $COMMAND $TAG $PATH
 
 
-
+#asdf
 
 if [ "" == "$TAG" ]; then
     TAG=latest
@@ -36,12 +36,12 @@ fi
 if [ "" == "$PATH" ]; then
     PATH=$HOME/bin
 fi
-echo $0 $COMMAND $TAG $PATH
+#echo $0 $COMMAND $TAG $PATH
 
 # Install wrapper script
 #mkdir -p $PATH
-echo "curl -L https://raw.githubusercontent.com/mkenney/docker-npm/${TAG/latest/master}/bin/install.sh | bash $COMMAND $TAG $PATH"
-#curl -L https://raw.githubusercontent.com/mkenney/docker-npm/${TAG/latest/master}/bin/install.sh | bash
+#echo "curl -L https://raw.githubusercontent.com/mkenney/docker-npm/${TAG/latest/master}/bin/install.sh | bash $COMMAND $TAG $PATH"
+#curl -L https://raw.githubusercontent.com/mkenney/docker-npm/${TAG/latest/master}/bin/install.sh | bash  $COMMAND $TAG $PATH
 #\
 #    && cat /tmp/$COMMAND > $PATH/$COMMAND \
 #    && rm -f /tmp/$COMMAND \
