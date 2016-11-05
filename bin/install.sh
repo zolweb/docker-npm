@@ -35,11 +35,10 @@ if [ "" == "$PREFIX" ]; then
 fi
 
 if [ "|sh|" = "|$0|" ] || echo $0 | grep -q 'install.sh'; then
+    echo
 
     # Download and validate the script
-    curl -L https://raw.githubusercontent.com/mkenney/docker-npm/${TAG/latest/master}/bin/$COMMAND > /tmp/$COMMAND
-    echo
-    echo
+    curl -s -L https://raw.githubusercontent.com/mkenney/docker-npm/${TAG/latest/master}/bin/$COMMAND > /tmp/$COMMAND
 
     if grep -q '404: Not Found' /tmp/$COMMAND; then
         echo "404: Not Found";
@@ -60,16 +59,19 @@ if [ "|sh|" = "|$0|" ] || echo $0 | grep -q 'install.sh'; then
     # Cat the tmpfile instead of moving it so that symlinkys aren't overwritten
     cat /tmp/$COMMAND > $PREFIX/$COMMAND \
         && chmod +x $PREFIX/$COMMAND
+
     errors=$?
     if [ 0 -lt $errors ]; then
         echo "Installation failed: Could not update '$PREFIX/$COMMAND'"
         exit 1
     fi
 
+    # Cleanup
     rm -f /tmp/$COMMAND
     errors=$?
     if [ 0 -lt $errors ]; then
         echo "Error: Could delete tempfile '/tmp/$COMMAND'"
+        exit 1
     fi
 
     echo "$PREFIX/$COMMAND: Installation succeeded"
@@ -77,14 +79,14 @@ if [ "|sh|" = "|$0|" ] || echo $0 | grep -q 'install.sh'; then
 
 else
     echo "
-Invalid shell: $0
+    Invalid shell: $0
 
-In order to ensure cross-platform consistency when using via this script, it
-should be executed via a Bourne Shell (sh) input pipe. Valid syntax includes:
+    In order to ensure cross-platform consistency when using via this script, it
+    should be executed via a Bourne Shell (sh) input pipe. Valid syntax includes:
 
-$ curl -L https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/install.sh | sh -s [script arguments]
-$ cat ./install.sh | sh -s [script arguments]
-$ chmod +x ./install.sh && ./install.sh [script arguments]
+    $ curl -L https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/install.sh | sh -s [script arguments]
+    $ cat ./install.sh | sh -s [script arguments]
+    $ chmod +x ./install.sh && ./install.sh [script arguments]
 "
 fi
 
