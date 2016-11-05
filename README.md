@@ -8,8 +8,8 @@
 
 - [Tagged Dockerfiles](#tagged-dockerfiles)
 - [About](#about)
-- [Installation](#installation)
 - [Images](#images)
+- [Installation](#installation)
 - [Change log](#change-log)
 
 ### Tagged Dockerfiles
@@ -36,11 +36,17 @@ In order to keep them small and lightweight, the `alpine` based images do not in
 
 Essentially, this is just a set of [shell scripts](https://github.com/mkenney/docker-npm/tree/master/bin) that manage a [Node.js](https://nodejs.org/) docker image. The docker image includes a script ([`run-as-user`](https://github.com/mkenney/docker-scripts/tree/master/container)) that allows commands to run as either the current user or the owner/group of the current directory, which the shell scripts take advantage of to make sure files are written with appropriate permissions rather than root.
 
+#### Images
+
+The [images](https://hub.docker.com/r/mkenney/npm/tags/) contain the latest stable `node` and `npm` binaries for [`debian:jessie`](https://hub.docker.com/_/debian/) and [`alpine:3.4`](https://hub.docker.com/_/alpine/). `npm` has been used to install various build tools globally. When using the [shell scripts](https://github.com/mkenney/docker-npm/tree/master/bin) available in the [source repository](https://github.com/mkenney/docker-npm), the current directory is mounted into `/src` in the container and a [wrapper script](https://github.com/mkenney/docker-scripts/blob/master/container/run-as-user) executes `npm` as a user who's `uid` and `gid` matches those properties on that directory. This way any output is written as the directory owner/group instead of root or a random user.
+
+If you need additional modules and/or wrapper scripts [let me know](https://github.com/mkenney/docker-npm/issues).
+
 #### Installation
 
 This assumes that you already have [Docker](https://www.docker.com) installed. A running `docker` daemon is required. You probably want to be able to [run docker commands without sudo](https://docs.docker.com/v1.8/installation/ubuntulinux/#create-a-docker-group), but even if you excute the scripts with sudo files will be written with the appropriate `uid` and `gid`.
 
-The following wrapper scripts are available in the source repository:
+Several wrapper scripts are available in the source repository:
 
 * [`bower`](https://github.com/mkenney/docker-npm/blob/master/bin/bower)
 * [`generate-md`](https://github.com/mkenney/docker-npm/blob/master/bin/generate-md)
@@ -61,21 +67,9 @@ $ command=gulp \
 
 ##### Updating
 
-* `bower self-update`
-* `generate-md self-update`
-* `grunt self-update`
-* `gulp self-update`
-* `node self-update`
-* `npm self-update`
-* `yarn self-update`
+* `[command] self-update`
 
-Each of the scripts have a `self-update` command which pulls down the latest docker image (which all the scripts share) and then updates the shell script itself. If you don't have write permissions on the shell script you'll get a permissions error, you can run the self-update command with `sudo` if necessary.
-
-### Images
-
-These [images](https://hub.docker.com/r/mkenney/npm/tags/) contain the latest stable `node` and `npm` binaries for [`debian:jessie`](https://hub.docker.com/_/debian/) and [`alpine:3.4`](https://hub.docker.com/_/alpine/). `npm` has been used to install various build tools globally. When using the [shell scripts](https://github.com/mkenney/docker-npm/tree/master/bin) available in the [source repository](https://github.com/mkenney/docker-npm), the current directory is mounted into `/src` in the container and a [wrapper script](https://github.com/mkenney/docker-scripts/blob/master/container/run-as-user) executes `npm` as a user who's `uid` and `gid` matches those properties on that directory. This way any output is written as the directory owner/group instead of root or a random user.
-
-If you need additional modules and/or wrapper scripts [let me know](https://github.com/mkenney/docker-npm/issues).
+  Each of the scripts have a `self-update` command which pulls down the latest docker image (which all the scripts share) and then updates the shell script itself. If you don't have write permissions on the shell script you'll get a permissions error, you can run the self-update command with `sudo` if necessary.
 
 ### Change log
 
