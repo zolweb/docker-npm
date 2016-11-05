@@ -36,17 +36,25 @@ if [ "" == "$PATH" ]; then
     PATH=$HOME/bin
 fi
 
-echo $0 $COMMAND $TAG $PATH
-#echo $0 $COMMAND $TAG $PATH
+# Download the requested script
+SCRIPT="$(curl -L https://raw.githubusercontent.com/mkenney/docker-npm/${TAG/latest/master}/bin/$COMMAND)";
+errors=$?
 
-# Install wrapper script
-#mkdir -p $PATH
-#echo "curl -L https://raw.githubusercontent.com/mkenney/docker-npm/${TAG/latest/master}/bin/install.sh | bash $COMMAND $TAG $PATH"
-#curl -L https://raw.githubusercontent.com/mkenney/docker-npm/${TAG/latest/master}/bin/install.sh | bash  $COMMAND $TAG $PATH
-#\
-#    && cat /tmp/$COMMAND > $PATH/$COMMAND \
-#    && rm -f /tmp/$COMMAND \
-#    && exit 0
+if [ 0 -lt $errors ]; then
+    echo "Could not download '$COMMAND' from https://raw.githubusercontent.com/mkenney/docker-npm/${TAG/latest/master}/bin/$COMMAND"
+    exit 1
+fi
+if [[ $SCRIPT == "*404: Not Found*" ]]; then
+    echo $SCRIPT;
+    echo "Please verify that the command and tag names are correct"
+    exit 404
+fi
+if [ "" == $SCRIPT ]; then
+    echo "Invalid $COMMAND script at https://raw.githubusercontent.com/mkenney/docker-npm/${TAG/latest/master}/bin/$COMMAND"
+    exit 1
+fi
 
-echo "Install failed"
-exit 1
+# Install the requested script
+echo $SCRIPT > $PATH/$COMMAND
+
+echo "Install complete"
