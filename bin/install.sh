@@ -1,23 +1,34 @@
 #!/bin/bash
 
+COMMAND=$1
+TAG=$2
+PATH=$3
+
+# Usage
 if [ "" == "$COMMAND" ] || [ "install.sh" == "$COMMAND" ]; then
     echo "
     Usage
-        [VARS] $0
+        $0 COMMAND [TAG [PATH]]
 
     Synopsys
-        COMMAND=command to install [TAG=image tag] [PATH=installation path] $0
+        Install a command wrapper script locally
 
-    Vars
+    Options
         COMMAND  - Required, the name of the command to install (bower, gulp, npm, etc.)
         TAG      - Optional, the image tag to use. Default 'latest'
         PATH     - Optional, the location to install the command script. Default '\$HOME/bin'
 
     Example
-        $ COMMAND=gulp TAG=7.0-debian PATH=\$HOME/bin bash -c 'curl -L https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/install.sh | /bin/bash'
+        $ curl -L https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/install.sh | /bin/bash gulp 7.0-debian \$HOME/bin
 "
-    exit 1
+#    exit 1
 fi
+
+
+echo $0 $COMMAND $TAG $PATH
+
+
+
 
 if [ "" == "$TAG" ]; then
     TAG=latest
@@ -25,13 +36,16 @@ fi
 if [ "" == "$PATH" ]; then
     PATH=$HOME/bin
 fi
+echo $0 $COMMAND $TAG $PATH
 
 # Install wrapper script
-mkdir -p $PATH
-curl -L https://raw.githubusercontent.com/mkenney/docker-npm/${TAG/latest/master}/bin/$COMMAND > /tmp/$COMMAND \
-    && cat /tmp/$COMMAND > $PATH/$COMMAND \
-    && rm -f /tmp/$COMMAND \
-    && exit 0
+#mkdir -p $PATH
+echo "curl -L https://raw.githubusercontent.com/mkenney/docker-npm/${TAG/latest/master}/bin/install.sh | bash $COMMAND $TAG $PATH"
+#curl -L https://raw.githubusercontent.com/mkenney/docker-npm/${TAG/latest/master}/bin/install.sh | bash
+#\
+#    && cat /tmp/$COMMAND > $PATH/$COMMAND \
+#    && rm -f /tmp/$COMMAND \
+#    && exit 0
 
 echo "Install failed"
 exit 1
