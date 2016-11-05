@@ -34,7 +34,7 @@ In order to keep them small and lightweight, the `alpine` based images do not in
 
 ### About
 
-Essentially, this is just a set of [shell scripts](https://github.com/mkenney/docker-npm/tree/master/bin) that manages a [Node.js](https://nodejs.org/) docker image. The docker image includes a script that allows commands to run as either the current user or the owner/group of the current directory, which the shell scripts take advantage of to make sure files are written with appropriate permissions rather than root.
+Essentially, this is just a set of [shell scripts](https://github.com/mkenney/docker-npm/tree/master/bin) that manage a [Node.js](https://nodejs.org/) docker image. The docker image includes a script ([`run-as-user`](https://github.com/mkenney/docker-scripts/tree/master/container)) that allows commands to run as either the current user or the owner/group of the current directory, which the shell scripts take advantage of to make sure files are written with appropriate permissions rather than root.
 
 #### Installation
 
@@ -78,6 +78,12 @@ These [images](https://hub.docker.com/r/mkenney/npm/tags/) contain the latest st
 If you need additional modules and/or wrapper scripts [let me know](https://github.com/mkenney/docker-npm/issues).
 
 ### Change log
+
+#### 2016-11-03
+
+* Added tty detection to the shell scripts to alter the way the container is executed with piped input.
+
+Please [let me know](https://github.com/mkenney/docker-phpunit/issues) if you have any problems.
 
 #### 2016-11-02
 
@@ -149,20 +155,21 @@ Please [let me know](https://github.com/mkenney/docker-npm/issues) if you run in
 
 #### 2016-06-06
 
-I modified the `run-as-user` script so that it doesn't require specifying which user account in the container should be modified, and instead will always modify the `dev` user. This required updating both the image and the wrapper scripts, if you use the wrapper scripts you should run:
-* `sudo npm self-update`
-* `sudo gulp self-update`
-* `sudo grunt self-update`
+* Modified the `run-as-user` script so that it doesn't require specifying which user account in the container should be modified
+  * Instead, always modify the `dev` user. This required updating both the image and the wrapper scripts, if you use the wrapper scripts you should run:
+    * `sudo npm self-update`
+    * `sudo gulp self-update`
+    * `sudo grunt self-update`
 
 #### 2016-06-03
 
-I removed the `as-user` script and put it in a [separate repo](https://github.com/mkenney/docker-scripts/blob/master/container/run-as-user) as it's used in several images. [Let me know](https://github.com/mkenney/docker-npm/issues) if you have any trouble, this is the first image I've switched over.
+Removed the `as-user` script (and renamed it `run-as-user`) and put it in a [separate repo](https://github.com/mkenney/docker-scripts/tree/master/container) as it's used in several images. [Let me know](https://github.com/mkenney/docker-npm/issues) if you have any trouble, this is the first image I've switched over.
 
 #### 2016-05-25
 
 ##### Breaking changes
 
-I have added a wrapper script to the container that executes `npm`, `gulp` and `grunt` commands as a user who's `uid` and `gid` matches those properties on the current directory. This way any files are installed as the directory owner/group instead of root or a random user.
+Added a wrapper script to the container that executes `npm`, `gulp` and `grunt` commands as a user who's `uid` and `gid` matches those properties on the current directory. This way any files are installed as the directory owner/group instead of root or a random user.
 
 If you've been using the [previous version](https://github.com/mkenney/docker-npm/tree/deprecated/bin) of the included shell scripts from the project's `/bin` directory you will probably need to update the permissions of files created using them or the new scripts are likely to have permissions errors because previously the files would have been created by the `root` user. This command should take care of it for you but _make sure you understand what it will do **before** you run it_. I can't help you if you hose your system.
 
