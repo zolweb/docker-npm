@@ -19,13 +19,12 @@ if [ "" == "$COMMAND" ]; then
         PATH     - Optional, the location to install the command script. Default '\$HOME/bin'
 
     Example
-        $ curl -L https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/install.sh | /bin/bash gulp 7.0-debian \$HOME/bin
+        $ curl -L https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/install.sh | bash -s gulp 7.0-debian \$HOME/bin
 "
-#    exit 1
+    exit 1
 fi
 
 
-echo $0 $COMMAND $TAG $PATH
 
 
 #asdf
@@ -36,6 +35,7 @@ fi
 if [ "" == "$PATH" ]; then
     PATH=$HOME/bin
 fi
+echo $0 $COMMAND $TAG $PATH
 #echo $0 $COMMAND $TAG $PATH
 
 # Install wrapper script
