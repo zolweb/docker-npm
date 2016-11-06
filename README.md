@@ -120,8 +120,7 @@ Please [let me know](https://github.com/mkenney/docker-phpunit/issues) if you ha
 #### 2016-10-20
 
 * Added support for the `yarn` package manager
-  * [issue](https://github.com/mkenney/docker-npm/issues/19)
-  * [pr](https://github.com/mkenney/docker-npm/pull/20)
+  * [issue](https://github.com/mkenney/docker-npm/issues/19), [pr](https://github.com/mkenney/docker-npm/pull/20)
 
 Please [let me know](https://github.com/mkenney/docker-phpunit/issues) if you have any problems.
 
