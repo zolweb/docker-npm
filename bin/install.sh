@@ -60,7 +60,7 @@ if [ "|sh|" = "|$0|" ]; then
     #
     # Download the
     #
-    curl  -f -L -s $INSTALL_SCRIPT_URL > $INSTALL_SCRIPT.sh
+    curl -f -L -s $INSTALL_SCRIPT_URL > $INSTALL_SCRIPT.sh
     exit_code=$?
     if [ $exit_code -eq 0 ]; then
         if head $INSTALL_SCRIPT.sh | grep -q '404: Not Found'; then
@@ -92,7 +92,7 @@ COMMAND_TEMPFILE=/tmp/docker-npm-$COMMAND-wrapper
 #
 # Download and validate the script
 #
-curl  -f -L -s $COMMAND_URL > $COMMAND_TEMPFILE
+curl -f -L -s $COMMAND_URL > $COMMAND_TEMPFILE
 exit_code=$?
 if [ $exit_code -ne 0 ]; then
     echo
