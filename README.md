@@ -56,13 +56,23 @@ Several wrapper scripts are available in the source repository:
 * [`npm`](https://github.com/mkenney/docker-npm/blob/master/bin/npm)
 * [`yarn`](https://github.com/mkenney/docker-npm/blob/master/bin/yarn)
 
-Installation is just a matter of putting them somewhere in your path and making them executable. I like to put my scripts in a `bin/` folder in my home directory. You can easily install the scripts using this command, just adjust the `command`, `install_path` and `tag` values as needed:
+Installation is just a matter of putting them somewhere in your path and making them executable. An [installation script](https://github.com/mkenney/docker-npm/blob/master/bin/install.sh) is available and can be executed with a shell `curl`+`sh -s` command. Simply pass in your command arguments normally.
 
-```sh
-$ command=gulp \
-  install_path=$HOME/bin \
-  tag=7.0-debian \
-  bash -c 'wget -nv -O $install_path/$command https://raw.githubusercontent.com/mkenney/docker-npm/${tag/latest/master}/bin/$command && chmod 0755 $install_path/$command'
+```
+    Usage
+        install.sh COMMAND [TAG [PREFIX]]
+
+    Synopsys
+        Install a mkenney/npm container execution script locally
+
+    Options
+        COMMAND  - Required, the name of the command to install (bower, gulp, npm, etc.)
+        TAG      - Optional, the image tag to use. Default 'latest'
+        PREFIX   - Optional, the location to install the command script. Default '$HOME/bin'
+
+    Examples
+        $ curl -L https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/install.sh | sh -s gulp 7.0-debian $HOME/bin
+        $ sh ./install.sh gulp 7.0-debian \$HOME/bin
 ```
 
 ##### Updating
