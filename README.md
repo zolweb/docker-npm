@@ -71,8 +71,8 @@ Installation is just a matter of putting them somewhere in your path and making 
         PREFIX   - Optional, the location to install the command script. Default '$HOME/bin'
 
     Examples
-        $ curl -L https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/install.sh | sh -s gulp 7.0-debian $HOME/bin
-        $ sh ./install.sh gulp 7.0-debian \$HOME/bin
+        $ curl -L https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/install.sh | bash -s gulp 7.0-debian $HOME/bin
+        $ bash ./install.sh gulp 7.0-debian \$HOME/bin
 ```
 
 ##### Updating
