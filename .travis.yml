@@ -47,6 +47,8 @@ script:
     - curl -L https://raw.githubusercontent.com/mkenney/docker-npm/$BRANCH/bin/install.sh | sh -s node $TRAVIS_BRANCH .
     - curl -L https://raw.githubusercontent.com/mkenney/docker-npm/$BRANCH/bin/install.sh | sh -s npm $TRAVIS_BRANCH .
     - curl -L https://raw.githubusercontent.com/mkenney/docker-npm/$BRANCH/bin/install.sh | sh -s yarn $TRAVIS_BRANCH .
+    - rm -rf bower_components
+    - rm -rf node_modules
     - ./bower install
     - ls bower_components
     - ./npm install
