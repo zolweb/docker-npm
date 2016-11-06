@@ -91,13 +91,13 @@ Installation is just a matter of putting them somewhere in your path and making 
 
     ```sh
 function usage {
-    ...
+        ...
 }
 ```
 
       ```sh
 usage() {
-    ...
+        ...
 }
 ```
 
