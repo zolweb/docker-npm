@@ -85,9 +85,9 @@ Installation is just a matter of putting them somewhere in your path and making 
 
 #### 2016-11-06
 
-* Added an install script to install the command wrapper scripts locally
+* Added an install script to easily install the command wrapper scripts locally
 * Added `travis-ci` tests to test and validate both the installation script and the individual wrapper scripts
-  * The install script is using `bash` instead of `sh` because the version of `sh` installed on `travis-ci` would constantly have a syntax error on the `usage` function definition, regardless if which way it was defined. Both of these failed:
+  * The install script is using `bash` instead of `sh` because the version of `sh` installed on `travis-ci` would constantly have a syntax error on the `usage` function definition, regardless of how it was defined. Both of these failed:
 
     ```sh
 function usage {
@@ -101,7 +101,7 @@ usage() {
 }
 ```
 
-      At some point I'll get that cleaned up and switch it back to `sh`.
+      At some point I'll get that figured out and switch it back to `sh`.
 
 Please [let me know](https://github.com/mkenney/docker-phpunit/issues) if you have any problems.
 
