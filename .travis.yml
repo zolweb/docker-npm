@@ -6,6 +6,8 @@ branches:
     only:
         - master
         - debian
+        - 7.0-alpine
+        - 7.0-debian
 
 notifications:
     slack:
@@ -15,10 +17,13 @@ services:
     - docker
 
 before_install:
-    - docker build -t mkenney/npm:ci-build .
-    - cd test
 
 script:
+    # Test the build itself
+    - docker build -t mkenney/npm:ci-build .
+
+    # Test the built image
+    - cd test
     - docker run --rm -t -i -v $(pwd):/src:rw mkenney/npm:ci-build /run-as-user /usr/local/bin/bower install
     - ls bower_components
     - docker run --rm -t -i -v $(pwd):/src:rw mkenney/npm:ci-build /run-as-user /usr/local/bin/npm install
@@ -32,13 +37,6 @@ script:
     - docker run --rm -t -i -v $(pwd):/src:rw mkenney/npm:ci-build /run-as-user /usr/local/bin/gulp
     - docker run --rm -t -i -v $(pwd):/src:rw mkenney/npm:ci-build /run-as-user /usr/local/bin/generate-md --input ./md --output ./html
     - ls html/index.html
-    - docker run --rm -t -i -v $(pwd):/src:rw mkenney/npm:ci-build /run-as-user /usr/local/bin/bower --version
-    - docker run --rm -t -i -v $(pwd):/src:rw mkenney/npm:ci-build /run-as-user /usr/local/bin/generate-md --version
-    - docker run --rm -t -i -v $(pwd):/src:rw mkenney/npm:ci-build /run-as-user /usr/local/bin/grunt --version
-    - docker run --rm -t -i -v $(pwd):/src:rw mkenney/npm:ci-build /run-as-user /usr/local/bin/gulp --version
-    - docker run --rm -t -i -v $(pwd):/src:rw mkenney/npm:ci-build /run-as-user /usr/local/bin/node --version
-    - docker run --rm -t -i -v $(pwd):/src:rw mkenney/npm:ci-build /run-as-user /usr/local/bin/npm --version
-    - docker run --rm -t -i -v $(pwd):/src:rw mkenney/npm:ci-build /run-as-user /usr/local/bin/yarn --version
 
 after_success:
     - cd ../ci
