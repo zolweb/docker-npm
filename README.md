@@ -72,7 +72,7 @@ Installation is just a matter of putting them somewhere in your path and making 
 
     Examples
         $ curl -L https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/install.sh | bash -s gulp 7.0-debian $HOME/bin
-        $ bash ./install.sh gulp 7.0-debian \$HOME/bin
+        $ bash ./install.sh gulp 7.0-debian $HOME/bin
 ```
 
 ##### Updating
@@ -82,6 +82,26 @@ Installation is just a matter of putting them somewhere in your path and making 
   Each of the scripts have a `self-update` command which pulls down the latest docker image (which all the scripts share) and then updates the shell script itself. If you don't have write permissions on the shell script you'll get a permissions error, you can run the self-update command with `sudo` if necessary.
 
 ### Change log
+
+#### 2016-11-06
+
+* Added an install script to install the command wrapper scripts locally
+* Added `travis-ci` tests to test and validate both the installation script and the individual wrapper scripts
+  * The install script is using `bash` instead of `sh` because the version of `sh` installed on `travis-ci` would constantly have a syntax error on the `usage` function definition, regardless if which way it was defined. Both of these failed:
+
+    ```sh
+function usage {
+    ...
+}
+```
+
+    ```sh
+usage() {
+    ...
+}
+```
+
+    At some point I'll get that cleaned up and switch it bach to `sh`.
 
 #### 2016-11-03
 
