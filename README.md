@@ -101,7 +101,7 @@ usage() {
 }
 ```
 
-    At some point I'll get that cleaned up and switch it bach to `sh`.
+    At some point I'll get that cleaned up and switch it back to `sh`.
 
 #### 2016-11-03
 
@@ -119,7 +119,9 @@ Please [let me know](https://github.com/mkenney/docker-phpunit/issues) if you ha
 
 #### 2016-10-20
 
-* Added support for the `yarn` package manager.
+* Added support for the `yarn` package manager
+  * [issue](https://github.com/mkenney/docker-npm/issues/19)
+  * [pr](https://github.com/mkenney/docker-npm/pull/20)
 
 Please [let me know](https://github.com/mkenney/docker-phpunit/issues) if you have any problems.
 
