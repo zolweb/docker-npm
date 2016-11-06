@@ -91,13 +91,13 @@ Installation is just a matter of putting them somewhere in your path and making 
 
     ```sh
 function usage {
-        ...
+    ...
 }
 ```
 
       ```sh
 usage() {
-        ...
+    ...
 }
 ```
 
@@ -123,7 +123,9 @@ Please [let me know](https://github.com/mkenney/docker-phpunit/issues) if you ha
 
 Please [let me know](https://github.com/mkenney/docker-phpunit/issues) if you have any problems.
 
-#### 2016-09-17 - Tag changes, possibly breaking
+#### 2016-09-17
+
+##### Tag changes, possibly breaking
 
 * Because it produces a much smaller image, I have moved the Alpine build into the `master` branch and the Debian build into it's own `debian` branch and made corresponding changes on [hub.docker.com](https://hub.docker.com/r/mkenney/npm/).
 * Added the `--allow-root` option to the `bower` script to resolve [issue #4](https://github.com/mkenney/docker-npm/issues/4).
