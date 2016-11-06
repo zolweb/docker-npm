@@ -103,6 +103,8 @@ usage() {
 
     At some point I'll get that cleaned up and switch it back to `sh`.
 
+Please [let me know](https://github.com/mkenney/docker-phpunit/issues) if you have any problems.
+
 #### 2016-11-03
 
 * Added tty detection to the shell scripts to alter the way the container is executed with piped input.
