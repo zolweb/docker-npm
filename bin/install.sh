@@ -20,7 +20,7 @@ function usage() {
         $SELF COMMAND [TAG [PREFIX]]
 
     Synopsys
-        Install a command wrapper script locally
+        Install a mkenney/npm container execution script locally
 
     Options
         COMMAND  - Required, the name of the command to install (bower, gulp, npm, etc.)
@@ -29,8 +29,7 @@ function usage() {
 
     Examples
         $ curl -L $INSTALL_SCRIPT_URL | sh -s gulp 7.0-debian \$HOME/bin
-        $ sh ./install.sh gulp 7.0-debian \$HOME/bin
-"
+        $ sh ./install.sh gulp 7.0-debian \$HOME/bin"
 }
 
 #
@@ -102,6 +101,7 @@ if [ $exit_code -ne 0 ]; then
 fi
 if grep -q '404: Not Found' $COMMAND_TEMPFILE; then
     usage
+    echo
     echo "Not found: The $COMMAND:$TAG script was not found at $COMMAND_URL";
     echo "Please verify that the COMMAND and TAG values are correct"
     exit 404

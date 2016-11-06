@@ -63,7 +63,7 @@ Installation is just a matter of putting them somewhere in your path and making 
         install.sh COMMAND [TAG [PREFIX]]
 
     Synopsys
-        Install a command wrapper script locally
+        Install a mkenney/npm container execution script locally
 
     Options
         COMMAND  - Required, the name of the command to install (bower, gulp, npm, etc.)
