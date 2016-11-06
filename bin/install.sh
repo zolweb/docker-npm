@@ -8,10 +8,46 @@ TAG=$2
 PREFIX=$3
 
 #
+# Loosely based on https://npmjs.org/install.sh, run as `curl | sh`
+# http://www.gnu.org/s/hello/manual/autoconf/Portable-Shell.html
+# Download the master install script and execute it locally
+#
+if [ "sh" == "$SELF" ] || [ "bash" == "$SELF" ]; then
+
+    #
+    # Download and execute the install script
+    #
+    curl -f -L -s $INSTALL_SCRIPT_URL > $INSTALL_SCRIPT.sh
+    exit_code=$?
+    if [ $exit_code -eq 0 ]; then
+        if head $INSTALL_SCRIPT.sh | grep -q '404: Not Found'; then
+            echo "Install failed: The installation script could not be found at $INSTALL_SCRIPT_URL"  >&2
+            rm -f $INSTALL_SCRIPT.sh
+            exit 404
+        fi
+        if ! [ -s $INSTALL_SCRIPT.sh ]; then
+            echo
+            echo "Install failed: Invalid or empty script at $INSTALL_SCRIPT_URL" >&2
+            exit 1
+        fi
+        (exit 0)
+    else
+        echo
+        echo "Install failed: Could not download 'install.sh' from $INSTALL_SCRIPT_URL" >&2
+        exit $exit_code
+    fi
+
+    bash $INSTALL_SCRIPT.sh $@
+    exit_code=$?
+    rm -f $INSTALL_SCRIPT.sh
+    exit $exit_code
+fi
+
+#
 # Usage
 #
 function usage() {
-    if [ "bash" == "$SELF" ]; then
+    if [ "sh" == "$SELF" ] || [ "bash" == "$SELF" ]; then
         SELF="bash -s"
     fi
 
@@ -50,42 +86,6 @@ if [ "" == "$PREFIX" ]; then
     PREFIX=$HOME/bin
 fi
 
-#
-# Based on https://npmjs.org/install.sh, run as `curl | bash`
-# http://www.gnu.org/s/hello/manual/autoconf/Portable-Shell.html
-# Download the master install script and execute it locally
-#
-if [ "|sh|" = "|$0|" ] || [ "|bash|" = "|$0|" ]; then
-
-    #
-    # Download the
-    #
-    curl -f -L -s $INSTALL_SCRIPT_URL > $INSTALL_SCRIPT.sh
-    exit_code=$?
-    if [ $exit_code -eq 0 ]; then
-        if head $INSTALL_SCRIPT.sh | grep -q '404: Not Found'; then
-            echo "Installation failed: The installation script could not be found at $INSTALL_SCRIPT_URL"  >&2
-            rm -f $INSTALL_SCRIPT.sh
-            exit 404
-        fi
-        if ! [ -s $INSTALL_SCRIPT.sh ]; then
-            echo
-            echo "Installation failed: Invalid or empty script at $INSTALL_SCRIPT_URL" >&2
-            exit $exit_code
-        fi
-        (exit 0)
-    else
-        echo
-        echo "Installation failed: Could not download 'install.sh' from $INSTALL_SCRIPT_URL" >&2
-        exit $exit_code
-    fi
-
-    bash $INSTALL_SCRIPT.sh $@
-    exit_code=$?
-    rm -f $INSTALL_SCRIPT.sh
-    exit $exit_code
-fi
-
 COMMAND_URL=https://raw.githubusercontent.com/mkenney/docker-npm/${TAG/latest/master}/bin/$COMMAND
 COMMAND_TEMPFILE=/tmp/docker-npm-$COMMAND-wrapper
 
@@ -96,7 +96,7 @@ curl -f -L -s $COMMAND_URL > $COMMAND_TEMPFILE
 exit_code=$?
 if [ $exit_code -ne 0 ]; then
     echo
-    echo "Installation failed: Could not download '$COMMAND' from $COMMAND_URL"
+    echo "Install failed: Could not download '$COMMAND' from $COMMAND_URL"
     exit $exit_code
 fi
 if grep -q '404: Not Found' $COMMAND_TEMPFILE; then
@@ -108,7 +108,7 @@ if grep -q '404: Not Found' $COMMAND_TEMPFILE; then
 fi
 if ! [ -s $COMMAND_TEMPFILE ]; then
     echo
-    echo "Installation failed: Invalid or empty '$COMMAND' script or download failed at $COMMAND_URL"
+    echo "Install failed: Invalid or empty '$COMMAND' script or download failed at $COMMAND_URL"
     exit $exit_code
 fi
 
@@ -119,7 +119,7 @@ mkdir -p $PREFIX
 exit_code=$?
 if [ 0 -ne $exit_code ]; then
     echo
-    echo "Installation failed: Could not create directory '$PREFIX'"
+    echo "Install failed: Could not create directory '$PREFIX'"
     exit $exit_code
 fi
 
@@ -131,7 +131,7 @@ cat $COMMAND_TEMPFILE > $PREFIX/$COMMAND && chmod +x $PREFIX/$COMMAND
 exit_code=$?
 if [ 0 -ne $exit_code ]; then
     echo
-    echo "Installation failed: Could not update '$PREFIX/$COMMAND'"
+    echo "Install failed: Could not update '$PREFIX/$COMMAND'"
     exit $exit_code
 fi
 
