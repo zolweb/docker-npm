@@ -3,14 +3,11 @@
 TAG=latest
 BRANCH=master
 SCRIPT=bower
+INSTALL_SCRIPT=https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/install.sh
 
 if [ "self-update" = "$1" ]; then
     docker pull mkenney/npm:$TAG
-    wget -nv --no-check-certificate -O /tmp/$SCRIPT https://raw.githubusercontent.com/mkenney/docker-npm/$BRANCH/bin/$SCRIPT \
-        && cat /tmp/$SCRIPT > $0 \
-        && rm -f /tmp/$SCRIPT \
-        && exit 0
-    exit 1
+    curl -L $INSTALL_SCRIPT | sh -s $SCRIPT $TAG $(dirname $0)
 else
     if [ -t 0 ]; then
         term_type=ti
