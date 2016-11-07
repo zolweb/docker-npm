@@ -19,6 +19,7 @@ result=$?
 echo $output
 if [ 0 -ne $result ]; then
     echo "${PREFIX}command failed: 'ls node_modules'"
+    exit $result
 fi
 
 exit $result

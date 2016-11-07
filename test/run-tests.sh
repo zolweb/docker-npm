@@ -20,7 +20,7 @@ if [ "" == "$PARENT_BRANCH" ]; then PARENT_BRANCH=master; fi
 
 get_test_suite() {
     case $1 in
-        Dockerfile|all)
+        Dockerfile|test/build.sh|all)
             echo "build;install;bower;md;grunt;gulp;node;npm;yarn"
             ;;
         test/run-tests.sh)
