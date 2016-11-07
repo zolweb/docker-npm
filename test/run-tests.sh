@@ -120,9 +120,6 @@ execute_tests() {
     done
 }
 
-
-sh node.sh > /dev/null 2>&1
-
 #
 #
 #
