@@ -134,11 +134,13 @@ run_tests=
 if [ "" != "$1" ]; then
     add_test $1
 else
+    test_found=0
     for file in $(git diff --name-only $PARENT_BRANCH $CURRENT_BRANCH); do
         add_test $file
+        test_found=1
     done
 fi
-if [ "$CURRENT_BRANCH" == "$PARENT_BRANCH" ]; then
+if [ "$CURRENT_BRANCH" == "$PARENT_BRANCH" ] || [ "0" == "$test_found" ]; then
     add_test all
 fi
 
