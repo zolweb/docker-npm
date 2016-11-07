@@ -20,7 +20,7 @@ if [ "" == "$PARENT_BRANCH" ]; then PARENT_BRANCH=master; fi
 
 get_test_suite() {
     case $1 in
-        Dockerfile|test/build.sh|all)
+        Dockerfile|test/build.sh|release)
             echo "build;install;bower;md;grunt;gulp;node;npm;yarn"
             ;;
         test/run-tests.sh)
@@ -141,7 +141,7 @@ else
     done
 fi
 if [ "$CURRENT_BRANCH" == "$PARENT_BRANCH" ] || [ "0" == "$test_found" ]; then
-    add_test all
+    add_test release
 fi
 
 execute_tests $verbose
