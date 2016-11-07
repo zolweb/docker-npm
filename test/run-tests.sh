@@ -1,17 +1,143 @@
 #!/bin/bash
 
-# from https://gist.github.com/intel352/9761288#gistcomment-1774649
+
+
+# Test execution method
+source $(dirname `pwd`)/test/assert.sh
+
+# List of tests to execute
+declare -a TESTS=()
+
+#
+# Get the current and parent branch names
+# based on https://gist.github.com/intel352/9761288#gistcomment-1774649
+#
 vbc_col=$(( $(git show-branch | grep '^[^\[]*\*' | head -1 | cut -d* -f1 | wc -c) - 1 ))
 swimming_lane_start_row=$(( $(git show-branch | grep -n "^[\-]*$" | cut -d: -f1) + 1 ))
-
-CURRENT_BRANCH=`git rev-parse --abbrev-ref HEAD`
-PARENT_BRANCH=`git show-branch | tail -n +$swimming_lane_start_row | grep -v "^[^\[]*\[$CURRENT_BRANCH" | grep "^.\{$vbc_col\}[^ ]" | head -n1 | sed 's/.*\[\(.*\)\].*/\1/' | sed 's/[\^~].*//'`
+export CURRENT_BRANCH=`git rev-parse --abbrev-ref HEAD`
+export PARENT_BRANCH=`git show-branch | tail -n +$swimming_lane_start_row | grep -v "^[^\[]*\[$CURRENT_BRANCH" | grep "^.\{$vbc_col\}[^ ]" | head -n1 | sed 's/.*\[\(.*\)\].*/\1/' | sed 's/[\^~].*//'`
 if [ "" == "$PARENT_BRANCH" ]; then PARENT_BRANCH=master; fi
 
+get_test_suite() {
+    case $1 in
+        Dockerfile|all)
+            echo "build;install;bower;md;grunt;gulp;node;npm;yarn"
+            ;;
+        test/run-tests.sh)
+            echo "install;bower;md;grunt;gulp;node;npm;yarn"
+            ;;
+        bin/install.sh)
+            echo "install"
+            ;;
+        bin/bower|test/resources/bower.json)
+            echo "bower"
+            ;;
+        bin/generate-md|test/resources/md/index.md)
+            echo "md"
+            ;;
+        bin/grunt|test/resources/Gruntfile.js)
+            echo "grunt"
+            ;;
+        bin/gulp|test/resources/gulpfile.js)
+            echo "gulp"
+            ;;
+        bin/node)
+            echo "node"
+            ;;
+        bin/npm)
+            echo "npm"
+            ;;
+        bin/yarn)
+            echo "yarn"
+            ;;
+        test/resources/package.json)
+            echo "npm;yarn"
+            ;;
+    esac
+}
+
+verbose=
+if [ "-v" == "$1" ]; then
+    verbose=-v
+    shift
+fi
+
+#
+# Add a test to the current list of tests to be executed
+# Don't add duplicates. Keep list sorted by test name.
+#
+add_test() {
+    echo "  Adding '$1' test suite..."
+    tests=$(get_test_suite $1)
+
+    set -f
+    array=(${tests//;/ })
+    for new_test in "${!array[@]}"; do
+        echo "    - '${array[new_test]}'"
+        is_current_test=0
+        for current_test in "${!TESTS[@]}"; do
+            if [ "${TESTS[current_test]}" == "${array[new_test]}" ]; then
+                is_current_test=1
+            fi
+        done
+        if [ 0 -eq $is_current_test ]; then
+            TESTS+=("${array[new_test]}")
+        fi
+    done
+    echo
+
+    # Sort
+    TESTS=(
+        $(for a in "${TESTS[@]}"
+        do
+            echo "$a"
+        done | sort)
+    )
+}
+
+#
+# Execute all the requested tests
+# Don't add duplicates. Keep list sorted by test name.
+#
+exit_code=0
+execute_tests() {
+    echo "
+  Executing tests..."
+    for test in "${!TESTS[@]}"; do
+        printf "    - ${TESTS[test]}... "
+        test_result=$(assert "${TESTS[test]}.sh" 0)
+        result=$?
+        if [ 0 -ne $result ]; then
+            echo "failure"
+            exit_code=1
+        else
+            echo "success"
+        fi
+        if [ "-v" == "$1" ] || [ 0 -ne $result ]; then
+            echo "$test_result"
+            echo
+        fi
+    done
+}
+
+#
+#
+#
 echo "
-parent branch: $PARENT_BRANCH
-current branch: $CURRENT_BRANCH
+Analyzing changes: $PARENT_BRANCH <=> $CURRENT_BRANCH
 "
+run_tests=
+if [ "" != "$1" ]; then
+    add_test $1
+else
+    for file in $(git diff --name-only $PARENT_BRANCH $CURRENT_BRANCH); do
+        add_test $file
+    done
+fi
+if [ "$CURRENT_BRANCH" == "$PARENT_BRANCH" ]; then
+    add_test all
+fi
 
-echo `git diff --name-only $PARENT_BRANCH $(git merge-base $CURRENT_BRANCH $PARENT_BRANCH)`
+execute_tests $verbose
 
+exit $exit_code
