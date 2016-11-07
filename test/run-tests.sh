@@ -20,34 +20,34 @@ if [ "" == "$PARENT_BRANCH" ]; then PARENT_BRANCH=master; fi
 
 get_test_suite() {
     case $1 in
-        Dockerfile|all)
+        Dockerfile|test/build.sh|all)
             echo "build;install;bower;md;grunt;gulp;node;npm;yarn"
             ;;
         test/run-tests.sh)
             echo "install;bower;md;grunt;gulp;node;npm;yarn"
             ;;
-        bin/install.sh)
-            echo "install"
-            ;;
-        bin/bower|test/resources/bower.json)
+        bin/bower|test/bower.sh|test/resources/bower.json)
             echo "bower"
             ;;
-        bin/generate-md|test/resources/md/index.md)
+        bin/generate-md|test/md.sh|test/resources/md/index.md)
             echo "md"
             ;;
-        bin/grunt|test/resources/Gruntfile.js)
+        bin/grunt|test/grunt.sh|test/resources/Gruntfile.js)
             echo "grunt"
             ;;
-        bin/gulp|test/resources/gulpfile.js)
+        bin/gulp|test/gulp.sh|test/resources/gulpfile.js)
             echo "gulp"
             ;;
-        bin/node|default)
+        bin/install.sh|test/install.sh)
+            echo "install"
+            ;;
+        bin/node|test/node.sh|default)
             echo "node"
             ;;
-        bin/npm)
+        bin/npm|test/npm.sh)
             echo "npm"
             ;;
-        bin/yarn)
+        bin/yarn|test/yarn.sh)
             echo "yarn"
             ;;
         test/resources/package.json)
@@ -105,7 +105,11 @@ execute_tests() {
   Executing tests..."
     for test in "${!TESTS[@]}"; do
         printf "    - ${TESTS[test]}... "
-        test_result=$(assert "${TESTS[test]}.sh" 0)
+        if [ "build" == "${TESTS[test]}" ]; then
+            bash "${TESTS[test]}.sh"
+        else
+            test_result=$(assert "${TESTS[test]}.sh" 0)
+        fi
         result=$?
         if [ 0 -ne $result ]; then
             echo "failure (#$result)"
