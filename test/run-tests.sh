@@ -41,7 +41,7 @@ get_test_suite() {
         bin/gulp|test/resources/gulpfile.js)
             echo "gulp"
             ;;
-        bin/node)
+        bin/node|default)
             echo "node"
             ;;
         bin/npm)
@@ -119,6 +119,9 @@ execute_tests() {
         fi
     done
 }
+
+
+sh node.sh > /dev/null 2>&1
 
 #
 #
