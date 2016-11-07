@@ -105,7 +105,11 @@ execute_tests() {
   Executing tests..."
     for test in "${!TESTS[@]}"; do
         printf "    - ${TESTS[test]}... "
-        test_result=$(assert "${TESTS[test]}.sh" 0)
+        if [ "build" == "${TESTS[test]}" ]; then
+            bash "${TESTS[test]}.sh"
+        else
+            test_result=$(assert "${TESTS[test]}.sh" 0)
+        fi
         result=$?
         if [ 0 -ne $result ]; then
             echo "failure (#$result)"
