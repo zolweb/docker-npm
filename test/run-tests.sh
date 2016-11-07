@@ -108,7 +108,7 @@ execute_tests() {
         test_result=$(assert "${TESTS[test]}.sh" 0)
         result=$?
         if [ 0 -ne $result ]; then
-            echo "failure"
+            echo "failure (#$result)"
             exit_code=1
         else
             echo "success"
