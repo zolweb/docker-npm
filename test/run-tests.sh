@@ -26,28 +26,28 @@ get_test_suite() {
         test/run-tests.sh)
             echo "install;bower;md;grunt;gulp;node;npm;yarn"
             ;;
-        bin/install.sh)
-            echo "install"
-            ;;
-        bin/bower|test/resources/bower.json)
+        bin/bower|test/bower.sh|test/resources/bower.json)
             echo "bower"
             ;;
-        bin/generate-md|test/resources/md/index.md)
+        bin/generate-md|test/md.sh|test/resources/md/index.md)
             echo "md"
             ;;
-        bin/grunt|test/resources/Gruntfile.js)
+        bin/grunt|test/grunt.sh|test/resources/Gruntfile.js)
             echo "grunt"
             ;;
-        bin/gulp|test/resources/gulpfile.js)
+        bin/gulp|test/gulp.sh|test/resources/gulpfile.js)
             echo "gulp"
             ;;
-        bin/node|default)
+        bin/install.sh|test/install.sh)
+            echo "install"
+            ;;
+        bin/node|test/node.sh|default)
             echo "node"
             ;;
-        bin/npm)
+        bin/npm|test/npm.sh)
             echo "npm"
             ;;
-        bin/yarn)
+        bin/yarn|test/yarn.sh)
             echo "yarn"
             ;;
         test/resources/package.json)
