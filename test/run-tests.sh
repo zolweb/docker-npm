@@ -140,7 +140,7 @@ else
         test_found=1
     done
 fi
-if [ "$CURRENT_BRANCH" == "$PARENT_BRANCH" ] || [ "1" == "$test_found" ]; then
+if [ "$CURRENT_BRANCH" == "$PARENT_BRANCH" ] || [ "0" == "$test_found" ]; then
     add_test all
 fi
 
