@@ -140,4 +140,13 @@ fi
 
 execute_tests $verbose
 
+echo "
+  bower --version:       $($(dirname `pwd`)/bin/bower --version)
+  generate-md --version: $($(dirname `pwd`)/bin/generate-md --version)
+  grunt --version:       $($(dirname `pwd`)/bin/grunt --version)
+  gulp --version:        $($(dirname `pwd`)/bin/gulp --version)
+  node --version:        $($(dirname `pwd`)/bin/node --version)
+  npm --version:         $($(dirname `pwd`)/bin/npm --version)
+  yarn --version:        $($(dirname `pwd`)/bin/yarn --version)
+"
 exit $exit_code
