@@ -103,13 +103,13 @@ usage() {
 
       At some point I'll get that figured out and switch it back to `sh`.
 
-Please [let me know](https://github.com/mkenney/docker-phpunit/issues) if you have any problems.
+Please [let me know](https://github.com/mkenney/docker-npm/issues) if you have any problems.
 
 #### 2016-11-03
 
 * Added tty detection to the shell scripts to alter the way the container is executed with piped input.
 
-Please [let me know](https://github.com/mkenney/docker-phpunit/issues) if you have any problems.
+Please [let me know](https://github.com/mkenney/docker-npm/issues) if you have any problems.
 
 #### 2016-11-02
 
@@ -117,13 +117,13 @@ Please [let me know](https://github.com/mkenney/docker-phpunit/issues) if you ha
 * Created "stable" branches for the 7.0 images
 * Merged a [change to the wrapper scripts](https://github.com/mkenney/docker-npm/pull/25) to resolve a [reported issue](https://github.com/mkenney/docker-npm/issues/24). This change reverts the 2016-07-05 changes.
 
-Please [let me know](https://github.com/mkenney/docker-phpunit/issues) if you have any problems.
+Please [let me know](https://github.com/mkenney/docker-npm/issues) if you have any problems.
 
 #### 2016-10-20
 
 * Added support for the `yarn` package manager. [issue](https://github.com/mkenney/docker-npm/issues/19), [pr](https://github.com/mkenney/docker-npm/pull/20)
 
-Please [let me know](https://github.com/mkenney/docker-phpunit/issues) if you have any problems.
+Please [let me know](https://github.com/mkenney/docker-npm/issues) if you have any problems.
 
 #### 2016-09-17
 
@@ -134,7 +134,7 @@ Please [let me know](https://github.com/mkenney/docker-phpunit/issues) if you ha
 * Merged [a PR](https://github.com/mkenney/docker-npm/pull/5) to prevent ssl certificate issues in `self-update` commands.
 * Updated the `self-update` command in the scripts to resolve [issue #8](https://github.com/mkenney/docker-npm/issues/8).
 
-Please [let me know](https://github.com/mkenney/docker-phpunit/issues) if you have any problems.
+Please [let me know](https://github.com/mkenney/docker-npm/issues) if you have any problems.
 
 #### 2016-08-29
 
@@ -149,7 +149,7 @@ Please [let me know](https://github.com/mkenney/docker-npm/issues) if that chang
   * There may be an issue with API call throttling on the Docker Hub side, if that seems to be happening I'll dig in further.
 * Fixed an issue with the path in the source URL that had been preventing successuful alpine builds for a few days.
 
-Please [let me know](https://github.com/mkenney/docker-phpunit/issues) if you have any problems.
+Please [let me know](https://github.com/mkenney/docker-npm/issues) if you have any problems.
 
 #### 2016-07-05
 
