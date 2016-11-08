@@ -101,11 +101,8 @@ RUN set -x \
 
     && apk del \
         curl \
-        gcc \
-        g++ \
         gnupg \
         linux-headers \
-        make \
         paxctl \
         python \
         tar \
