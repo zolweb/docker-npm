@@ -18,19 +18,19 @@ In order to keep them small and lightweight, the `alpine` based images do not in
 
 * [`latest`, `alpine` Dockerfile](https://github.com/mkenney/docker-npm/blob/master/Dockerfile)
 
-  ![Image size](https://img.shields.io/badge/image size-71MB-blue.svg) This image is under development and may not be as stable as versioned images. This image is based on a recent version of [alpine](https://hub.docker.com/_/alpine/) and compiles a recent version of `node` from source. Package versions are not pinned, instead `https://npmjs.org/install.sh` is executed to install a current version of `npm`, which is then used to install current versions of the packages.
+  ![Image size](https://img.shields.io/badge/image size-117MB-blue.svg) This image is under development and may not be as stable as versioned images. This image is based on a recent version of [alpine](https://hub.docker.com/_/alpine/) and compiles a recent version of `node` from source. Package versions are not pinned, instead `https://npmjs.org/install.sh` is executed to install a current version of `npm`, which is then used to install current versions of the packages.
 
 * [`debian` Dockerfile](https://github.com/mkenney/docker-npm/blob/master/Dockerfile)
 
-  ![Image size](https://img.shields.io/badge/image size-301MB-blue.svg) This image is under development and may not be as stable as versioned images. This image is based on [`node:latest`](https://hub.docker.com/r/library/node/tags/latest/). Package versions are not pinned, instead the included `npm` executable is used to install current versions of the packages.
+  ![Image size](https://img.shields.io/badge/image size-306MB-blue.svg) This image is under development and may not be as stable as versioned images. This image is based on [`node:latest`](https://hub.docker.com/r/library/node/tags/latest/). Package versions are not pinned, instead the included `npm` executable is used to install current versions of the packages.
 
 * [`7.0-alpine` Dockerfile](https://github.com/mkenney/docker-npm/blob/7.0-alpine/Dockerfile)
 
-  ![Image size](https://img.shields.io/badge/image size-71MB-blue.svg) Based on [`alpine:3.4`](https://hub.docker.com/r/library/alpine/tags/3.4/) with `node` v7.0 compiled from source.
+  ![Image size](https://img.shields.io/badge/image size-117MB-blue.svg) Based on [`alpine:3.4`](https://hub.docker.com/r/library/alpine/tags/3.4/) with `node` v7.0 compiled from source.
 
 * [`7.0-debian` Dockerfile](https://github.com/mkenney/docker-npm/blob/7.0-debian/Dockerfile)
 
-  ![Image size](https://img.shields.io/badge/image size-237MB-blue.svg) Based on[`node:7.0-wheezy`](https://hub.docker.com/r/library/node/tags/7.0-wheezy/).
+  ![Image size](https://img.shields.io/badge/image size-240MB-blue.svg) Based on[`node:7.0-wheezy`](https://hub.docker.com/r/library/node/tags/7.0-wheezy/).
 
 ### About
 
@@ -72,7 +72,7 @@ Installation is just a matter of putting them somewhere in your path and making 
 
     Examples
         $ curl -L https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/install.sh | bash -s gulp 7.0-debian $HOME/bin
-        $ bash ./install.sh gulp 7.0-debian \$HOME/bin
+        $ bash ./install.sh gulp 7.0-debian $HOME/bin
 ```
 
 ##### Updating
@@ -83,11 +83,41 @@ Installation is just a matter of putting them somewhere in your path and making 
 
 ### Change log
 
+#### 2016-11-08
+
+* Modified the `alpine`-based dockerfiles to retain the build tools
+
+  This change increases the image size by ~45MB but its still around 1/2 the size of the `debian`-based images.
+
+Please [let me know](https://github.com/mkenney/docker-npm/issues) if you have any problems.
+
+#### 2016-11-06
+
+* Added an install script to easily install the command wrapper scripts locally
+* Added `travis-ci` tests to test and validate both the installation script and the individual wrapper scripts
+  * The install script is using `bash` instead of `sh` because the version of `sh` installed on `travis-ci` would constantly have a syntax error on the `usage` function definition, regardless of how it was defined. Both of these failed:
+
+    ```sh
+function usage {
+    ...
+}
+```
+
+      ```sh
+usage() {
+    ...
+}
+```
+
+      At some point I'll get that figured out and switch it back to `sh`.
+
+Please [let me know](https://github.com/mkenney/docker-npm/issues) if you have any problems.
+
 #### 2016-11-03
 
 * Added tty detection to the shell scripts to alter the way the container is executed with piped input.
 
-Please [let me know](https://github.com/mkenney/docker-phpunit/issues) if you have any problems.
+Please [let me know](https://github.com/mkenney/docker-npm/issues) if you have any problems.
 
 #### 2016-11-02
 
@@ -95,22 +125,24 @@ Please [let me know](https://github.com/mkenney/docker-phpunit/issues) if you ha
 * Created "stable" branches for the 7.0 images
 * Merged a [change to the wrapper scripts](https://github.com/mkenney/docker-npm/pull/25) to resolve a [reported issue](https://github.com/mkenney/docker-npm/issues/24). This change reverts the 2016-07-05 changes.
 
-Please [let me know](https://github.com/mkenney/docker-phpunit/issues) if you have any problems.
+Please [let me know](https://github.com/mkenney/docker-npm/issues) if you have any problems.
 
 #### 2016-10-20
 
-* Added support for the `yarn` package manager.
+* Added support for the `yarn` package manager. [issue](https://github.com/mkenney/docker-npm/issues/19), [pr](https://github.com/mkenney/docker-npm/pull/20)
 
-Please [let me know](https://github.com/mkenney/docker-phpunit/issues) if you have any problems.
+Please [let me know](https://github.com/mkenney/docker-npm/issues) if you have any problems.
 
-#### 2016-09-17 - Tag changes, possibly breaking
+#### 2016-09-17
+
+##### Tag changes, possibly breaking
 
 * Because it produces a much smaller image, I have moved the Alpine build into the `master` branch and the Debian build into it's own `debian` branch and made corresponding changes on [hub.docker.com](https://hub.docker.com/r/mkenney/npm/).
 * Added the `--allow-root` option to the `bower` script to resolve [issue #4](https://github.com/mkenney/docker-npm/issues/4).
 * Merged [a PR](https://github.com/mkenney/docker-npm/pull/5) to prevent ssl certificate issues in `self-update` commands.
 * Updated the `self-update` command in the scripts to resolve [issue #8](https://github.com/mkenney/docker-npm/issues/8).
 
-Please [let me know](https://github.com/mkenney/docker-phpunit/issues) if you have any problems.
+Please [let me know](https://github.com/mkenney/docker-npm/issues) if you have any problems.
 
 #### 2016-08-29
 
@@ -125,7 +157,7 @@ Please [let me know](https://github.com/mkenney/docker-npm/issues) if that chang
   * There may be an issue with API call throttling on the Docker Hub side, if that seems to be happening I'll dig in further.
 * Fixed an issue with the path in the source URL that had been preventing successuful alpine builds for a few days.
 
-Please [let me know](https://github.com/mkenney/docker-phpunit/issues) if you have any problems.
+Please [let me know](https://github.com/mkenney/docker-npm/issues) if you have any problems.
 
 #### 2016-07-05
 
