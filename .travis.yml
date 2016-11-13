@@ -21,7 +21,6 @@ services:
 before_install:
 
 script:
-    # Test the built image
     - cd test
     - sh ./node.sh > /dev/null 2>&1 # This should make it pull an image down from hub.docker.com
     - ./run-tests.sh
