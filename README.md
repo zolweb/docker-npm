@@ -91,6 +91,13 @@ Installation is just a matter of putting them somewhere in your path and making 
 
 ### Change log
 
+#### 2016-11-13
+
+* Created "stable" branches for node v6.9 images
+* More performance updates to the CI integration
+
+Please [let me know](https://github.com/mkenney/docker-npm/issues) if you have any problems.
+
 #### 2016-11-08
 
 * Modified the `alpine`-based dockerfiles to retain the build tools
