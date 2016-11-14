@@ -22,7 +22,7 @@ In order to keep them small and lightweight, the `alpine` based images do not in
 
 * [`debian` Dockerfile](https://github.com/mkenney/docker-npm/blob/master/Dockerfile)
 
-  ![Image size](https://img.shields.io/badge/image size-306MB-blue.svg) This image is under development and may not be as stable as versioned images. This image is based on [`node:latest`](https://hub.docker.com/r/library/node/tags/latest/). Package versions are not pinned, instead the included `npm` executable is used to install current versions of the packages.
+  ![Image size](https://img.shields.io/badge/image size-302MB-blue.svg) This image is under development and may not be as stable as versioned images. This image is based on [`node:latest`](https://hub.docker.com/r/library/node/tags/latest/). Package versions are not pinned, instead the included `npm` executable is used to install current versions of the packages.
 
 * [`7.0-alpine` Dockerfile](https://github.com/mkenney/docker-npm/blob/7.0-alpine/Dockerfile)
 
@@ -30,7 +30,15 @@ In order to keep them small and lightweight, the `alpine` based images do not in
 
 * [`7.0-debian` Dockerfile](https://github.com/mkenney/docker-npm/blob/7.0-debian/Dockerfile)
 
-  ![Image size](https://img.shields.io/badge/image size-240MB-blue.svg) Based on[`node:7.0-wheezy`](https://hub.docker.com/r/library/node/tags/7.0-wheezy/).
+  ![Image size](https://img.shields.io/badge/image size-239MB-blue.svg) Based on[`node:7.0-wheezy`](https://hub.docker.com/r/library/node/tags/7.0-wheezy/).
+
+* [`6.9-alpine` Dockerfile](https://github.com/mkenney/docker-npm/blob/6.9-alpine/Dockerfile)
+
+  ![Image size](https://img.shields.io/badge/image size-117MB-blue.svg) Based on [`alpine:3.4`](https://hub.docker.com/r/library/alpine/tags/3.4/) with `node` v6.9 compiled from source.
+
+* [`6.9-debian` Dockerfile](https://github.com/mkenney/docker-npm/blob/6.9-debian/Dockerfile)
+
+  ![Image size](https://img.shields.io/badge/image size-239MB-blue.svg) Based on[`node:6.9-wheezy`](https://hub.docker.com/r/library/node/tags/6.9-wheezy/).
 
 ### About
 
