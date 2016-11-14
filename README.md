@@ -38,7 +38,7 @@ In order to keep them small and lightweight, the `alpine` based images do not in
 
 * [`6.9-debian` Dockerfile](https://github.com/mkenney/docker-npm/blob/6.9-debian/Dockerfile)
 
-  ![Image size](https://img.shields.io/badge/image size-239MB-blue.svg) Based on[`node:6.9-wheezy`](https://hub.docker.com/r/library/node/tags/6.9-wheezy/).
+  ![Image size](https://img.shields.io/badge/image size-234MB-blue.svg) Based on[`node:6.9-wheezy`](https://hub.docker.com/r/library/node/tags/6.9-wheezy/).
 
 ### About
 
