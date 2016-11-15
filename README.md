@@ -22,7 +22,7 @@ In order to keep them small and lightweight, the `alpine` based images do not in
 
 * [`debian` Dockerfile](https://github.com/mkenney/docker-npm/blob/master/Dockerfile)
 
-  ![Image size](https://img.shields.io/badge/image size-306MB-blue.svg) This image is under development and may not be as stable as versioned images. This image is based on [`node:latest`](https://hub.docker.com/r/library/node/tags/latest/). Package versions are not pinned, instead the included `npm` executable is used to install current versions of the packages.
+  ![Image size](https://img.shields.io/badge/image size-302MB-blue.svg) This image is under development and may not be as stable as versioned images. This image is based on [`node:latest`](https://hub.docker.com/r/library/node/tags/latest/). Package versions are not pinned, instead the included `npm` executable is used to install current versions of the packages.
 
 * [`7.0-alpine` Dockerfile](https://github.com/mkenney/docker-npm/blob/7.0-alpine/Dockerfile)
 
@@ -30,7 +30,15 @@ In order to keep them small and lightweight, the `alpine` based images do not in
 
 * [`7.0-debian` Dockerfile](https://github.com/mkenney/docker-npm/blob/7.0-debian/Dockerfile)
 
-  ![Image size](https://img.shields.io/badge/image size-240MB-blue.svg) Based on[`node:7.0-wheezy`](https://hub.docker.com/r/library/node/tags/7.0-wheezy/).
+  ![Image size](https://img.shields.io/badge/image size-239MB-blue.svg) Based on[`node:7.0-wheezy`](https://hub.docker.com/r/library/node/tags/7.0-wheezy/).
+
+* [`6.9-alpine` Dockerfile](https://github.com/mkenney/docker-npm/blob/6.9-alpine/Dockerfile)
+
+  ![Image size](https://img.shields.io/badge/image size-115MB-blue.svg) Based on [`alpine:3.4`](https://hub.docker.com/r/library/alpine/tags/3.4/) with `node` v6.9 compiled from source.
+
+* [`6.9-debian` Dockerfile](https://github.com/mkenney/docker-npm/blob/6.9-debian/Dockerfile)
+
+  ![Image size](https://img.shields.io/badge/image size-234MB-blue.svg) Based on[`node:6.9-wheezy`](https://hub.docker.com/r/library/node/tags/6.9-wheezy/).
 
 ### About
 
@@ -59,20 +67,20 @@ Several wrapper scripts are available in the source repository:
 Installation is just a matter of putting them somewhere in your path and making them executable. An [installation script](https://github.com/mkenney/docker-npm/blob/master/bin/install.sh) is available and can be executed with a shell `curl`+`sh -s` command. Simply pass in your command arguments normally.
 
 ```
-    Usage
-        install.sh COMMAND [TAG [PREFIX]]
+Usage
+  install.sh COMMAND [TAG [PREFIX]]
 
-    Synopsys
-        Install a mkenney/npm container execution script locally
+Synopsys
+  Install a mkenney/npm container execution script locally
 
-    Options
-        COMMAND  - Required, the name of the command to install (bower, gulp, npm, etc.)
-        TAG      - Optional, the image tag to use. Default 'latest'
-        PREFIX   - Optional, the location to install the command script. Default '$HOME/bin'
+Options
+  COMMAND  - Required, the name of the command to install (bower, gulp, npm, etc.)
+  TAG      - Optional, the image tag to use. Default 'latest'
+  PREFIX   - Optional, the location to install the command script. Default '$HOME/bin'
 
-    Examples
-        $ curl -L https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/install.sh | bash -s gulp 7.0-alpine $HOME/bin
-        $ bash ./install.sh gulp 7.0-alpine $HOME/bin
+Examples
+  $ curl -L https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/install.sh | bash -s gulp 7.0-alpine $HOME/bin
+  $ bash ./install.sh gulp 7.0-alpine $HOME/bin
 ```
 
 ##### Updating
@@ -82,6 +90,13 @@ Installation is just a matter of putting them somewhere in your path and making 
   Each of the scripts have a `self-update` command which pulls down the latest docker image (which all the scripts share) and then updates the shell script itself. If you don't have write permissions on the shell script you'll get a permissions error, you can run the self-update command with `sudo` if necessary.
 
 ### Change log
+
+#### 2016-11-13
+
+* Created "stable" branches for node v6.9 images
+* More performance updates to the CI integration
+
+Please [let me know](https://github.com/mkenney/docker-npm/issues) if you have any problems.
 
 #### 2016-11-08
 

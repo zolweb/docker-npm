@@ -64,8 +64,8 @@ function usage() {
         PREFIX   - Optional, the location to install the command script. Default '\$HOME/bin'
 
     Examples
-        $ curl -L $INSTALL_SCRIPT_URL | bash -s gulp 7.0-debian \$HOME/bin
-        $ bash ./install.sh gulp 7.0-debian \$HOME/bin"
+        $ curl -L $INSTALL_SCRIPT_URL | bash -s gulp 7.0-alpine \$HOME/bin
+        $ bash ./install.sh gulp 7.0-alpine \$HOME/bin"
 }
 
 #
