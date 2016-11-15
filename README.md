@@ -67,20 +67,20 @@ Several wrapper scripts are available in the source repository:
 Installation is just a matter of putting them somewhere in your path and making them executable. An [installation script](https://github.com/mkenney/docker-npm/blob/master/bin/install.sh) is available and can be executed with a shell `curl`+`sh -s` command. Simply pass in your command arguments normally.
 
 ```
-    Usage
-        install.sh COMMAND [TAG [PREFIX]]
+Usage
+    install.sh COMMAND [TAG [PREFIX]]
 
-    Synopsys
-        Install a mkenney/npm container execution script locally
+Synopsys
+    Install a mkenney/npm container execution script locally
 
-    Options
-        COMMAND  - Required, the name of the command to install (bower, gulp, npm, etc.)
-        TAG      - Optional, the image tag to use. Default 'latest'
-        PREFIX   - Optional, the location to install the command script. Default '$HOME/bin'
+Options
+    COMMAND  - Required, the name of the command to install (bower, gulp, npm, etc.)
+    TAG      - Optional, the image tag to use. Default 'latest'
+    PREFIX   - Optional, the location to install the command script. Default '$HOME/bin'
 
-    Examples
-        $ curl -L https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/install.sh | bash -s gulp 7.0-alpine $HOME/bin
-        $ bash ./install.sh gulp 7.0-alpine $HOME/bin
+Examples
+    $ curl -L https://raw.githubusercontent.com/mkenney/docker-npm/master/bin/install.sh | bash -s gulp 7.0-alpine $HOME/bin
+    $ bash ./install.sh gulp 7.0-alpine $HOME/bin
 ```
 
 ##### Updating
