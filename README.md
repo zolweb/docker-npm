@@ -34,7 +34,7 @@ In order to keep them small and lightweight, the `alpine` based images do not in
 
 * [`6.9-alpine` Dockerfile](https://github.com/mkenney/docker-npm/blob/6.9-alpine/Dockerfile)
 
-  ![Image size](https://img.shields.io/badge/image size-117MB-blue.svg) Based on [`alpine:3.4`](https://hub.docker.com/r/library/alpine/tags/3.4/) with `node` v6.9 compiled from source.
+  ![Image size](https://img.shields.io/badge/image size-115MB-blue.svg) Based on [`alpine:3.4`](https://hub.docker.com/r/library/alpine/tags/3.4/) with `node` v6.9 compiled from source.
 
 * [`6.9-debian` Dockerfile](https://github.com/mkenney/docker-npm/blob/6.9-debian/Dockerfile)
 
