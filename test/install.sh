@@ -11,7 +11,7 @@ function test_script {
     script=$1
 
     # Test script
-    output=$($(dirname `pwd`)/bin/$script --version)
+    output=$($script --version)
     result=$?
     echo "${PREFIX}        $script --version: $output"
     if [ "0" != "$result" ]; then
@@ -35,7 +35,7 @@ function test_install {
         echo $output
         exit $result
     fi
-    test_script $script; result=$?; if [ "0" != "$result" ]; then exit $result; fi
+    test_script $PROJECT_PATH/test/$path/$script; result=$?; if [ "0" != "$result" ]; then exit $result; fi
 
     # Test cat
     rm -f $PROJECT_PATH/test/$path/$script
@@ -46,7 +46,7 @@ function test_install {
         echo $output
         exit $result
     fi
-    test_script $script; result=$?; if [ "0" != "$result" ]; then exit $result; fi
+    test_script $PROJECT_PATH/test/$path/$script; result=$?; if [ "0" != "$result" ]; then exit $result; fi
 
     # Test remote
     rm -f $PROJECT_PATH/test/$path/$script
@@ -57,7 +57,7 @@ function test_install {
         echo $output
         exit $result
     fi
-    test_script $script; result=$?; if [ "0" != "$result" ]; then exit $result; fi
+    test_script $PROJECT_PATH/test/$path/$script; result=$?; if [ "0" != "$result" ]; then exit $result; fi
 }
 
 error_count=0
