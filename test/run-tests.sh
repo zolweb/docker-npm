@@ -138,7 +138,7 @@ fi
 if [ "$CURRENT_BRANCH" == "$PARENT_BRANCH" ] || [ "0" == "$test_found" ] || [ "false" == $TRAVIS_PULL_REQUEST ]; then
     add_test release
 fi
-verbose=-v
+
 execute_tests $verbose
 
 echo "
