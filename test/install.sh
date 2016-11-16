@@ -14,7 +14,9 @@ function test_script {
     output=$($(dirname `pwd`)/bin/$script --version)
     result=$?
     echo "${PREFIX}        $script --version: $output"
-    exit $result
+    if [ "0" != "$result" ]; then
+        exit $result
+    fi
 }
 
 function test_install {
