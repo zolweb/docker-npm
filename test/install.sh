@@ -8,10 +8,10 @@ mkdir -p $INSTALL_PATH
 rm -f $INSTALL_PATH/*
 
 function test_script {
-    script=$1
+    local script=$1
 
     # Test script
-    output=$($(dirname `pwd`)/bin/$script --version)
+    output=$($script --version)
     result=$?
     echo "${PREFIX}        $script --version: $output"
     if [ "0" != "$result" ]; then
@@ -20,9 +20,9 @@ function test_script {
 }
 
 function test_install {
-    script=$1
-    tag=$2
-    path=$3
+    local script=$1
+    local tag=${2/master/latest}
+    local path=$3
 
     echo "${PREFIX}Testing $script $tag"
 
@@ -35,7 +35,7 @@ function test_install {
         echo $output
         exit $result
     fi
-    test_script $script; result=$?; if [ "0" != "$result" ]; then exit $result; fi
+    test_script $PROJECT_PATH/test/$path/$script; result=$?; if [ "0" != "$result" ]; then exit $result; fi
 
     # Test cat
     rm -f $PROJECT_PATH/test/$path/$script
@@ -46,24 +46,29 @@ function test_install {
         echo $output
         exit $result
     fi
-    test_script $script; result=$?; if [ "0" != "$result" ]; then exit $result; fi
+    test_script $PROJECT_PATH/test/$path/$script; result=$?; if [ "0" != "$result" ]; then exit $result; fi
 
     # Test remote
     rm -f $PROJECT_PATH/test/$path/$script
     echo "${PREFIX}    curl install.sh | bash -s $script $tag $path"
-    output=$(curl -f -L -s https://raw.githubusercontent.com/mkenney/docker-npm/$CURRENT_BRANCH/bin/install.sh | bash -s $script $tag $PROJECT_PATH/test/$path)
+    output=$(curl -f -L -s https://raw.githubusercontent.com/mkenney/docker-npm/$PARENT_BRANCH/bin/install.sh | bash -s $script $tag $PROJECT_PATH/test/$path)
     result=$?
     if [ "0" != "$result" ] || [ "" == "$(echo "$output" | grep -i "installation succeeded")" ]; then
         echo $output
         exit $result
     fi
-    test_script $script; result=$?; if [ "0" != "$result" ]; then exit $result; fi
+    test_script $PROJECT_PATH/test/$path/$script; result=$?; if [ "0" != "$result" ]; then exit $result; fi
 }
 
-test_install bower       $CURRENT_BRANCH $INSTALL_PATH; result=$?; if [ "0" != "$result" ]; then exit $result; fi
-test_install generate-md $CURRENT_BRANCH $INSTALL_PATH; result=$?; if [ "0" != "$result" ]; then exit $result; fi
-test_install grunt       $CURRENT_BRANCH $INSTALL_PATH; result=$?; if [ "0" != "$result" ]; then exit $result; fi
-test_install gulp        $CURRENT_BRANCH $INSTALL_PATH; result=$?; if [ "0" != "$result" ]; then exit $result; fi
-test_install node        $CURRENT_BRANCH $INSTALL_PATH; result=$?; if [ "0" != "$result" ]; then exit $result; fi
-test_install npm         $CURRENT_BRANCH $INSTALL_PATH; result=$?; if [ "0" != "$result" ]; then exit $result; fi
-test_install yarn        $CURRENT_BRANCH $INSTALL_PATH; result=$?; if [ "0" != "$result" ]; then exit $result; fi
+error_count=0
+test_install bower       $PARENT_BRANCH $INSTALL_PATH; result=$?; if [ "0" != "$result" ]; then error_count=$error_count+1; fi
+test_install generate-md $PARENT_BRANCH $INSTALL_PATH; result=$?; if [ "0" != "$result" ]; then error_count=$error_count+1; fi
+test_install grunt       $PARENT_BRANCH $INSTALL_PATH; result=$?; if [ "0" != "$result" ]; then error_count=$error_count+1; fi
+test_install gulp        $PARENT_BRANCH $INSTALL_PATH; result=$?; if [ "0" != "$result" ]; then error_count=$error_count+1; fi
+test_install node        $PARENT_BRANCH $INSTALL_PATH; result=$?; if [ "0" != "$result" ]; then error_count=$error_count+1; fi
+test_install npm         $PARENT_BRANCH $INSTALL_PATH; result=$?; if [ "0" != "$result" ]; then error_count=$error_count+1; fi
+#test_install yarn        $PARENT_BRANCH $INSTALL_PATH; result=$?; if [ "0" != "$result" ]; then error_count=$error_count+1; fi
+
+echo
+echo "errors: $error_count"
+exit $error_count
