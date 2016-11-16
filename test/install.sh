@@ -51,7 +51,7 @@ function test_install {
     # Test remote
     rm -f $PROJECT_PATH/test/$path/$script
     echo "${PREFIX}    curl install.sh | bash -s $script $tag $path"
-    output=$(curl -f -L -s https://raw.githubusercontent.com/mkenney/docker-npm/$CURRENT_BRANCH/bin/install.sh | bash -s $script $tag $PROJECT_PATH/test/$path)
+    output=$(curl -f -L -s https://raw.githubusercontent.com/mkenney/docker-npm/$PARENT_BRANCH/bin/install.sh | bash -s $script $tag $PROJECT_PATH/test/$path)
     result=$?
     if [ "0" != "$result" ] || [ "" == "$(echo "$output" | grep -i "installation succeeded")" ]; then
         echo $output
@@ -61,13 +61,13 @@ function test_install {
 }
 
 error_count=0
-test_install bower       $CURRENT_BRANCH $INSTALL_PATH; result=$?; if [ "0" != "$result" ]; then error_count=$error_count+1; fi
-test_install generate-md $CURRENT_BRANCH $INSTALL_PATH; result=$?; if [ "0" != "$result" ]; then error_count=$error_count+1; fi
-test_install grunt       $CURRENT_BRANCH $INSTALL_PATH; result=$?; if [ "0" != "$result" ]; then error_count=$error_count+1; fi
-test_install gulp        $CURRENT_BRANCH $INSTALL_PATH; result=$?; if [ "0" != "$result" ]; then error_count=$error_count+1; fi
-test_install node        $CURRENT_BRANCH $INSTALL_PATH; result=$?; if [ "0" != "$result" ]; then error_count=$error_count+1; fi
-test_install npm         $CURRENT_BRANCH $INSTALL_PATH; result=$?; if [ "0" != "$result" ]; then error_count=$error_count+1; fi
-#test_install yarn        $CURRENT_BRANCH $INSTALL_PATH; result=$?; if [ "0" != "$result" ]; then error_count=$error_count+1; fi
+test_install bower       $PARENT_BRANCH $INSTALL_PATH; result=$?; if [ "0" != "$result" ]; then error_count=$error_count+1; fi
+test_install generate-md $PARENT_BRANCH $INSTALL_PATH; result=$?; if [ "0" != "$result" ]; then error_count=$error_count+1; fi
+test_install grunt       $PARENT_BRANCH $INSTALL_PATH; result=$?; if [ "0" != "$result" ]; then error_count=$error_count+1; fi
+test_install gulp        $PARENT_BRANCH $INSTALL_PATH; result=$?; if [ "0" != "$result" ]; then error_count=$error_count+1; fi
+test_install node        $PARENT_BRANCH $INSTALL_PATH; result=$?; if [ "0" != "$result" ]; then error_count=$error_count+1; fi
+test_install npm         $PARENT_BRANCH $INSTALL_PATH; result=$?; if [ "0" != "$result" ]; then error_count=$error_count+1; fi
+#test_install yarn        $PARENT_BRANCH $INSTALL_PATH; result=$?; if [ "0" != "$result" ]; then error_count=$error_count+1; fi
 
 echo
 echo "errors: $error_count"
