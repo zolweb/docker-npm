@@ -14,9 +14,7 @@ function test_script {
     output=$($(dirname `pwd`)/bin/$script --version)
     result=$?
     echo "${PREFIX}        $script --version: $output"
-    if [ "0" != "$result" ]; then
-        exit $result
-    fi
+    exit $result
 }
 
 function test_install {
@@ -60,10 +58,13 @@ function test_install {
     test_script $script; result=$?; if [ "0" != "$result" ]; then exit $result; fi
 }
 
-test_install bower       $CURRENT_BRANCH $INSTALL_PATH; result=$?; if [ "0" != "$result" ]; then exit $result; fi
-test_install generate-md $CURRENT_BRANCH $INSTALL_PATH; result=$?; if [ "0" != "$result" ]; then exit $result; fi
-test_install grunt       $CURRENT_BRANCH $INSTALL_PATH; result=$?; if [ "0" != "$result" ]; then exit $result; fi
-test_install gulp        $CURRENT_BRANCH $INSTALL_PATH; result=$?; if [ "0" != "$result" ]; then exit $result; fi
-test_install node        $CURRENT_BRANCH $INSTALL_PATH; result=$?; if [ "0" != "$result" ]; then exit $result; fi
-test_install npm         $CURRENT_BRANCH $INSTALL_PATH; result=$?; if [ "0" != "$result" ]; then exit $result; fi
-test_install yarn        $CURRENT_BRANCH $INSTALL_PATH; result=$?; if [ "0" != "$result" ]; then exit $result; fi
+error_count=0
+test_install bower       $CURRENT_BRANCH $INSTALL_PATH; result=$?; if [ "0" != "$result" ]; then error_count=$error_count+1; fi
+test_install generate-md $CURRENT_BRANCH $INSTALL_PATH; result=$?; if [ "0" != "$result" ]; then error_count=$error_count+1; fi
+test_install grunt       $CURRENT_BRANCH $INSTALL_PATH; result=$?; if [ "0" != "$result" ]; then error_count=$error_count+1; fi
+test_install gulp        $CURRENT_BRANCH $INSTALL_PATH; result=$?; if [ "0" != "$result" ]; then error_count=$error_count+1; fi
+test_install node        $CURRENT_BRANCH $INSTALL_PATH; result=$?; if [ "0" != "$result" ]; then error_count=$error_count+1; fi
+test_install npm         $CURRENT_BRANCH $INSTALL_PATH; result=$?; if [ "0" != "$result" ]; then error_count=$error_count+1; fi
+test_install yarn        $CURRENT_BRANCH $INSTALL_PATH; result=$?; if [ "0" != "$result" ]; then error_count=$error_count+1; fi
+echo
+echo "errors: $error_count"
