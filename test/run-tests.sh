@@ -50,7 +50,7 @@ get_test_suite() {
 
 verbose=
 if [ "-v" == "$1" ]; then
-    verbose=-v
+    verbose="true"
     shift
 fi
 
@@ -104,8 +104,10 @@ execute_tests() {
             test_result=$(assert "${TESTS[test]}.sh" 0)
         fi
         result=$?
-        if [ 0 -ne $result ]; then
+        if [ 0 -ne $result ] || [ "true" == $1 ]; then
             echo "failure (#$result)"
+        fi
+        if [ 0 -ne $result ]; then
             exit_code=1
         else
             echo "success"
@@ -139,6 +141,7 @@ if [ "$CURRENT_BRANCH" == "$PARENT_BRANCH" ] || [ "0" == "$test_found" ] || [ "f
     add_test release
 fi
 
+verbose="true"
 execute_tests $verbose
 
 echo "
