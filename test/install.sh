@@ -8,7 +8,7 @@ mkdir -p $INSTALL_PATH
 rm -f $INSTALL_PATH/*
 
 function test_script {
-    script=$1
+    local script=$1
 
     # Test script
     output=$($script --version)
@@ -20,9 +20,9 @@ function test_script {
 }
 
 function test_install {
-    script=$1
-    tag=$2
-    path=$3
+    local script=$1
+    local tag=${2/master/latest}
+    local path=$3
 
     echo "${PREFIX}Testing $script $tag"
 
