@@ -11,10 +11,10 @@ function deploy() {
         echo "Triggering release builds for Dockerfile '$1'"
         source $PROJECT_PATH/$1/.image-tags
         for tag in "${TAGS[@]}"; do
-            echo "    - ${TAGS[tag]}"
+            echo "    - $tag"
             curl \
                 -H "Content-Type: application/json" \
-                --data "{\"docker_tag\": \"${TAGS[tag]}\"}" \
+                --data "{\"docker_tag\": \"$tag\"}" \
                 -X POST \
                 "https://registry.hub.docker.com/u/mkenney/npm/trigger/$DOCKER_TOKEN/"
 
