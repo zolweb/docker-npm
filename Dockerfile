@@ -1,4 +1,4 @@
-FROM mkenney/npm:node-10-alpine
+FROM mkenney/npm:node-8-alpine
 
 RUN apk add --update \
     bash \
