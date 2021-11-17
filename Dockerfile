@@ -1,4 +1,4 @@
-FROM node:16-bullseye
+FROM node:latest
 
 LABEL org.label-schema.schema-version = 1.0.0 \
     org.label-schema.vendor = virgile@zol.fr \
@@ -41,6 +41,7 @@ RUN set -x \
     # Restore a borne-shell compatible default shell
     && rm /bin/sh \
     && ln -s /bin/bash /bin/sh
+
 
 # install npm packages
 RUN set -x \
