@@ -2,5 +2,5 @@
 # deployments
 
 declare -a TAGS=(
-    'node-8-debian'
+    'node-16-alpine'
 )

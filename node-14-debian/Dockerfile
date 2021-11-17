@@ -1,11 +1,11 @@
-FROM node:14-stretch
+FROM node:14-bullseye
 
 LABEL org.label-schema.schema-version = 1.0.0 \
     org.label-schema.vendor = virgile@zol.fr \
-    org.label-schema.vcs-url = https://github.com/VirgileZol/docker-npm \
+    org.label-schema.vcs-url = https://github.com/zolweb/docker-npm \
     org.label-schema.description = "This image provides node based build tools." \
     org.label-schema.name = "NPM" \
-    org.label-schema.url = https://github.com/VirgileZol/docker-npm
+    org.label-schema.url = https://github.com/zolweb/docker-npm
 
 ENV TERM=xterm \
     NLS_LANG=FRENCH_FRANCE.UTF8 \
@@ -19,8 +19,6 @@ RUN set -x \
     && apt-get install -qqy apt-transport-https apt-utils \
     && apt-get -qq upgrade \
     && apt-get -qq dist-upgrade \
-    && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
-    && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
     && apt-get -qq update \
     && apt-get install -qqy \
         acl \
@@ -31,7 +29,7 @@ RUN set -x \
         sudo \
         wget \
         bash \
-        lcms2-dev \
+        liblcms2-dev \
         libpng-dev \
         gcc \
         g++ \
@@ -50,8 +48,7 @@ RUN set -x \
         gulp-cli \
         grunt-cli \
         bower \
-        markdown-styles \
-    && curl --compressed -o- -L https://yarnpkg.com/install.sh | sh
+        markdown-styles
 
 ##############################################################################
 # UTF-8 Locale, timezone

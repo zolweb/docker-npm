@@ -2,10 +2,10 @@ FROM node:14-alpine
 
 LABEL org.label-schema.schema-version = 1.0.0 \
     org.label-schema.vendor = virgile@zol.fr \
-    org.label-schema.vcs-url = https://github.com/VirgileZol/docker-npm \
+    org.label-schema.vcs-url = https://github.com/zolweb/docker-npm \
     org.label-schema.description = "This image provides node based build tools." \
     org.label-schema.name = "NPM" \
-    org.label-schema.url = https://github.com/VirgileZol/docker-npm
+    org.label-schema.url = https://github.com/zolweb/docker-npm
 
 ENV TERM=xterm \
     NLS_LANG=FRENCH_FRANCE.UTF8 \
@@ -61,7 +61,6 @@ RUN set -x \
     && addgroup dev \
     && adduser -D -s /bin/sh -G dev dev \
     && echo "dev:password" | chpasswd \
-    && curl --compressed -o- -L https://yarnpkg.com/install.sh | sh \
     && rsync -a /root/ /home/dev/ \
     && chown -R dev:dev /home/dev/ \
     && chmod 0777 /home/dev \
@@ -81,7 +80,7 @@ RUN set -x \
         gnupg \
         linux-headers \
         paxctl \
-        python \
+        python3 \
         rsync \
         tar \
     && rm -rf \
