@@ -1,4 +1,4 @@
-FROM node:16-alpine
+FROM node:alpine
 
 LABEL org.label-schema.schema-version = 1.0.0 \
     org.label-schema.vendor = virgile@zol.fr \
