@@ -38,6 +38,7 @@ RUN set -x \
         automake \
         libtool \
         nasm \
+        python2 \
     # Restore a borne-shell compatible default shell
     && rm /bin/sh \
     && ln -s /bin/bash /bin/sh

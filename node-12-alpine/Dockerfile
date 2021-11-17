@@ -39,7 +39,8 @@ RUN set -x \
         autoconf \
         automake \
         libtool \
-        nasm
+        nasm \
+        python2
 
 RUN set -x \
     && touch /root/.profile \
@@ -79,9 +80,7 @@ RUN set -x \
     && apk del \
         curl \
         gnupg \
-        linux-headers \
         paxctl \
-        python3 \
         rsync \
         tar \
     && rm -rf \
