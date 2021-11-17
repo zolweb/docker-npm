@@ -1,4 +1,4 @@
-FROM node:12-alpine
+FROM node:14-alpine
 
 LABEL org.label-schema.schema-version = 1.0.0 \
     org.label-schema.vendor = virgile@zol.fr \
@@ -61,7 +61,6 @@ RUN set -x \
     && addgroup dev \
     && adduser -D -s /bin/sh -G dev dev \
     && echo "dev:password" | chpasswd \
-    && curl --compressed -o- -L https://yarnpkg.com/install.sh | sh \
     && rsync -a /root/ /home/dev/ \
     && chown -R dev:dev /home/dev/ \
     && chmod 0777 /home/dev \
