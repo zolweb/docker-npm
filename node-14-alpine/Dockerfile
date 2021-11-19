@@ -14,8 +14,6 @@ ENV TERM=xterm \
     LC_ALL=C.UTF-8 \
     TIMEZONE=Europe/Paris
 
-COPY run-as-user /run-as-user
-
 RUN set -x \
     && apk update \
     && apk add \
@@ -67,6 +65,7 @@ RUN set -x \
     && chmod 0777 /home/node \
     && chmod -R u+rwX,g+rwX,o+rwX /home/node \
     && setfacl -R -d -m user::rwx,group::rwx,other::rwx /home/node \
+    && curl -o /run-as-user https://raw.githubusercontent.com/zolweb/docker-npm/master/context/run-as-user \
     && chmod 0755 /run-as-user
 
 RUN set -x \
