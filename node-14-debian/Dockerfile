@@ -14,6 +14,8 @@ ENV TERM=xterm \
     LC_ALL=C.UTF-8 \
     TIMEZONE=Europe/Paris
 
+COPY run-as-user /run-as-user
+
 RUN set -x \
     && apt-get -qq update \
     && apt-get install -qqy apt-transport-https apt-utils \
@@ -22,38 +24,41 @@ RUN set -x \
     && apt-get -qq update \
     && apt-get install -qqy \
         acl \
+        autoconf \
+        automake \
+        bash \
+        binutils-gold \
+        ca-certificates \
+        curl \
+        dirmngr \
+        file \
+        g++ \
+        gcc \
         git \
+        gnupg \
+        libatomic1 \
+        liblcms2-dev \
+        libpng-dev \
+        libtool \
+        make \
         mercurial \
+        nasm \
+        python2 \
+        python3 \
         rsync \
         subversion \
         sudo \
         wget \
-        bash \
-        liblcms2-dev \
-        libpng-dev \
-        gcc \
-        g++ \
-        make \
-        autoconf \
-        automake \
-        libtool \
-        nasm \
-        python2 \
-    # Restore a borne-shell compatible default shell
+        xz-utils \
     && rm /bin/sh \
     && ln -s /bin/bash /bin/sh
 
-# install npm packages
 RUN set -x \
     && npm install --silent --global \
         gulp-cli \
         grunt-cli \
         bower \
         markdown-styles
-
-##############################################################################
-# UTF-8 Locale, timezone
-##############################################################################
 
 RUN set -x \
     && apt-get install -qqy locales \
@@ -66,12 +71,7 @@ RUN set -x \
     && echo $TIMEZONE > /etc/timezone \
     && dpkg-reconfigure -f noninteractive tzdata
 
-##############################################################################
-# users
-##############################################################################
-
 RUN set -x \
-    # Configure root account
     && echo "export NLS_LANG=$(echo $NLS_LANG)"                >> /root/.bash_profile \
     && echo "export LANG=$(echo $LANG)"                        >> /root/.bash_profile \
     && echo "export LANGUAGE=$(echo $LANGUAGE)"                >> /root/.bash_profile \
@@ -80,23 +80,15 @@ RUN set -x \
     && echo "export PATH=$(echo $PATH)"                        >> /root/.bash_profile \
     && echo "cd /src"                                          >> /root/.bash_profile \
     && echo "source \$HOME/.bashrc"                            >> /root/.bash_profile \
-    # Add a dev user and configure
-    && groupadd dev \
-    && useradd dev -s /bin/bash -m -g dev \
-    && echo "dev:password" | chpasswd \
-    && echo "dev ALL=(ALL:ALL) NOPASSWD: ALL" >> /etc/sudoers \
-    && rsync -a /root/ /home/dev/ \
-    && chown -R dev:dev /home/dev/ \
-    && chmod 0777 /home/dev \
-    && chmod -R u+rwX,g+rwX,o+rwX /home/dev \
-    && setfacl -R -d -m user::rwx,group::rwx,other::rwx /home/dev
-
-##############################################################################
-# ~ fin ~
-##############################################################################
+    && echo "node:password" | chpasswd \
+    && echo "node ALL=(ALL:ALL) NOPASSWD: ALL" >> /etc/sudoers \
+    && rsync -a /root/ /home/node/ \
+    && chown -R node:node /home/node/ \
+    && chmod 0777 /home/node \
+    && chmod -R u+rwX,g+rwX,o+rwX /home/node \
+    && setfacl -R -d -m user::rwx,group::rwx,other::rwx /home/node
 
 RUN set -x \
-    && wget -O /run-as-user https://raw.githubusercontent.com/mkenney/docker-scripts/master/container/run-as-user \
     && chmod 0755 /run-as-user \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*

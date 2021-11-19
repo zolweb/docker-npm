@@ -13,44 +13,46 @@ ENV TERM=xterm \
     LANGUAGE=C.UTF-8 \
     LC_ALL=C.UTF-8 \
     TIMEZONE=Europe/Paris
+    
+COPY run-as-user /run-as-user
 
-########################################################################
-# Build tools
-########################################################################
 RUN set -x \
     && apk update \
     && apk add \
         acl \
+        autoconf \
+        automake \
+        bash \
+        binutils-gold \
         ca-certificates \
         curl \
+        file \
+        g++ \
+        gcc \
         git \
         gnupg \
+        lcms2-dev \
+        libgcc \
+        libpng-dev \
+        libtool \
+        linux-headers \
+        make \
         mercurial \
+        nasm \
+        python2 \
+        python3 \
         rsync \
         shadow \
         subversion \
-        sudo \
-        bash \
-        lcms2-dev \
-        libpng-dev \
-        gcc \
-        g++ \
-        make \
-        autoconf \
-        automake \
-        libtool \
-        nasm \
-        python2
+        sudo
 
 RUN set -x \
     && touch /root/.profile \
-    # Install node packages
     && npm install --silent -g \
         gulp-cli \
         grunt-cli \
         bower \
         markdown-styles \
-    # Configure root account
     && echo "export NLS_LANG=$(echo $NLS_LANG)"                >> /root/.profile \
     && echo "export LANG=$(echo $LANG)"                        >> /root/.profile \
     && echo "export LANGUAGE=$(echo $LANGUAGE)"                >> /root/.profile \
@@ -58,30 +60,18 @@ RUN set -x \
     && echo "export TERM=xterm"                                >> /root/.profile \
     && echo "export PATH=$(echo $PATH)"                        >> /root/.profile \
     && echo "cd /src"                                          >> /root/.profile \
-    # Create a dev user to use as the directory owner
-    && addgroup dev \
-    && adduser -D -s /bin/sh -G dev dev \
-    && echo "dev:password" | chpasswd \
-    && rsync -a /root/ /home/dev/ \
-    && chown -R dev:dev /home/dev/ \
-    && chmod 0777 /home/dev \
-    && chmod -R u+rwX,g+rwX,o+rwX /home/dev \
-    && setfacl -R -d -m user::rwx,group::rwx,other::rwx /home/dev \
-    # Setup wrapper scripts
-    && curl -o /run-as-user https://raw.githubusercontent.com/mkenney/docker-scripts/master/container/run-as-user \
+    && echo "node:password" | chpasswd \
+    && rsync -a /root/ /home/node/ \
+    && chown -R node:node /home/node/ \
+    && chmod 0777 /home/node \
+    && chmod -R u+rwX,g+rwX,o+rwX /home/node \
+    && setfacl -R -d -m user::rwx,group::rwx,other::rwx /home/node \
     && chmod 0755 /run-as-user
-
-##############################################################################
-# ~ fin ~
-##############################################################################
 
 RUN set -x \
     && apk del \
-        curl \
-        gnupg \
         paxctl \
         rsync \
-        tar \
     && rm -rf \
         /var/cache/apk/* \
         ${NODE_PREFIX}/lib/node_modules/npm/man \
