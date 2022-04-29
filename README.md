@@ -13,6 +13,10 @@ Please feel free to [create an issue](https://github.com/zolweb/docker-npm/issue
 
 ## Announcements
 
+2022-04-29
+
+* add node v18
+
 2021-11-17
 
 * add node v16
